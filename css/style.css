@@ -53,7 +53,7 @@
     --cor-preto-40: rgb(0, 0, 0, 0.4);
     --cor-preto-20: rgb(0, 0, 0, 0.2);
 
-    --cor-azul-turquesa-100: rgb(0, 126, 197);
+    --cor-azul-turquesa-100: rgb(0, 119, 189);
     --cor-azul-turquesa-80: rgb(0, 126, 197, 0.8);
     --cor-azul-turquesa-60: rgb(0, 126, 197, 0.6);
     --cor-azul-turquesa-40: rgb(0, 126, 197, 0.4);
@@ -78,6 +78,7 @@
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .navbar>* {
@@ -174,8 +175,16 @@
     height: 100%;
     display: grid;
     grid-template-columns: 25% auto;
+    overflow-y: hidden;
 }
 
+/* aplicar para todos os select do main */
+
+.main-principal select:hover{
+    cursor: pointer;
+}
+
+/* sidebar */
 .main-principal .sidebar {
     width: 100%;
     height: 100%;
@@ -203,6 +212,95 @@
     background-color: var(--cor-azul-turquesa-20);
 }
 
+/* área principal */
 .main-principal .sec-main-principal{
-    width: 100%; height: 100%;
+    width: 100%;
+    padding: 0 var(--padding) 100px var(--padding);
+    overflow-y: auto;
+}
+
+.main-principal .sec-main-principal .area-tabela{
+    width: 100%;
+    margin: 70px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.main-principal .sec-main-principal .area-tabela .titulo-filtros{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.main-principal .sec-main-principal .area-tabela .titulo-filtros h1{
+    font-size: 50px;
+}
+
+.main-principal .sec-main-principal .area-tabela .titulo-filtros .area-filtros{
+    display: flex;
+    gap: 15px;
+}
+
+.main-principal .sec-main-principal .area-tabela .titulo-filtros .area-filtros select{
+    padding: 5px 10px;
+    font-size: 16px;
+    text-transform: capitalize;
+    border: 2px solid var(--cor-azul-turquesa-20);
+}
+
+/* estilização padrão das tabelas */
+.tabela-padrao{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-padrao td{
+    padding: 8px 10px;
+    font-size: 18px;
+}
+
+.tabela-padrao thead{
+    background-color: var(--cor-dourado-100);
+    border: 1px solid var(--cor-dourado-100);
+}
+
+.tabela-padrao thead *{
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.tabela-padrao tbody tr{
+    border: 1px solid var(--cor-preto-80);
+    border-top: none !important;
+}
+
+.tabela-padrao tbody tr .tabela-padrao-td-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabela-padrao tbody tr .tabela-padrao-td-button button{
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: var(--cor-azul-turquesa-60);
+}
+
+.main-principal .sec-main-principal footer{
+    width: 100%;
+    padding: 50px var(--padding);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-principal .sec-main-principal footer img{
+    height: 100px;
 }
