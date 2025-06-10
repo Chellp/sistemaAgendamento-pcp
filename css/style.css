@@ -1,0 +1,208 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-Italic.ttf');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-Light.ttf');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-LightItalic.ttf');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-Medium.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-ExtraBold.ttf');
+    font-weight: 800;
+    font-style: normal;
+}
+
+:root {
+    --cor-dourado-100: rgb(214, 195, 89);
+    --cor-dourado-80: rgba(214, 195, 89, 0.8);
+    --cor-dourado-60: rgba(214, 195, 89, 0.6);
+    --cor-dourado-40: rgba(214, 195, 89, 0.4);
+    --cor-dourado-20: rgba(214, 195, 89, 0.2);
+
+    --cor-preto-100: rgb(0, 0, 0);
+    --cor-preto-80: rgb(0, 0, 0, 0.8);
+    --cor-preto-60: rgb(0, 0, 0, 0.6);
+    --cor-preto-40: rgb(0, 0, 0, 0.4);
+    --cor-preto-20: rgb(0, 0, 0, 0.2);
+
+    --cor-azul-turquesa-100: rgb(0, 126, 197);
+    --cor-azul-turquesa-80: rgb(0, 126, 197, 0.8);
+    --cor-azul-turquesa-60: rgb(0, 126, 197, 0.6);
+    --cor-azul-turquesa-40: rgb(0, 126, 197, 0.4);
+    --cor-azul-turquesa-20: rgb(0, 126, 197, 0.2);
+
+    --padding: 10%;
+
+    --tmp-transicao: .4s;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+#app {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.navbar>* {
+    color: white;
+}
+
+.navbar {
+    width: 100%;
+    height: 100px;
+    padding: 0 var(--padding);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--cor-azul-turquesa-100);
+}
+
+/* logo */
+.navbar .logo-perfil {
+    height: 50px;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar .logo-perfil img {
+    height: 50px;
+}
+
+.navbar>nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* input de pesquisa */
+.navbar>nav .input-pesquisa {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.navbar>nav .input-pesquisa select {
+    font-size: 15px;
+    padding: 5px 10px;
+    border-right: 1px solid var(--cor-preto-20);
+}
+
+.navbar>nav .input-pesquisa select:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+}
+
+.navbar>nav .input-pesquisa .pesquisa {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+.navbar>nav .input-pesquisa .pesquisa input {
+    width: 100%;
+    font-size: 15px;
+    padding: 6px 10px;
+}
+
+.navbar>nav .input-pesquisa .pesquisa img {
+    height: 20px;
+    margin: 0 10px;
+}
+
+/* ícones - botões */
+.navbar>nav .links-navbar {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 20px;
+}
+
+.navbar>nav .links-navbar img {
+    height: 30px;
+}
+
+.navbar>nav .links-navbar img:hover {
+    cursor: pointer;
+}
+
+/* main */
+.main-principal {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 25% auto;
+}
+
+.main-principal .sidebar {
+    width: 100%;
+    height: 100%;
+    background-color: var(--cor-azul-turquesa-80);
+}
+
+.main-principal .sidebar>li {
+    background-color: white;
+}
+
+.main-principal .sidebar .categoria-sidebar .item-principal {
+    font-weight: bold;
+    font-size: 22px;
+    background-color: var(--cor-azul-turquesa-20);
+}
+
+.main-principal .sidebar .categoria-sidebar li {
+    padding: 8px 20px;
+    font-size: 19px;
+    transition: background-color var(--tmp-transicao);
+}
+
+.main-principal .sidebar .categoria-sidebar li:hover {
+    cursor: pointer;
+    background-color: var(--cor-azul-turquesa-20);
+}
+
+.main-principal .sec-main-principal{
+    width: 100%; height: 100%;
+}
