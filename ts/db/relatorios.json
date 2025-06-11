@@ -1,0 +1,30 @@
+[
+    {
+        "codRelatorio": "0123",
+        "data": "2025-01-01",
+        "hora": "12:00",
+        "tipo": "diario",
+        "link": " "
+    },
+    {
+        "codRelatorio": "0124",
+        "data": "2025-01-01",
+        "hora": "16:00",
+        "tipo": "semanal",
+        "link": " "
+    },
+    {
+        "codRelatorio": "0125",
+        "data": "2025-01-05",
+        "hora": "12:00",
+        "tipo": "mensal",
+        "link": " "
+    },
+    {
+        "codRelatorio": "0126",
+        "data": "2025-01-06",
+        "hora": "12:00",
+        "tipo": "anual",
+        "link": " "
+    }
+]
