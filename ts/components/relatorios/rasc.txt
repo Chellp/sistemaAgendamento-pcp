@@ -1,0 +1,20 @@
+/*     /*const btnDiario = */
+    document.querySelector('#btnRelatorioDiario').addEventListener('click', () => {
+        
+    });
+
+    /*const btnSemanal =*/
+    document.querySelector('#btnRelatorioSemanal').addEventListener('click', () => {
+        
+    });
+
+    /*const btnMensal = */
+    document.querySelector('#btnRelatorioMensal').addEventListener('click', () => {
+        
+    });
+
+    /*const btnAnual =  */
+    document.querySelector('#btnRelatorioAnual').addEventListener('click', () => {
+        
+    });
+ */
