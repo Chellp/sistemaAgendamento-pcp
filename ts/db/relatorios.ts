@@ -1,6 +1,6 @@
 export interface Relatorio {
 
-    codRelatorio: string,
+    codRelatorio: number,
     dataHora: string,
     data: string,
     hora: string,
@@ -10,7 +10,7 @@ export interface Relatorio {
 
 export const relatoriosDB: Relatorio[] = [
     {
-        "codRelatorio": "0123",
+        "codRelatorio": 123,
         "dataHora": "2025-01-01T12:00:00-03:00",
         "data": "2025-01-01",
         "hora": "12:00",
@@ -18,7 +18,7 @@ export const relatoriosDB: Relatorio[] = [
         "link": " "
     },
     {
-        "codRelatorio": "0124",
+        "codRelatorio": 124,
         "dataHora": "2025-01-01T16:00:00-03:00",
         "data": "2025-01-01",
         "hora": "16:00",
@@ -26,7 +26,7 @@ export const relatoriosDB: Relatorio[] = [
         "link": " "
     },
     {
-        "codRelatorio": "0125",
+        "codRelatorio": 125,
         "dataHora": "2025-01-05T12:00:00-03:00",
         "data": "2025-01-05",
         "hora": "12:00",
@@ -34,7 +34,7 @@ export const relatoriosDB: Relatorio[] = [
         "link": " "
     },
     {
-        "codRelatorio": "0126",
+        "codRelatorio": 126,
         "dataHora": "2025-01-06T12:00:00-03:00",
         "data": "2025-01-06",
         "hora": "12:00",

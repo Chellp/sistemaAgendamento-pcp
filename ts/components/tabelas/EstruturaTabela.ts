@@ -1,6 +1,5 @@
-interface Registro {
-    [key: string]: any;  // Usando chave do tipo string e valor de qualquer tipo
-}
+import { InterfaceRegistros } from "../../models/interfaces";
+
 
 export default class EstruturaTabela {
     tableHead: string = '';
@@ -49,30 +48,36 @@ export default class EstruturaTabela {
 
     //deifinir como privado
     //funçao que cria html das linhas da tabela, recebe como parâmetro a quantidade de linhas para impressão em tela
-    gerarLinhasTabela(registros: Registro[]) {
+    gerarLinhasTabela(registros: InterfaceRegistros[]) {
 
         //let totalRegistrosPermitidos: number = 10; ---- ATUALIZAÇÃO
         let tableBody: string = '';
-        let tr: string = '';
+        let tr: string = '';        
 
-        //inicia a criação das linhas da tabela
-        //percorre o array de objetos
-        for (let objeto of registros) {
+        //verifica se os registros estão vazios
+        if (registros.length == 0) {
+            tableBody = `<tr><td class="sem-registro">Ainda não há registros</td></tr>`;
+            return tableBody;
+        } else {
+            //inicia a criação das linhas da tabela
+            //percorre o array de objetos
+            for (let objeto of registros) {
 
-            let td: string = '';
+                let td: string = '';
 
-            //percorre os valores do objeto
-            for (let chave in objeto) {
+                //percorre os valores do objeto
+                for (let chave in objeto) {
 
 
-                //verifica se a propiedade não é herdada
-                if (objeto.hasOwnProperty(chave)) {
-                    td += `<td>${objeto[chave]}</td>`;
+                    //verifica se a propiedade não é herdada
+                    if (objeto.hasOwnProperty(chave)) {
+                        td += `<td>${objeto[chave]}</td>`;
+                    }
                 }
-            }
 
-            tr += `<tr>${td}</tr>
+                tr += `<tr>${td}</tr>
             `;
+            }
         }
 
         tableBody = tr
@@ -80,7 +85,7 @@ export default class EstruturaTabela {
         return tableBody;
     }
 
-    criarTabela(filtros: string[] = [], registros: Registro[]) {
+    criarTabela(filtros: string[] = [], registros: InterfaceRegistros[]) {
         let tabela: string;
 
         tabela = `
@@ -88,7 +93,7 @@ export default class EstruturaTabela {
                 <h1>${this.titulo}</h1>
                 <div class="area-filtros">${this.gerarFiltros(filtros)}</div><!-- .area-filtros -->
             </div>
-            <table class="tabela-padrao" id="tabela-todos-relatorios">
+            <table class="tabela-padrao" id="tabela-${this.nomeTabela}">
                 ${this.tableHead} <tbody>${this.gerarLinhasTabela(registros)}</tbody>
             </table>
         `
@@ -104,7 +109,7 @@ export default class EstruturaTabela {
 //------------------------------ TESTES ----------------------------------------
 
 
-const teste = new EstruturaTabela(['tt', 'tt', 'hhh', '55'], 'tt', 'hh', 'mkkk');
+ const teste = new EstruturaTabela(['tt', 'tt', 'hhh', '55'], 'tt', 'hh', 'mkkk');
 
 
 const testeobjeto: Record<string, any>[] = [{
@@ -128,5 +133,7 @@ const testeobjeto: Record<string, any>[] = [{
 
 ];
 
+const testeobjeto2: Record<string, any>[] = []
+
 //console.log(teste.gerarLinhasTabela(testeobjeto));
-console.log(teste.criarTabela(['filtro 1', 'filtro 2'],testeobjeto));
+console.log(teste.criarTabela(['filtro 1', 'filtro 2'],testeobjeto2));

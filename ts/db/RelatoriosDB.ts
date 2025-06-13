@@ -1,8 +1,15 @@
 import { Relatorio, relatoriosDB } from "./relatorios";
+import { InterfaceRegistros } from "../models/interfaces";
 
+//classe responsável por fazer as consultas no banco de dados
 export default class RelatoriosDB {
 
     relatoriosDB: Relatorio[] = relatoriosDB;
+
+    //receber todos os registros
+    getRelatorios(){
+        return relatoriosDB;
+    }
 
     //Pesquisar por tipo: diário | semanal | mensal | anual
     getRelatoriosTipo(filtro: string = 'todos') {
@@ -31,6 +38,29 @@ export default class RelatoriosDB {
     //Obter a quantidade de resgistros da tabela atual
     getQuantidadeTabelaAtual(resgistros: Array<object>){
         return resgistros.length
+    }
+
+    //orecebe dados já ordenados pelo codigo do banco de dados
+    getRelatoriosCodOrdenados(ordemCrescente: boolean = true){
+        let registros = relatoriosDB.sort((a, b) => a.codRelatorio - b.codRelatorio);
+        
+        if(ordemCrescente){
+            return registros
+        } else {
+            return registros.reverse()
+        }
+
+    }
+
+    getRelatoriosDataOrdenados(maisRecentes: boolean = true){
+
+        let registros = relatoriosDB.sort((a, b) => a.dataHora.localeCompare(b.dataHora));
+
+        if(maisRecentes){
+            return registros.reverse()
+        } else {
+            return registros
+        }
     }
 
 }

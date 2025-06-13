@@ -31,8 +31,3 @@ export default class Exame {
 
 
 }
-
-const teste = new Exame;
-const exame1 = teste.cadastrarExame('1111', '22222', '3333');
-console.log( teste.cadastrarExame('1111', '22222', '3333'));
-console.log(teste.totalExames());
