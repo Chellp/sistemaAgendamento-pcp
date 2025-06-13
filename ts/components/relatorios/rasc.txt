@@ -18,3 +18,16 @@
         
     });
  */
+
+
+ // Obtendo o elemento select
+const selectElement = document.getElementById('meuSelect') as HTMLSelectElement;
+
+// Função para lidar com a mudança
+const handleSelectChange = (event: Event) => {
+  const select = event.target as HTMLSelectElement;
+  console.log('Opção selecionada:', select.value);
+};
+
+// Adicionando o escutador de evento
+selectElement.addEventListener('change', handleSelectChange);
