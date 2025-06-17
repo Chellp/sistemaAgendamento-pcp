@@ -115,7 +115,7 @@ export default class AnexarEventos {
 
         if (elemento) {
             elemento.addEventListener('click', () => {
-                renderizarRelatorios.gerarTabelaRelatorio('todos', 'Todos os Relatórios')
+                renderizarRelatorios.gerarTabelaRelatorio('todos', 'Todos os Relatórios');
             })
         }
     }
@@ -125,7 +125,7 @@ export default class AnexarEventos {
 
         if (elemento) {
             elemento.addEventListener('click', () => {
-
+                renderizarRelatorios.gerarTabelaRelatorio('todos', 'Todos os Relatórios');
             })
         }
     }
@@ -133,9 +133,21 @@ export default class AnexarEventos {
     relatoriosSemanal(idElemento: string = 'categoria-sidebar-relatorios-semanal') {
         const elemento = document.querySelector(`${idElemento}`);
 
+        alert('ok')
+
         if (elemento) {
             elemento.addEventListener('click', () => {
+                renderizarRelatorios.gerarTabelaRelatorio('semanal', 'Todos os Relatórios');
+            })
+        }
+    }
 
+    relatoriosMensal(idElemento: string = 'categoria-sidebar-relatorios-mensal') {
+        const elemento = document.querySelector(`${idElemento}`);
+
+        if (elemento) {
+            elemento.addEventListener('click', () => {
+                renderizarRelatorios.gerarTabelaRelatorio('mensal', 'Todos os Relatórios');
             })
         }
     }
@@ -145,12 +157,12 @@ export default class AnexarEventos {
 
         if (elemento) {
             elemento.addEventListener('click', () => {
-
+                renderizarRelatorios.gerarTabelaRelatorio('anual', 'Todos os Relatórios');
             })
         }
     }
 
-    eventosPadraoSidebar(){
+    eventosPadraoSidebar() {
         this.agendamentosTodos(); this.agendamentosHoje(); this.agendamentosSemana(); this.agendamentosMes();
         this.examesTodos(); this.examesConcluidos(); this.examesPendentes(); this.examesCancelados();
         this.gdlTodos(); this.gdlEncaminhar();

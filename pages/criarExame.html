@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/criarExame.css">
+    <title>Sistema Agendamento</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <header class="navbar">
+            <div class="logo-perfil">
+                <a href="#" class="logo-header">
+                    <img src="../img/logo.png" alt="">
+                </a>
+                <h1>Secretaria</h1>
+            </div>
+            <nav>
+                <div class="input-pesquisa">
+                    <select name="input-pesquisa" id="input-pesquisa">
+                        <option value="exames" selected>exames</option>
+                        <option value="paciente">exames</option>
+                        <option value="nome">exames</option>
+                        <option value="cpf">exames</option>
+                        <option value="boletim">exames</option>
+                    </select>
+
+                    <div class="pesquisa">
+                        <input type="text">
+                        <img src="../img/icon/search-sharp.svg" alt="">
+                    </div>
+                </div>
+
+                <ul class="links-navbar">
+                    <li><img src="../img/icon/notifications-sharp-white.png" alt=""></li>
+                    <li><img src="../img/icon/settings-sharp-white.png" alt=""></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-principal">
+            <ul class="sidebar">
+                <li class="categoria-sidebar">
+                    <ul>
+                        <li class="item-principal" id="categoria-sidebar-agenda-todos">Agenda</li>
+                        <li id="categoria-sidebar-agenda-semana">Esta Semana</li>
+                        <li id="categoria-sidebar-agenda-mes">Este Mês</li>
+                    </ul>
+                </li>
+                <li class="categoria-sidebar">
+                    <ul>
+                        <li class="item-principal" id="categoria-sidebar-exames-todos">Todos os Exames</li>
+                        <li id="categoria-sidebar-exames-concluidos">Concluídos</li>
+                        <li id="categoria-sidebar-exames-pendentes">Pendentes</li>
+                        <li id="categoria-sidebar-exames-cancelados">Cancelados</li>
+                    </ul>
+                </li>
+                <li class="categoria-sidebar">
+                    <ul>
+                        <li class="item-principal" id="categoria-sidebar-gdl-todos">GDL</li>
+                        <li id="categoria-sidebar-gdl-encaminhar">Encaminhar ao GDL</li>
+                    </ul>
+                </li>
+                <li class="categoria-sidebar">
+                    <ul>
+                        <li class="item-principal" id="categoria-sidebar-relatorios-todos">Todos os Relatórios</li>
+                        <li id="categoria-sidebar-relatorios-diario">Diário</li>
+                        <li id="categoria-sidebar-relatorios-semanal">Semanal</li>
+                        <li id="categoria-sidebar-relatorios-mensal">Mensal</li>
+                        <li id="categoria-sidebar-relatorios-anual">Anual</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <section class="sec-main-principal">
+                <div class="criar-exame">
+                    <h1>Agendar Exame</h1>
+                    <p>31/01/2025 - Quinta-feira às 17:00</p>
+
+                    <div class="area">
+                        <form class="inputs-area">
+
+                            <div class="inputs-area-info info-pessoais">
+                                <p>Informações Pessoais</p>
+                                <div class="inputs-area">
+                                    <label for="nome-criar-exame">Nome Completo:</label>
+                                    <input type="text" name="nome-criar-exame">
+                                </div>
+
+                                <div class="inputs-area">
+                                    <label for="dtNasc-criar-exame">Data Nascimento:</label>
+                                    <input type="date" name="dtNasc-criar-exame">
+                                </div>
+
+                                <div class="inputs-area inputs-area-radio">
+                                    <label for="genero-criar-exame">Gênero:</label>
+
+                                    <div class="input-radio">
+                                        <input type="radio" name="genero-criar-exame" id="genero-M-criar-exame"
+                                            value="M" checked>
+                                        <p>M</p>
+                                    </div>
+
+                                    <div class="input-radio">
+                                        <input type="radio" name="genero-criar-exame" id="genero-F-criar-exame"
+                                            value="F">
+                                        <p>F</p>
+                                    </div>
+                                </div> <!-- .inputs-area -->
+                            </div> <!-- .info-pessoais -->
+
+                            <div class="inputs-area-info info-endereco">
+
+                                <p>Endereço</p>
+
+                                <div class="inputs-area">
+                                    <label for="cep-criar-exame">Cep:</label>
+                                    <input type="number" name="cep-criar-exame">
+                                </div>
+
+                                <div class="inputs-area">
+                                    <label for="estado-criar-exame">Estado:</label>
+                                    <select name="estado-criar-exame" id="">
+                                        <option value="parana" selected>Parana</option>
+                                    </select>
+                                </div>
+
+                                <div class="inputs-area">
+                                    <label for="cidade-criar-exame">Cidade:</label>
+                                    <select name="cidade-criar-exame" id="">
+                                        <option value="paranagua" selected>Paranaguá</option>
+                                    </select>
+                                </div>
+
+                            </div> <!-- .info-endereco -->
+
+                            <div class="inputs-area div-textarea">
+                                <label for="obs-criar-exame">Observações:</label>
+                                <textarea name="obs-criar-exame" id=""></textarea>
+                            </div>
+
+                            <div class="area-btns">
+                                <small>data atual: 21/01/2025</small>
+
+                                <div class="btns">
+                                    <button type="button" class="btn-cancelar">Cancelar</button>
+                                    <button type="button" class="btn-enviar">Enviar</button>
+                                </div> <!-- .btns -->
+                            </div>
+                        </form>
+                    </div> <!-- .area -->
+                </div> <!-- .criar-exame -->
+
+
+                <footer>
+                    <img src="../img/logo-black.png" alt="">
+                </footer>
+            </section>
+        </main>
+    </div>
+
+    <!-- ====================== SCRIPTS ====================== -->
+
+    <!-- ÍCONES = https://ionic.io/ionicons/  -->
+    <script type="module" src="../ts/main.ts"></script>
+
+</body>
+
+</html>

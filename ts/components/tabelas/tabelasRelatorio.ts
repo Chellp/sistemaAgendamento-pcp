@@ -3,24 +3,29 @@ import { ordenar as filtroOrdenar } from '../filtros/filtros';
 import EstruturaTabela from './EstruturaTabela';
 import { InterfaceRegistros } from '../../models/interfaces';
 import RelatoriosDB from '../../db/RelatoriosDB';
+import { Relatorio } from '../../db/relatorios';
 
 
 export default class RenderizarTabelasRelatorio {
 
     registros: InterfaceRegistros[] = [];
+    relatoriosDB = new RelatoriosDB()
 
     //Elementos padrão de qualquer tabela de relatório
     headTabela: string[] = ['data', 'hora', 'relatórios', 'tipo', ''];
     filtros: string[] = [filtroPeriodo('relatorios'), filtroOrdenar('relatorios')]
     tipoTabela: string = 'relatorios';
 
-    enviarRegistros(registros: InterfaceRegistros[]){
-        this.registros = registros;
+    //método que recebe a lista de registros
+    anexarRegistros(registros: InterfaceRegistros[]){
+        return this.registros = registros;
     }
 
-    anexarRegistros(tipo: string){
+    receberRegistrosTipo(tipo: string){
         if(tipo === 'todos'){
-
+            this.registros = this.anexarRegistros(this.relatoriosDB.getRelatorios());
+        } else {
+            this.registros = this.anexarRegistros(this.relatoriosDB.getRelatoriosTipo(tipo))
         }
     }
 
@@ -29,6 +34,10 @@ export default class RenderizarTabelasRelatorio {
         //adicionado elementos específicos para cada tipo de tabela de relatório
         //nomeTabela = para anexar nos IDs
         const tabela = new EstruturaTabela(this.headTabela, this.tipoTabela, `${this.tipoTabela}-${nomeTabela}`, titulo);
+
+        this.receberRegistrosTipo(nomeTabela)
+        return tabela.criarTabela(this.filtros, this.registros);
+
     }
 
 }
