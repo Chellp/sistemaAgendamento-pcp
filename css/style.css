@@ -272,6 +272,7 @@
     font-weight: 800;
     color: white;
     letter-spacing: 1px;
+    text-transform: capitalize;
 }
 
 .tabela-padrao tbody tr{

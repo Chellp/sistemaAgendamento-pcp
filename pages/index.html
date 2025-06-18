@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/index.css">
     <title>Sistema Agendamento</title>
 </head>
 
@@ -77,9 +78,49 @@
 
             <section class="sec-main-principal">
 
-                <div class="area-tabela">
+                <section class="area-lista-chegada">
+                    <div class="text-area">
+                        <h1>Próximos Exames</h1>
+                        <p>data atual: 21/01/2025</p>
+                    </div>
+
+                    <ul class="lista-exames">
+                        <li>
+                            <p class="hora-nome">13:00 - Nome Completo Paciente</p>
+                            <div class="genero-idade">
+                                <p>Gênero: Fem</p>
+                                <p>Idade: 21 anos</p>
+                            </div>
+                            <div class="confirmacao-btns">
+                                <p>Presença Não Confirmada</p>
+                                <div class="btns">
+                                    <button class="confirmacao-btns-abrir">Abrir</button>
+                                    <button class="confirmacao-btns-confirmar">Confirmar</button>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="confirmado">
+                            <p class="hora-nome">13:00 - Nome Completo Paciente</p>
+                            <div class="genero-idade">
+                                <p>Gênero: Fem</p>
+                                <p>Idade: 21 anos</p>
+                            </div>
+                            <div class="confirmacao-btns">
+                                <p>Presença Confirmada</p>
+                                <div class="btns">
+                                    <button class="confirmacao-btns-abrir">Abrir</button>
+                                    <button class="confirmacao-btns-confirmar">Confirmado</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </section>
+
+                <section class="area-tabela">
                     <div class="titulo-filtros">
-                        <h1>Todos os Relatórios</h1>
+                        <h1>Hoje</h1>
 
                         <div class="area-filtros">
                             <select name="select-relatorio-tipo" id="select-relatorio-tipo">
@@ -106,13 +147,33 @@
                         </div><!-- .area-filtros -->
                     </div> <!-- .titulo-filtros -->
 
+                    <p class="total-registros">Total de Atendimentos Agendados: 1</p>
+
+
                     <table class="tabela-padrao" id="tabela-todos-relatorios">
-                        <thead></thead>
+                        <thead>
+                            <tr>
+                                <td>boletim</td>
+                                <td>hora</td>
+                                <td>nome completo</td>
+                                <td> </td>
+                            </tr>
+                        </thead>
 
-                        <tbody></tbody>
+                        <tbody>
 
+                            <tr>
+                                <td>5998566</td>
+                                <td>16:00</td>
+                                <td>Nome Completo</td>
+                                <td class="tabela-padrao-td-button">
+                                    <button class="tabela-padrao-td-button-abrir">Abrir</button>
+                                    <button class="tabela-padrao-td-button-confirmar">Confirmar</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-                </div> <!-- .area-tabela -->
+                </section> <!-- .area-tabela -->
 
                 <footer>
                     <img src="../img/logo-black.png" alt="">
@@ -120,7 +181,7 @@
             </section>
         </main>
     </div>
-    
+
     <!-- ====================== SCRIPTS ====================== -->
 
     <!-- ÍCONES = https://ionic.io/ionicons/  -->
