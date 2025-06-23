@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM"],
+    "module": "es6",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true
+  },
+  
+  "include": ["src"],      // 👈 Apenas frontend
+  "exclude": ["backend", "node_modules", "public", "build"]
+}
