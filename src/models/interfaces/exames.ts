@@ -1,4 +1,4 @@
-export interface Exames {
+export interface InterfaceExames {
     cod: number,
     nome: string,
     cpf: string,
@@ -11,12 +11,13 @@ export interface Exames {
     tipoExame: "Violencia Sexual" | "Lesao Corporal" | "Ad Cautelam",
     numeroBoletim: string,
     atendente: string,
+    dtHoraAgendada: string,
     dtAgendada: string,
     status: "Concluido" | "Pendente" | "Cancelado"
     //notificacao: boolean
 };
 
-export const examesDB: Exames[] = [
+export const examesDB: InterfaceExames[] = [
     {
         "cod": 1,
         "nome": "Nome 1",
@@ -30,7 +31,8 @@ export const examesDB: Exames[] = [
         "tipoExame": "Violencia Sexual",
         "numeroBoletim": "12345",
         "atendente": "Nome Atendente 1",
-        "dtAgendada": "2000-01-01",
+        "dtHoraAgendada": "2025-06-24T13:15:00.000Z",
+        "dtAgendada": "2025-06-24",
         "status": "Concluido"
     },
     {
@@ -46,7 +48,8 @@ export const examesDB: Exames[] = [
         "tipoExame": "Ad Cautelam",
         "numeroBoletim": "string",
         "atendente": "string",
-        "dtAgendada": "2000-01-06",
+        "dtHoraAgendada": "2025-06-24T13:15:00.000Z",
+        "dtAgendada": "2025-06-24",
         "status": "Pendente"
     },
     {
@@ -62,7 +65,8 @@ export const examesDB: Exames[] = [
         "tipoExame": "Lesao Corporal",
         "numeroBoletim": "string",
         "atendente": "string",
-        "dtAgendada": "2000-01-30",
+        "dtHoraAgendada": "2025-06-24T13:15:00.000Z",
+        "dtAgendada": "2025-06-24",
         "status": "Cancelado"
     },
     {
@@ -78,7 +82,8 @@ export const examesDB: Exames[] = [
         "tipoExame": "Lesao Corporal",
         "numeroBoletim": "string",
         "atendente": "string",
-        "dtAgendada": "2000-01-01",
+        "dtHoraAgendada": "2025-06-24T13:15:00.000Z",
+        "dtAgendada": "2025-06-24",
         "status": "Cancelado"
     }
 ]

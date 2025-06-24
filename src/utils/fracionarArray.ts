@@ -9,13 +9,21 @@ export default class fracionarArray {
     intervalo: number = 0;
 
     //indice que vai iniiar o recorte
-    indiceInicio: number = 0;
+    indiceInicio: number = 0; //índice de uso global
     moduloArrayIntervalo: number = 0;
 
-    estruturar(array: InterfaceRegistros[], limite: number) {
+    estruturar(array: InterfaceRegistros[], limite: number): void{
         this.arrayPrincipal = array;
         this.intervalo = limite;
         this.moduloArrayIntervalo = this.arrayPrincipal.length % this.intervalo;
+    }
+
+    atualizarLimiteIntervalo(limite: number): void{
+        this.intervalo = limite;
+    }
+
+    atualizarArray(array: InterfaceRegistros[]): void{
+        this.arrayPrincipal = array;
     }
 
     verificarModuloArrayEIntervalo(): boolean {
@@ -26,7 +34,7 @@ export default class fracionarArray {
         }
     }
 
-    qtdParticoes() {
+    qtdParticoes(): number {
         let qtd: number = 0
         qtd = this.arrayPrincipal.length / this.intervalo
 
@@ -36,24 +44,39 @@ export default class fracionarArray {
         return qtd
     }
 
+    recortarArray(parte: number = 1, add1: boolean = false): InterfaceRegistros[]{
+
+        let arrayFracionado: InterfaceRegistros[] = [];
+        const qtdParticoesPermitidas: number = this.qtdParticoes();
+        let indice: number = this.intervalo * parte
+
+        if(add1){indice ++;}
+
+        //verificar se o pedaço do array que vai ser recortado excede a qtd de recortes permitidos nesse array
+        if(parte <= qtdParticoesPermitidas){
+            arrayFracionado = this.arrayPrincipal.slice(indice, this.intervalo)
+        }
+
+        return arrayFracionado
+    }
+
     //retorna
-    fracionarTudo(array: InterfaceRegistros[]) {
+    fracionarTudo(): InterfaceRegistros[] {
 
         let count: number = 0;
         let indice: number = 0;
         let qtdParticoes = this.qtdParticoes();
         const modulo: boolean = this.verificarModuloArrayEIntervalo();
 
-        this.arrayPrincipal = array;
-        const arrayFracionado: Array<Array<InterfaceRegistros>> = []
+        const arrayFracionado: InterfaceRegistros[] = [];
 
         //diminui uma excução do 'while' se a quantidade de registros não estiver no padrão
         if (modulo) { qtdParticoes-- }
 
         while (qtdParticoes <= count) {
             const particao = this.arrayPrincipal.slice(indice, this.intervalo);
-            arrayFracionado.push(particao)
-            indice = this.intervalo++
+            arrayFracionado.push(particao);
+            indice = this.intervalo++;
             count++;
 
             // verifica se está na ultima execução do 'while'

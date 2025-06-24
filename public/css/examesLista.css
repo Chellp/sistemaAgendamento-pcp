@@ -1,0 +1,13 @@
+.tabela-lista .status-exame{
+    font-style: italic;
+    color: var(--cor-preto-60);
+}
+
+.area-btns-tabela button{
+    padding: 5px 30px;
+}
+
+.area-btns-tabela button.todos{
+    color: white;
+    background-color: var(--cor-azul-turquesa-100);
+}

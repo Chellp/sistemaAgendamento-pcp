@@ -1,13 +1,22 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["ES2017", "DOM"],
-    "module": "es6",
+    "lib": ["ES2017","DOM"],
+    "module": "ESNext",
     "outDir": "./dist",
     "rootDir": "./src",
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true, // Adicionando isso para interoperabilidade
+    "baseUrl": "./src", // Define o diretório base para importações
+    "paths": {
+      "*": ["node_modules/*", "src/*"] // Permite que o TypeScript procure dentro de src/
+    }
   },
-  
-  "include": ["src"],      // 👈 Apenas frontend
-  "exclude": ["backend", "node_modules", "public", "build"]
+  "include": ["src/**/*.ts"], // 👈 Apenas frontend
+  "exclude": [
+    "backend",
+    "node_modules",
+    "public",
+    "build"
+  ]
 }

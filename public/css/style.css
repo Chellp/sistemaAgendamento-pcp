@@ -1,0 +1,307 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-Italic.ttf');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-Light.ttf');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-LightItalic.ttf');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-Medium.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fontes/Roboto/static/Roboto-ExtraBold.ttf');
+    font-weight: 800;
+    font-style: normal;
+}
+
+:root {
+    --cor-dourado-100: rgb(216, 196, 80);
+    --cor-dourado-80: rgba(214, 195, 89, 0.8);
+    --cor-dourado-60: rgba(214, 195, 89, 0.6);
+    --cor-dourado-40: rgba(214, 195, 89, 0.4);
+    --cor-dourado-20: rgba(214, 195, 89, 0.2);
+
+    --cor-preto-100: rgb(0, 0, 0);
+    --cor-preto-80: rgb(0, 0, 0, 0.8);
+    --cor-preto-60: rgb(0, 0, 0, 0.6);
+    --cor-preto-40: rgb(0, 0, 0, 0.4);
+    --cor-preto-20: rgb(0, 0, 0, 0.2);
+
+    --cor-azul-turquesa-100: rgb(0, 119, 189);
+    --cor-azul-turquesa-80: rgb(0, 126, 197, 0.8);
+    --cor-azul-turquesa-60: rgb(0, 126, 197, 0.6);
+    --cor-azul-turquesa-40: rgb(0, 126, 197, 0.4);
+    --cor-azul-turquesa-20: rgb(0, 126, 197, 0.2);
+
+    --padding: 10%;
+
+    --tmp-transicao: .4s;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+#app {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.navbar>* {
+    color: white;
+}
+
+.navbar {
+    width: 100%;
+    height: 100px;
+    padding: 0 var(--padding);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--cor-azul-turquesa-100);
+}
+
+/* logo */
+.navbar .logo-perfil {
+    height: 50px;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar .logo-perfil img {
+    height: 50px;
+}
+
+.navbar>nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* input de pesquisa */
+.navbar>nav .input-pesquisa {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.navbar>nav .input-pesquisa select {
+    font-size: 15px;
+    padding: 5px 10px;
+    border-right: 1px solid var(--cor-preto-20);
+}
+
+.navbar>nav .input-pesquisa select:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+}
+
+.navbar>nav .input-pesquisa .pesquisa {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+.navbar>nav .input-pesquisa .pesquisa input {
+    width: 100%;
+    font-size: 15px;
+    padding: 6px 10px;
+}
+
+.navbar>nav .input-pesquisa .pesquisa img {
+    height: 20px;
+    margin: 0 10px;
+}
+
+/* ícones - botões */
+.navbar>nav .links-navbar {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 20px;
+}
+
+.navbar>nav .links-navbar img {
+    height: 30px;
+}
+
+.navbar>nav .links-navbar img:hover {
+    cursor: pointer;
+}
+
+/* main */
+.main-principal {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 25% auto;
+    overflow-y: hidden;
+}
+
+/* aplicar para todos os select do main */
+
+.main-principal select:hover{
+    cursor: pointer;
+}
+
+/* sidebar */
+.main-principal .sidebar {
+    width: 100%;
+    height: 100%;
+    background-color: var(--cor-azul-turquesa-80);
+}
+
+.main-principal .sidebar>li {
+    background-color: white;
+}
+
+.main-principal .sidebar .categoria-sidebar .item-principal {
+    font-weight: bold;
+    font-size: 22px;
+    background-color: var(--cor-azul-turquesa-20);
+}
+
+.main-principal .sidebar .categoria-sidebar li {
+    padding: 8px 20px;
+    font-size: 19px;
+    transition: background-color var(--tmp-transicao);
+}
+
+.main-principal .sidebar .categoria-sidebar li:hover {
+    cursor: pointer;
+    background-color: var(--cor-azul-turquesa-20);
+}
+
+/* área principal */
+.main-principal .sec-main-principal{
+    width: 100%;
+    padding: 0 var(--padding) 100px var(--padding);
+    overflow-y: auto;
+}
+
+.main-principal .sec-main-principal .area-tabela{
+    width: 100%;
+    margin: 70px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.main-principal .sec-main-principal .area-tabela .titulo-filtros{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.main-principal .sec-main-principal .area-tabela .titulo-filtros h1{
+    font-size: 50px;
+}
+
+.main-principal .sec-main-principal .area-tabela .titulo-filtros .area-filtros{
+    display: flex;
+    gap: 15px;
+}
+
+.main-principal .sec-main-principal .area-tabela .titulo-filtros .area-filtros select{
+    padding: 5px 10px;
+    font-size: 16px;
+    text-transform: capitalize;
+    border: 2px solid var(--cor-azul-turquesa-20);
+}
+
+/* estilização padrão das tabelas */
+.tabela-padrao{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-padrao td{
+    padding: 8px 10px;
+    font-size: 18px;
+}
+
+.tabela-padrao thead{
+    background-color: var(--cor-dourado-100);
+    border: 1px solid var(--cor-dourado-100);
+}
+
+.tabela-padrao thead *{
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+}
+
+.tabela-padrao tbody tr{
+    border: 1px solid var(--cor-preto-80);
+    border-top: none !important;
+}
+
+.tabela-padrao tbody tr .tabela-padrao-td-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabela-padrao tbody tr .tabela-padrao-td-button button{
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: var(--cor-azul-turquesa-60);
+}
+
+.main-principal .sec-main-principal footer{
+    width: 100%;
+    padding: 50px var(--padding);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-principal .sec-main-principal footer img{
+    height: 100px;
+}

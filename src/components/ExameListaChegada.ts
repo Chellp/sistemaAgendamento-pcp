@@ -1,12 +1,30 @@
 import { InterfaceRegistros } from "../models/interfaces";
+import { InterfaceExames, examesDB } from "../models/interfaces/exames";
 import getDataHora from "../utils/getDataHora"; const getdatahora = new getDataHora();
+import fracionarArray from "../utils/fracionarArray"; const fracionararray = new fracionarArray();
 
 export default class ExameListaChegada {
 
-    limiteCarregamentoDeExames: number = 50;
+    limiteCarregamentoDeExames: number = 10;
+    arrayPrincipal: InterfaceRegistros[]
+    //data = getdatahora.
+
+    constructor(array: InterfaceRegistros[]) {
+        this.arrayPrincipal = array;
+    }
+
+    atualizarArray(array: InterfaceRegistros[]): void {
+        this.arrayPrincipal = array;
+    }
+
+    getInfo(){
+        let exames = examesDB.forEach(exame => {
+            
+        })
+    }
 
     // item individuas do card com o exame
-    ItemLista() {
+    ItemLista(): string {
         const item: string = `
         <li>
             <p class="hora-nome">13:00 - Nome Completo Paciente</p>
@@ -23,26 +41,24 @@ export default class ExameListaChegada {
             </div>
         </li>
     `
-
         return item;
     }
 
     //configurar um valor limite de agendamentos p/dia e color no parâmetro 'limite'
-    AgruparItensLista(limite: number = this.limiteCarregamentoDeExames, array: InterfaceRegistros[]) {
-        
+    AgruparItensLista(limite: number = this.limiteCarregamentoDeExames) {
 
-        let count: number = 0;
+        const arrayFracionado: InterfaceRegistros[] = fracionararray.fracionarTudo();
+        let dadosExame: InterfaceExames
 
-        //
-
-        while (count <= array.length){
-
+        for (let array in arrayFracionado) {
+            
         }
+
     }
 
     // cards agrupados em uma ul, com limite de quantidade de carregamento
     //só é chamado quando há algum exame pra ser realizado no dia
-    UlExameListaChegada() {
+    UlExameListaChegada(): string {
 
         const itens: string = '';
         const lista: string = `<ul class="lista-exames">${itens}</ul>`;

@@ -1,10 +1,11 @@
-const button = document.getElementById('counter-btn') as HTMLButtonElement;
-const countDisplay = document.getElementById('count') as HTMLSpanElement;
+/* import getDataHora from "./utils/getDataHora";
+const data = new getDataHora();
 
-let count = 0;
-  console.log(count);
+console.log(data.dataHoraPadrao()); */
 
-button.addEventListener('click', () => {
-  count++;
-  countDisplay.textContent = count.toString();
-});
+import { examesDB } from "./models/interfaces/exames";
+
+console.log(examesDB);
+
+
+console.log('teste');

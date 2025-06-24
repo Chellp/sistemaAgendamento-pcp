@@ -1,11 +1,11 @@
-export interface Secretario {
+export interface InterfaceSecretario {
     cod: number,
     nome: string,
     unidade: string,
     ativo: boolean
 } 
 
-export const secretariosDB = [
+export const secretariosDB: InterfaceSecretario[] = [
     {
         "cod": 1,
         "nome": "Nme Sec 1",

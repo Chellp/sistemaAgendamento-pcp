@@ -1,4 +1,4 @@
-export interface Relatorio {
+export interface InterfaceRelatorio {
 
     codRelatorio: number,
     dataHora: string,
@@ -8,7 +8,7 @@ export interface Relatorio {
     link: string
 }
 
-export const relatoriosDB: Relatorio[] = [
+export const relatoriosDB: InterfaceRelatorio[] = [
     {
         "codRelatorio": 123,
         "dataHora": "2025-01-01T12:00:00-03:00",

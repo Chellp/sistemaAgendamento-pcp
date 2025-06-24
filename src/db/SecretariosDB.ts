@@ -1,7 +1,7 @@
-import { Secretario, secretariosDB } from "./secretario";
+import { secretariosDB, InterfaceSecretario } from "../models/interfaces/secretario";
 
 export default class SecretariosDB{
-    secretariosDB: Secretario[] = secretariosDB;
+    secretariosDB: InterfaceSecretario[] = secretariosDB;
 
     getSecretarios(){
         return secretariosDB;

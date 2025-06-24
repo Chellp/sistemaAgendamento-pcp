@@ -1,10 +1,10 @@
-import { Relatorio, relatoriosDB } from "./relatorios";
+import { relatoriosDB, InterfaceRelatorio } from "../models/interfaces/relatorios";
 import { InterfaceRegistros } from "../models/interfaces";
 
 //classe responsável por fazer as consultas no banco de dados
 export default class RelatoriosDB {
 
-    relatoriosDB: Relatorio[] = relatoriosDB;
+    relatoriosDB: InterfaceRelatorio[] = relatoriosDB;
 
     //receber todos os registros
     getRelatorios(){

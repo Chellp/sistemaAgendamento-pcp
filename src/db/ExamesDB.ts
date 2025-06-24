@@ -1,8 +1,8 @@
-import { Exames, examesDB } from "./exames";
+import { InterfaceExames, examesDB } from "../models/interfaces/exames";
 
 export default class ExamesDB {
 
-    examesDB: Exames[] = examesDB;
+    examesDB: InterfaceExames[] = examesDB;
 
     getExameCod(cod: number) {
         const registros = examesDB.filter(exame => exame.cod === cod);

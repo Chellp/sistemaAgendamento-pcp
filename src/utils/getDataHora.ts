@@ -1,11 +1,16 @@
 export default class getDataHora{
 
-    dataHoraPadrao(){
+    data(): string{
+        const data = new Date().toLocaleDateString();
+        return data;
+    }
+
+    dataHoraPadrao(): Date{
         const dataHoraAtual = new Date();
         return dataHoraAtual;
     }
 
-    dataHoraUTC(){
+    dataHoraUTC(): string{
         const dataHoraUTC = new Date().toISOString()
         return dataHoraUTC;
     }

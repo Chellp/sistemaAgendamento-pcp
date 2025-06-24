@@ -1,0 +1,173 @@
+.criar-exame {
+    width: 100%;
+    height: 100%;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.criar-exame h1 {
+    font-size: 60px;
+}
+
+.criar-exame .area {
+    width: 100%;
+    margin-top: 30px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--cor-azul-turquesa-60);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.178);
+}
+
+.criar-exame .area form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.criar-exame .area form label {
+    font-weight: bold;
+    font-size: 18px;
+    color: aliceblue;
+}
+
+.criar-exame .area form .inputs-area-info {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.criar-exame .area form .inputs-area-info>p {
+    font-size: 23px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+.criar-exame .area form .inputs-area-info .inputs-area {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.criar-exame .area form .inputs-area-info .inputs-area label {
+    width: 30%;
+    text-align: end;
+}
+
+.criar-exame .area form .inputs-area-info .inputs-area input,
+.criar-exame .area form .inputs-area-info .inputs-area select {
+    width: 65%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.criar-exame .area form .inputs-area-info .inputs-area-radio .input-radio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.criar-exame .area form .inputs-area-info .inputs-area-radio {
+    justify-content: flex-start;
+}
+
+.criar-exame .area form .inputs-area-info .inputs-area-radio .input-radio p {
+    font-weight: bold;
+    color: aliceblue;
+}
+
+.criar-exame .area form .info-ocorrencia{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--cor-azul-turquesa-60);
+}
+
+.criar-exame .area form .info-ocorrencia .inputs-area{
+    padding: 20px 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.criar-exame .area form .info-ocorrencia .inputs-area p,
+.criar-exame .area form .info-ocorrencia .inputs-area label{
+    text-align: center;
+    font-weight: bold;
+    color: aliceblue;
+    font-size: 18px;
+}
+
+.criar-exame .area form .info-ocorrencia .inputs-area input,
+.criar-exame .area form .info-ocorrencia .inputs-area .drop-upload-boletimOcorrencia{
+    width: 70%;
+}
+
+.criar-exame .area form .info-ocorrencia .inputs-area .drop-upload-boletimOcorrencia{
+    height: 38px;
+    background-color: white;
+}
+
+.criar-exame .area form .div-textarea {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.criar-exame .area form .div-textarea textarea {
+    height: 100px;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.criar-exame .area form small {
+    font-style: italic;
+}
+
+.criar-exame .area form .area-btns {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.criar-exame .area form .area-btns .btns {
+    display: flex;
+    gap: 20px;
+}
+
+.criar-exame .area form .area-btns button {
+    width: 150px;
+    padding: 10px 5px;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.363);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.377);
+    transition: background-color var(--tmp-transicao);
+}
+
+.criar-exame .area form .area-btns button:hover {
+    background-color: rgb(21, 21, 177) !important;
+    cursor: pointer;
+}
+
+.criar-exame .area form .area-btns button.btn-cancelar {
+    background-color: var(--cor-preto-80);
+}
+
+.criar-exame .area form .area-btns button.btn-enviar {
+    background-color: var(--cor-dourado-100);
+}
