@@ -1,7 +1,7 @@
 import { InterfaceExames } from "./interfaces/InterfaceExames";
-import ExamesDB from "db/ExamesDB"; const examesDB = new ExamesDB();
-import getDataHora from "utils/getDataHora";; const getdatahora = new getDataHora();
-import calcularIdade from "utils/calcularIdade";
+import ExamesDB from "../repositories/ExamesDB"; const examesDB = new ExamesDB();
+import getDataHora from "../utils/getDataHora";; const getdatahora = new getDataHora();
+import calcularIdade from "../utils/calcularIdade";
 
 export default class Exames {
 
@@ -17,6 +17,7 @@ export default class Exames {
 
     cadastrarExame(obj: InterfaceExames) {
         let novoExame: InterfaceExames = obj;
+        novoExame.cod = this.gerarCodExame();
         this.listaExames.push(novoExame)
 
         return novoExame

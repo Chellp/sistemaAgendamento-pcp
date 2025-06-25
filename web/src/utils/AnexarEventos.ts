@@ -1,5 +1,4 @@
-import RenderizarTabelasRelatorio from "components/tabelasRelatorio";
-import { InterfaceRegistros } from "models/interfaces";
+import RenderizarTabelasRelatorio from "../components/tabelasRelatorio";
 import TabelaRelatorio from "./TabelaRelatorio";
 
 const renderizarRelatorios = new RenderizarTabelasRelatorio();

@@ -1,5 +1,4 @@
-import { InterfaceRegistros } from "models/interfaces";
-import RelatoriosDB from "db/RelatoriosDB";
+import RelatoriosDB from "../../../backend/src/repositories/RelatoriosDB";
 
 //classe para renderizar e organizar os registros da tabela relatorio
 export default class TabelaRelatorio {
