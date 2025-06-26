@@ -9,7 +9,7 @@ exports.up = function (knex) {
         table.enu('tipo_Exame', ['AD_CAUTELAM', 'VIOLENCIA_SEXUAL', 'CORPO_DELITO']).notNullable();
         table.enu('status', ['PENDENTE, CONCLUIDO', 'CANCELADO']).notNullable();
         table.dateTime('dt_atendimemto');
-        table.id('examinador'); //fk examinador
+        table.integer('id_examinador'); //fk examinador
         table.string('obs');
     })
 };
