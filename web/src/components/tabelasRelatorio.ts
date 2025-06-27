@@ -1,5 +1,5 @@
-import { periodo as filtroPeriodo } from './filtros';
-import { ordenar as filtroOrdenar } from './filtros';
+import { periodo as filtroPeriodo } from './FiltrosHTMLComponent';
+import { ordenar as filtroOrdenar } from './FiltrosHTMLComponent';
 import EstruturaTabela from 'utils/EstruturaTabela';
 import { InterfaceRegistros } from 'models/interfaces';
 import RelatoriosDB from 'db/RelatoriosDB';

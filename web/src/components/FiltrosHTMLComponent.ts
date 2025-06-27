@@ -1,6 +1,7 @@
-//elementos na posição [0] é o nome do filtro
-export function tipoPeriodo(tipoTabela: string){
-    const select: string = `
+export default class FiltrosHTMLComponent{
+    //elementos na posição [0] é o nome do filtro
+    tipoPeriodo(tipoTabela: string){
+        const select: string = `
         <select name="select-${tipoTabela}-tipo" id="select-${tipoTabela}-tipo">
             <option value="select-${tipoTabela}-tipo-todos">tipo</option>
             <option value="select-${tipoTabela}-tipo-diario">diário</option>
@@ -8,11 +9,11 @@ export function tipoPeriodo(tipoTabela: string){
             <option value="select-${tipoTabela}-tipo-anual">anual</option>
         </select>
     `
-    return select
-}
+        return select
+    }
 
-export function periodo(tipoTabela: string){
-    const select: string = `
+    periodo(tipoTabela: string){
+        const select: string = `
         <select name="select-${tipoTabela}-data" id="elect-${tipoTabela}-data">
             <option value="select-${tipoTabela}-data-todos">período</option>
             <option value="select-${tipoTabela}-data-hoje">Hoje</option>
@@ -24,18 +25,17 @@ export function periodo(tipoTabela: string){
             <option value="select-${tipoTabela}-data-personalizado">personalizado</option>
         </select>
     `
-    return select
-}
+        return select
+    }
 
-export function ordenar(tipoTabela: string){
-    const select: string = `
+    ordenar(tipoTabela: string){
+        const select: string = `
         <select name="select-${tipoTabela}-ordenar" id="select-${tipoTabela}-ordenar">
             <option value="select-${tipoTabela}-ordenar-recente">Mais Recente</option>
             <option value="select-${tipoTabela}-ordenar-antigo">antigo</option>
             <option value="select-${tipoTabela}-ordenar-nome">nome</option>
         </select>
     `
-    return select
+        return select
+    }
 }
-
-

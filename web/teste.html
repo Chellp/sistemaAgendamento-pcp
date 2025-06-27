@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>Sistema Agendamento</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+
+        <main class="main-principal">
+
+            <section class="sec-main-principal" id="html-sec-main-principal">
+
+                <section class="area-lista-chegada">
+                </section>
+
+                <section class="area-tabela">
+                    <div class="titulo-filtros">
+                        <h1>Hoje</h1>
+
+                        <div class="area-filtros">
+                        </div><!-- .area-filtros -->
+                    </div> <!-- .titulo-filtros -->
+
+                    <p class="total-registros">Total de Atendimentos Agendados: 1</p>
+
+
+                    <table class="tabela-padrao" id="tabela-todos-agendamentos">
+                        <thead>
+                            <tr>
+                                <td>boletim</td>
+                                <td>hora</td>
+                                <td>nome completo</td>
+                                <td> </td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>5998566</td>
+                                <td>16:00</td>
+                                <td>Nome Completo</td>
+                                <td class="tabela-padrao-td-button">
+                                    <button class="tabela-padrao-td-button-abrir">Abrir</button>
+                                    <button class="tabela-padrao-td-button-confirmar">Confirmar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section> <!-- .area-tabela -->
+
+                <footer>
+                    <img src="./assets/img/logo-black.png" alt="">
+                </footer>
+            </section>
+        </main>
+    </div>
+
+    <!-- ====================== SCRIPTS ====================== -->
+
+    <!-- ÍCONES = https://ionic.io/ionicons/  -->
+    <script type="module" src="./src/main.ts"></script>
+
+</body>
+
+</html>

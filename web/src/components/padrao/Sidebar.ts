@@ -33,4 +33,5 @@ export default function Sidebar(){
         </li>
     </ul>
     `;
+    return sidebar;
 }

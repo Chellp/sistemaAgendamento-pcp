@@ -1,4 +1,4 @@
-import { InterfaceRegistros } from "models/interfaces";
+import type{ InterfaceRegistros } from "./interfaces";
 
 export default class EstruturaTabela {
     tableHead: string = '';
@@ -92,7 +92,7 @@ export default class EstruturaTabela {
                 <h1>${this.titulo}</h1>
                 <div class="area-filtros">${this.gerarFiltros(filtros)}</div><!-- .area-filtros -->
             </div>
-            <table class="tabela-padrao" id="tabela-${this.nomeTabela}">
+            <table class="tabela-padrao" id="tabela-${this.nomeTabela}${this.tipoTabela}">
                 ${this.tableHead} <tbody>${this.gerarLinhasTabela(registros)}</tbody>
             </table>
         `
@@ -102,37 +102,3 @@ export default class EstruturaTabela {
 
 }
 
-
-
-
-//------------------------------ TESTES ----------------------------------------
-
-
- const teste = new EstruturaTabela(['tt', 'tt', 'hhh', '55'], 'tt', 'hh', 'mkkk');
-
-
-const testeobjeto: Record<string, any>[] = [{
-    "valor1": "valor 1",
-    "valor2": "valor 2",
-    "valor3": "valor 3",
-    "valor4": "valor 4"
-},
-{
-    "valor1": "valor 11",
-    "valor2": "valor 12",
-    "valor3": "valor 13",
-    "valor4": "valor 14"
-},
-{
-    "valor1": "valor 1s1",
-    "valor2": "valor 1s2",
-    "valor3": "valor 1s3",
-    "valor4": "valor 1s4"
-}
-
-];
-
-const testeobjeto2: Record<string, any>[] = []
-
-//console.log(teste.gerarLinhasTabela(testeobjeto));
-console.log(teste.criarTabela(['filtro 1', 'filtro 2'],testeobjeto2));

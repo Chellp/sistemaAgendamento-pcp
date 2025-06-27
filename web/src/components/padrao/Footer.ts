@@ -4,4 +4,5 @@ export default function Footer(){
             <img src="../img/logo-black.png" alt="">
         </footer>
     `;
+    return footer;
 }
