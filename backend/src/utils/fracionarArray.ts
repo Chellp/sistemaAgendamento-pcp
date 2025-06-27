@@ -1,4 +1,4 @@
-import { InterfaceRegistros } from "../models/interfaces";
+import { InterfaceRegistros } from "../models/interfaces/interfaces";
 
 
 export default class fracionarArray {

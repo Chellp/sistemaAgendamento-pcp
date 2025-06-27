@@ -1,4 +1,4 @@
-import { InterfaceExames } from "./interfaces/InterfaceExames";
+import { InterfaceExames } from "./interfaces/InterfaceExame";
 import ExamesDB from "../repositories/ExamesDB"; const examesDB = new ExamesDB();
 import getDataHora from "../utils/getDataHora";; const getdatahora = new getDataHora();
 import calcularIdade from "../utils/calcularIdade";

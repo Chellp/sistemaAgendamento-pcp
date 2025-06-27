@@ -1,4 +1,4 @@
-import { InterfaceExames, examesDB } from "../models/interfaces/InterfaceExames";
+import { InterfaceExames, examesDB } from "../models/interfaces/InterfaceExame";
 
 export default class ExamesDB {
 

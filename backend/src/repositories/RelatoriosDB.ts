@@ -1,5 +1,5 @@
 import { relatoriosDB, InterfaceRelatorio } from "../../src/models/interfaces/InterfaceRelatorios";
-import { InterfaceRegistros } from "../../src/models/interfaces";
+import { InterfaceRegistros } from "../models/interfaces/interfaces";
 
 //classe responsável por fazer as consultas no banco de dados
 export default class RelatoriosDB {

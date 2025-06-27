@@ -16,8 +16,11 @@
     "noUnusedParameters": true,
     "downlevelIteration": true
   },
+  "files": [
+    "src/knexfile.ts"
+  ],
   "include": [
-    "src/**/*"
+    "./src/**/*"
   ],
   "exclude": [
     "node_modules",
