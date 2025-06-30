@@ -1,13 +1,12 @@
 export interface InterfacePerfil {
     id: number,
-    tipoPerfil: number,
-    dados: InterfaceCriarPerfil,
-    status: boolean
+    dados: InterfaceInfoPerfil
 }
 
-export interface InterfaceCriarPerfil {
+export interface InterfaceInfoPerfil {
     matricula: string,
     nome: string,
-    unidade: number
-    tipoPerfil: 'ATENDENTE' | 'EXAMINADOR'| 'ADMINISTRADOR' | 'DIRETOR',
+    unidade: number,
+    status: boolean,
+    tipoPerfil: 'ATENDENTE' | 'EXAMINADOR'| 'ADMINISTRADOR' | 'DIRETOR'
 }

@@ -2,17 +2,18 @@ import type { Knex } from "knex";
 
 
 export async function up(knex: Knex): Promise<void> {
-     await knex.schema.createTable('exame', (table) => {
+    await knex.schema.createTable('exame', (table) => {
         table.increments('id').primary();
-        table.enu('tipo_Exame', ['AD_CAUTELAM', 'VIOLENCIA_SEXUAL', 'CORPO_DELITO']).notNullable();
+        table.string('boletim_ocorrencia').notNullable(); //valor único
+        table.enu('tipo_exame', ['AD_CAUTELAM', 'VIOLENCIA_SEXUAL', 'CORPO_DELITO']).notNullable();
         table.enu('status', ['PENDENTE, CONCLUIDO', 'CANCELADO']).notNullable();
         table.string('obs');
         table.dateTime('dt_atendimento');
-        table.integer('id_paciente').notNullable(); //fk paciente
-        table.integer('id_agendamento').notNullable(); //fk agendamento
-        table.integer('id_examinador'); //fk examinador
-        
-        table.string('boletim_ocorrencia').notNullable(); //valor único
+        table.integer('id_paciente').
+        references('id').inTable('paciente'); //fk paciente
+        table.integer('id_agendamento').references('id').inTable('agendamento'); //fk agendamento
+        table.integer('id_examinador').references('id').inTable('examinador'); //fk examinador
+
     })
 }
 
