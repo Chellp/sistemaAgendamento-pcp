@@ -10,23 +10,19 @@ const db = knex(knexConfig.development);
 const bd: string = 'diretor';
 
 export class DiretorRepository {
-    async criar(dadosPerfilDiretor: InterfaceDiretor) {
+    async criar(matricula: string, nome: string, id_unidade: number, status: boolean, tipoPerfil: string = 'DIRETOR') {
         try {
-            const dadosPerfil: InterfaceInfoPerfil = dadosPerfilDiretor.dadosPerfil.dados;
 
-            if (dadosPerfil.tipoPerfil !== 'DIRETOR') {
-                throw new Error('Tipo de Perfil não correspondente ao perfil DIRETOR')
+             if (!matricula || !nome || !id_unidade || !status) {
+                throw new Error('Preencha todos os Campos!')
             }
 
-            const matricula = dadosPerfil.matricula
-            const nome = dadosPerfil.nome
-            const unidade = dadosPerfil.unidade
-            const status = dadosPerfil.status
-
+            // criando perfil genérico
             const [result]: InterfacePerfil[] = await db('perfil').insert([
-                matricula, nome, unidade, status
+                matricula, nome, id_unidade, status, tipoPerfil
             ]);
 
+            //criando perfil de diretor
             const id_perfil:any = result.id;
             let diretorDb: any = await db(bd).insert([ id_perfil ])
 
@@ -40,26 +36,23 @@ export class DiretorRepository {
         return await db(bd).select('unidade', 'cod', 'nome', 'tipo_perfil', 'status');
     }
 
-    async update(id: number, dados: InterfaceDiretor) {
-        const perfilDiretor: InterfaceDbDiretor = await db(bd).where({ id }).first();
+    async update(id: number, dados: any) {
+        const perfilDiretor = await db(bd).where({ id }).first();
         if (!perfilDiretor) {
             throw new Error('Perfil de Diretor não Encontrado!');
         }
 
         const id_Perfil = perfilDiretor.id_Perfil;
 
-        const perfilPrincipal: InterfacePerfil = await db(bd).where('id_perfil', id_Perfil).first();
-        if (!perfilPrincipal) { 
+        const perfil = await db(bd).where('id_perfil', id_Perfil).first();
+        if (!perfil) { 
             throw new Error('Perfil Principal do Diretor não Encontrado!');
          }
 
-        const dadosInfo = perfilPrincipal.dados;
-        const update = dados.dadosPerfil.dados;
-
         const atualizacao = {
-            nome: update.nome ?? dadosInfo.nome,
-            unidade: update.unidade ?? dadosInfo.unidade,
-            status: update.status ?? dadosInfo.status,
+            nome: dados.nome ?? perfil.nome,
+            unidade: dados.unidade ?? perfil.unidade,
+            status: dados.status ?? perfil.status,
         }
 
         return await db(bd).where({ id }).update(atualizacao);

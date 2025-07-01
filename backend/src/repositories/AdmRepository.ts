@@ -1,7 +1,5 @@
-import { InterfaceInfoPerfil } from "../models/interfaces/InterfacePerfil";
 import { InterfacePerfil } from "../models/interfaces/InterfacePerfil";
-import { InterfaceAdm } from "../models/interfaces/InterfaceAdmR";
-import { InterfaceDbAdm } from "../models/interfaces/InterfaceAdmR";
+
 
 //knex
 import knex from 'knex';
@@ -11,23 +9,19 @@ const db = knex(knexConfig.development);
 const bd: string = 'adm';
 
 export class AdmRepository {
-    async criar(dadosPerfilAdm: InterfaceAdm) {
+    async criar(matricula: string, nome: string, id_unidade: number, status: boolean, tipoPerfil: string = 'ADMINISTRADOR') {
         try {
-            const dadosPerfil: InterfaceInfoPerfil = dadosPerfilAdm.dadosPerfil.dados;
 
-            if (dadosPerfil.tipoPerfil !== 'ADMINISTRADOR') {
-                throw new Error('Tipo de Perfil não correspondente ao perfil ADMINISTRADOR')
+            if (!matricula || !nome || !id_unidade || !status) {
+                throw new Error('Preencha todos os Campos!')
             }
 
-            const matricula = dadosPerfil.matricula
-            const nome = dadosPerfil.nome
-            const unidade = dadosPerfil.unidade
-            const status = dadosPerfil.status
-
+            // criando perfil genérico
             const [result]: InterfacePerfil[] = await db('perfil').insert([
-                matricula, nome, unidade, status
+                matricula, nome, id_unidade, status, tipoPerfil
             ]);
 
+            //criando perfil de admnistrador
             const id_perfil: any = result.id;
             let diretorDb: any = await db(bd).insert([id_perfil]);
 
@@ -38,30 +32,37 @@ export class AdmRepository {
         }
     }
 
-    async listar() {
+    async listarTodos() {
         return await db(bd).select('unidade', 'cod', 'nome', 'tipo_perfil', 'status');
     }
 
-    async update(id: number, dados: InterfaceAdm) {
-        const perfilAdm: InterfaceDbAdm = await db(bd).where({ id }).first();
+    async listarID(id: number) {
+        const adm = await db(bd).where({ id });
+        if(!adm) {
+            throw new Error(' Administrador não Encontrado!')
+        }
+
+        return adm;
+    }
+
+    async update(id: number, dados: any) {
+
+        const perfilAdm = await db(bd).where({ id }).first();
         if (!perfilAdm) {
             throw new Error('Perfil de Administrador não Encontrado!')
         }
 
         const id_Perfil = perfilAdm.id_Perfil;
 
-        const perfilPrincipal: InterfacePerfil = await db(bd).where('id_perfil', id_Perfil).first();
-        if (!perfilPrincipal) {
+        const perfil = await db(bd).where('id_perfil', id_Perfil).first();
+        if (!perfil) {
             throw new Error('Perfil Principal de Administrador não Encontrado!')
         }
 
-        const dadosInfo = perfilPrincipal.dados;
-        const update = dados.dadosPerfil.dados;
-
         const atualizacao = {
-            nome: update.nome ?? dadosInfo.nome,
-            unidade: update.unidade ?? dadosInfo.unidade,
-            status: update.status ?? dadosInfo.status
+            nome: dados.nome ?? perfil.nome,
+            unidade: dados.unidade ?? perfil.unidade,
+            status: dados.status ?? perfil.status
         }
 
         return await db(bd).where({ id }).update(atualizacao);
