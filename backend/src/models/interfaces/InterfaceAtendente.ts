@@ -1,6 +1,11 @@
 import { InterfacePerfil } from "./InterfacePerfil";
 
 export interface InterfaceAtendente{
-    id: string,
+    id: number,
     dadosPerfil: InterfacePerfil
+}
+
+export interface InterfaceDbAtendente{
+    id: number,
+    id_Perfil: number
 }

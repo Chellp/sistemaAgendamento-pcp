@@ -1,9 +1,7 @@
 import { InterfaceInfoPerfil } from "../models/interfaces/InterfacePerfil";
 import { InterfacePerfil } from "../models/interfaces/InterfacePerfil";
 import { InterfaceDiretor } from "../models/interfaces/InterfaceDiretor";
-
-import { PerfilRepository } from "./PerfilRepository";
-const perfilRepository = new PerfilRepository();
+import { InterfaceDbDiretor } from "../models/interfaces/InterfaceDiretor";
 
 //knex
 import knex from 'knex';
@@ -20,14 +18,19 @@ export class DiretorRepository {
                 throw new Error('Tipo de Perfil não correspondente ao perfil DIRETOR')
             }
 
-            const perfilBase: InterfacePerfil = await perfilRepository.criar(dadosPerfil);
-            const id_perfil = perfilBase.id
+            const matricula = dadosPerfil.matricula
+            const nome = dadosPerfil.nome
+            const unidade = dadosPerfil.unidade
+            const status = dadosPerfil.status
 
-            const [result]: InterfacePerfil[] = await db(bd).insert([
-                id_perfil
+            const [result]: InterfacePerfil[] = await db('perfil').insert([
+                matricula, nome, unidade, status
             ]);
 
-            return result
+            const id_perfil:any = result.id;
+            let diretorDb: any = await db(bd).insert([ id_perfil ])
+
+            return diretorDb.result
         } catch (error: any) {
             throw new Error(error.message);
         }
@@ -38,13 +41,17 @@ export class DiretorRepository {
     }
 
     async update(id: number, dados: InterfaceDiretor) {
-        const perfilDiretor: InterfaceDiretor = await db(bd).where({ id }).first();
+        const perfilDiretor: InterfaceDbDiretor = await db(bd).where({ id }).first();
         if (!perfilDiretor) {
             throw new Error('Perfil de Diretor não Encontrado!');
         }
 
-        const perfilPrincipal: InterfacePerfil = await db(bd).where('id_perfil', id).first();
-        if (!perfilPrincipal) { }
+        const id_Perfil = perfilDiretor.id_Perfil;
+
+        const perfilPrincipal: InterfacePerfil = await db(bd).where('id_perfil', id_Perfil).first();
+        if (!perfilPrincipal) { 
+            throw new Error('Perfil Principal do Diretor não Encontrado!');
+         }
 
         const dadosInfo = perfilPrincipal.dados;
         const update = dados.dadosPerfil.dados;

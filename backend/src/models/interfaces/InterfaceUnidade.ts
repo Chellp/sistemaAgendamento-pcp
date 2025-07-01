@@ -1,9 +1,9 @@
 export interface InterfaceUnidade{
     id: number,
-    dados: InterfaceCriarUnidade
+    dados: InterfaceInfoUnidade
 }
 
-export interface InterfaceCriarUnidade{
+export interface InterfaceInfoUnidade{
     nome: string,
     estado: string,
     cidade: string

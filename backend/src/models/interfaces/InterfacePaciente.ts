@@ -10,5 +10,15 @@ export interface InterfaceInfoPaciente {
     genero: string,
     endereco: string,
     telefone: string,
-    obs: string,
+    observacao: string,
+}
+export interface InterfaceDbPaciente {
+    id: number,
+    cpf: string,
+    nome: string,
+    dt_nasc: Date,
+    genero: string,
+    endereco: string,
+    telefone: string,
+    observacao: string,
 }

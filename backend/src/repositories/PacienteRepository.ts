@@ -1,5 +1,6 @@
 import { InterfaceInfoPaciente } from "../models/interfaces/InterfacePaciente";
 import { InterfacePaciente } from "../models/interfaces/InterfacePaciente";
+import { InterfaceDbPaciente } from "../models/interfaces/InterfacePaciente";
 
 //knex
 import knex from 'knex';
@@ -10,14 +11,16 @@ const bd: string = 'paciente'
 export class PacienteRepository {
     async criar(dados: InterfaceInfoPaciente) {
         try {
-            const [result] = await db(bd).insert([
-                dados.cpf,
-                dados.nome,
-                dados.dt_nasc,
-                dados.genero,
-                dados.endereco,
-                dados.telefone,
-                dados.obs
+
+            const cpf = dados.cpf;
+            const nome = dados.nome;
+            const dt_nasc = dados.dt_nasc;
+            const genero = dados.genero;
+            const endereco = dados.endereco;
+            const telefone = dados.telefone;
+            const observacao = dados.observacao;
+
+            const [result] = await db(bd).insert([ cpf, nome, dt_nasc, genero, endereco, telefone, observacao
             ])
 
             return result
@@ -31,12 +34,12 @@ export class PacienteRepository {
     }
 
     async update(id: number, dados: InterfacePaciente) {
-        const paciente: InterfacePaciente = await db(bd).where({ id }).first();
+        const paciente: InterfaceDbPaciente = await db(bd).where({ id }).first();
         if (!paciente) {
             throw new Error('Paciente não Encontrado');
         }
 
-        const dadosPaciente = paciente.dadosPaciente;
+        const dadosPaciente = paciente;
         const update = dados.dadosPaciente;
 
         const updatedPaciente = {
@@ -46,7 +49,7 @@ export class PacienteRepository {
             genero: update.genero ?? dadosPaciente.genero,
             endereco: update.endereco ?? dadosPaciente.endereco,
             telefone: update.telefone ?? dadosPaciente.telefone,
-            obs: update.obs ?? dadosPaciente.obs
+            obs: update.observacao ?? dadosPaciente.observacao
         }
 
         return await db(bd).where({ id }).update(updatedPaciente);

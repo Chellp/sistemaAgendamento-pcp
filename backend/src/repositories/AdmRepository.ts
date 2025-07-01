@@ -1,9 +1,7 @@
 import { InterfaceInfoPerfil } from "../models/interfaces/InterfacePerfil";
 import { InterfacePerfil } from "../models/interfaces/InterfacePerfil";
 import { InterfaceAdm } from "../models/interfaces/InterfaceAdmR";
-
-import { PerfilRepository } from "./PerfilRepository";
-const perfilRepository = new PerfilRepository();
+import { InterfaceDbAdm } from "../models/interfaces/InterfaceAdmR";
 
 //knex
 import knex from 'knex';
@@ -21,14 +19,20 @@ export class AdmRepository {
                 throw new Error('Tipo de Perfil não correspondente ao perfil ADMINISTRADOR')
             }
 
-            const perfilBase: InterfacePerfil = await perfilRepository.criar(dadosPerfil);
-            const id_perfil = perfilBase.id
+            const matricula = dadosPerfil.matricula
+            const nome = dadosPerfil.nome
+            const unidade = dadosPerfil.unidade
+            const status = dadosPerfil.status
 
-            const [result]: InterfacePerfil[] = await db(bd).insert([
-                id_perfil
+            const [result]: InterfacePerfil[] = await db('perfil').insert([
+                matricula, nome, unidade, status
             ]);
 
-            return result
+            const id_perfil: any = result.id;
+            let diretorDb: any = await db(bd).insert([id_perfil]);
+
+            return diretorDb.result
+
         } catch (error: any) {
             throw new Error(error.message);
         }
@@ -39,14 +43,16 @@ export class AdmRepository {
     }
 
     async update(id: number, dados: InterfaceAdm) {
-        const perfilAdm: InterfaceAdm = await db(bd).where({ id }).first();
+        const perfilAdm: InterfaceDbAdm = await db(bd).where({ id }).first();
         if (!perfilAdm) {
             throw new Error('Perfil de Administrador não Encontrado!')
         }
 
-        const perfilPrincipal: InterfacePerfil = await db(bd).where('id_perfil', id).first();
+        const id_Perfil = perfilAdm.id_Perfil;
+
+        const perfilPrincipal: InterfacePerfil = await db(bd).where('id_perfil', id_Perfil).first();
         if (!perfilPrincipal) {
-            throw new Error('Perfil Principal não Encontrado!')
+            throw new Error('Perfil Principal de Administrador não Encontrado!')
         }
 
         const dadosInfo = perfilPrincipal.dados;
