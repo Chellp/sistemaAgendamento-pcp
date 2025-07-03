@@ -9,7 +9,7 @@ const db = knex(knexConfig.development);
 const bd: string = 'examinador';
 
 
-export class AdmRepository {
+export class ExaminadorRepository {
     async criar(matricula: string, nome: string, id_unidade: number, status: boolean, tipoPerfil: string = 'EXAMINADOR') {
         try {
 

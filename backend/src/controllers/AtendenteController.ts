@@ -1,6 +1,6 @@
 import { MsgController } from "."; const msg = new MsgController('Atendente');
 
-export class AdmController {
+export class AtendenteController {
 
     atendenteRepository: any;
 
