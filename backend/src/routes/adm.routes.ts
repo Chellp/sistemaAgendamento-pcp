@@ -1,16 +1,15 @@
 import express from 'express';
-const ProdutoControler = require("../controller/ProdutoControler.js");
-const ProdutoRepository = require("../repositories/ProdutoRepository.js");
+import { AdmController } from '../controllers/AdmController';
+import { AdmRepository } from '../repositories/AdmRepository'; 
 
-const produtoRepository = new ProdutoRepository(dataService);
-const produtoControler = new ProdutoControler(produtoRepository);
+const admRepository = new AdmRepository();
+const admController = new AdmController(admRepository);
 
 const admRouter = express.Router();
 
-produtoRouter.get('/', (req, res) => produtoControler.buscarPorNome(req, res));
-produtoRouter.get('/:id', (req, res) => produtoControler.listarProdutoEspecifico(req, res));
-produtoRouter.post('/', authMiddleware, (req, res) => produtoControler.cadastrar(req, res));
-produtoRouter.put('/:id', authMiddleware, (req, res) => produtoControler.atualizarProdutoEspecifico(req, res));
-produtoRouter.delete('/:id', authMiddleware, (req, res) => produtoControler.deletar(req, res));
+admRouter.get('/', (req, res) => admController.listar(req, res));
+admRouter.post('/', (req, res) => admController.criar(req, res));
+admRouter.put('/:id', (req, res) => admController.update(req, res));
+admRouter.delete('/:id', (req, res) => admController.deletar(req, res));
 
 export default admRouter;
