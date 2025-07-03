@@ -1,4 +1,6 @@
 import { InterfacePerfil } from "../models/interfaces/InterfacePerfil";
+import { PerfilRepository } from "./PerfilRepository";
+const perfilRepository = new PerfilRepository()
 
 //knex
 import knex from 'knex';
@@ -41,21 +43,18 @@ export class AdmRepository {
             throw new Error('Perfil de Atendente não Encontrado!')
         }
 
+        //buscar perfil principal
         const id_Perfil = perfilAtendente.id_Perfil;
+        const perfil = await perfilRepository.update(id_Perfil, dados);
 
-        const perfil = await db(bd).where('id_perfil', id_Perfil).first();
-        if (!perfil) { 
-            throw new Error('Perfil Principal de Atendente não Encontrado!')
-         }
-
-
+        //deixar em um único objeto para agrupar os atributos únicos do tipo de perfil (caso necessário)
         const atualizacao = {
-            nome: dados.nome ?? perfil.nome,
-            unidade: dados.unidade ?? perfil.unidade,
-            status: dados.status ?? perfil.status
+            nome: perfil.nome,
+            unidade: perfil.unidade,
+            status: perfil.status,
         }
 
-        return await db(bd).where({ id }).update(atualizacao);
+        return await db('perfil').where('id_perfil', id_Perfil).update(atualizacao);
     }
 
     async deletar(id: number) {

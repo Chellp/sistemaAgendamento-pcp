@@ -11,7 +11,7 @@ export class AdmController {
     criar(req: any, res: any) {
         try {
             const { matricula, nome, unidade, status } = req.body;
-            this.admRepository.criar({ matricula, nome, unidade, status })
+            this.admRepository.criar( matricula, nome, unidade, status )
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error. message)

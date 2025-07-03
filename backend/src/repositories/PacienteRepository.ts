@@ -1,26 +1,15 @@
-import { InterfaceInfoPaciente } from "../models/interfaces/InterfacePaciente";
-import { InterfacePaciente } from "../models/interfaces/InterfacePaciente";
-import { InterfaceDbPaciente } from "../models/interfaces/InterfacePaciente";
-
 //knex
 import knex from 'knex';
 import knexConfig from "../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'paciente'
 
+
 export class PacienteRepository {
-    async criar(dados: InterfaceInfoPaciente) {
+    async criar(cpf: any, nome: any, dt_nasc: any, genero: any, endereco: any, telefone: any, observacao: any) {
         try {
 
-            const cpf = dados.cpf;
-            const nome = dados.nome;
-            const dt_nasc = dados.dt_nasc;
-            const genero = dados.genero;
-            const endereco = dados.endereco;
-            const telefone = dados.telefone;
-            const observacao = dados.observacao;
-
-            const [result] = await db(bd).insert([ cpf, nome, dt_nasc, genero, endereco, telefone, observacao
+            const [result] = await db(bd).insert([cpf, nome, dt_nasc, genero, endereco, telefone, observacao
             ])
 
             return result
@@ -33,26 +22,20 @@ export class PacienteRepository {
         return await db(bd).select('cpf', 'nome', 'genero', 'dt_nasc', 'endereco', 'telefone')
     }
 
-    async update(id: number, dados: InterfacePaciente) {
-        const paciente: InterfaceDbPaciente = await db(bd).where({ id }).first();
+    async update(id: number, dados: any) {
+        const paciente = await db(bd).where({ id }).first();
         if (!paciente) {
             throw new Error('Paciente não Encontrado');
         }
 
-        const dadosPaciente = paciente;
-        const update = dados.dadosPaciente;
-
-        const updatedPaciente = {
-            cpf: update.cpf ?? dadosPaciente.cpf,
-            nome: update.nome ?? dadosPaciente.nome,
-            dt_nasc: update.dt_nasc ?? dadosPaciente.dt_nasc,
-            genero: update.genero ?? dadosPaciente.genero,
-            endereco: update.endereco ?? dadosPaciente.endereco,
-            telefone: update.telefone ?? dadosPaciente.telefone,
-            obs: update.observacao ?? dadosPaciente.observacao
+        const atualizacao = {
+            nome: dados.nome ?? paciente.nome,
+            endereco: dados.endereco ?? paciente.endereco,
+            telefone: dados.telefone ?? paciente.telefone,
+            observacao: dados.observacao ?? paciente.observacao
         }
 
-        return await db(bd).where({ id }).update(updatedPaciente);
+        return await db(bd).where({ id }).update(atualizacao);
     }
 
     async deletar(id: number) {

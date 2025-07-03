@@ -11,7 +11,7 @@ export class DiretorController {
     criar(req: any, res: any) {
         try {
             const { matricula, nome, unidade, status } = req.body;
-            this.diretorRepository.criar({ matricula, nome, unidade, status })
+            this.diretorRepository.criar( matricula, nome, unidade, status )
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error. message)

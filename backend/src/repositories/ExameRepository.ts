@@ -7,15 +7,8 @@ const db = knex(knexConfig.development);
 const bd: string = 'exame';
 
 export class ExameRepository {
-    async criar(dados: InterfaceExame) {
+    async criar(boletim_ocorrencia: any, tipo_exame: any, status: any, obs: any, id_paciente: any) {
         try {
-
-            const boletim_ocorrencia: string = dados.dados.boletim_ocorrencia;
-            const tipo_exame: string = dados.dados.tipo_exame;
-            const status: string = dados.dados.status;
-            const obs: string = dados.dados.obs;
-            const id_paciente: number = dados.id_paciente;
-
 
             const [result] = await db(bd).insert([
                 boletim_ocorrencia, tipo_exame, status, obs, id_paciente

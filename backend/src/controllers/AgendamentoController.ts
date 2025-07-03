@@ -11,7 +11,7 @@ export class AgendamentoController {
     criar(req: any, res: any) {
         try {
             const { dt_agendamento, id_paciente, id_atendente, id_unidade } = req.body;
-            this.agendamentoRepository.criar({ dt_agendamento, id_paciente, id_atendente, id_unidade })
+            this.agendamentoRepository.criar( dt_agendamento, id_paciente, id_atendente, id_unidade )
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error. message)

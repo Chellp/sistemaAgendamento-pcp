@@ -8,15 +8,9 @@ const db = knex(knexConfig.development);
 const bd: string = 'perfil'
 
 export class PerfilRepository {
-    async criar(dadosPerfil: InterfaceInfoPerfil) {
+    async criar(matricula: any, nome: any, unidade: any, tipoPerfil: any) {
         try {
-            //
-            const [result]: InterfacePerfil[] = await db(bd).insert([
-                dadosPerfil.matricula,
-                dadosPerfil.nome,
-                dadosPerfil.unidade,
-                dadosPerfil.tipoPerfil
-            ]);
+            const [result] = await db(bd).insert([matricula, nome, unidade, tipoPerfil]);
             return result
         } catch (error: any) {
             throw new Error(error.message)
@@ -25,6 +19,42 @@ export class PerfilRepository {
 
     async listar() {
         return await db(bd).select('unidade', 'id', 'nome', 'tipo_perfil', 'status');
+    }
+
+    async getId(
+        id: number,
+        nomeTabela: 'atendente' | 'examinador' | 'administrador' | 'diretor'
+    ) {
+        try {
+            const perfil = await db(nomeTabela).select('id_perfil').where({ id }).first();
+            return perfil
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
+
+    async update(id: number, dados: any) {
+        const perfil = await db(bd).where({ id }).first();
+        if (!perfil) {
+            throw new Error('Perfil não Encontrado');
+        }
+
+        const atualizacao = {
+            nome: dados.nome ?? perfil.nome,
+            unidade: dados.unidade ?? perfil.unidade,
+            status: dados.status ?? perfil.status,
+        }
+
+        //const result = await db(bd).where({ id }).update(atualizacao);
+        return atualizacao
+    }
+
+    async deletar(id: number) {
+        try {
+            return await db(bd).where({ id }).delete();
+        } catch (error) {
+            throw new Error('Erro ao deletar Perfil');
+        }
     }
 
 }
