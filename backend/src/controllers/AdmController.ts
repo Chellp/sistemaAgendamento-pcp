@@ -2,7 +2,7 @@ import { MsgController } from "."; const msg = new MsgController('Admnistrador')
 
 export class AdmController {
 
-    admRepository: any;
+    private admRepository: any;
 
     constructor(admRepository: any) {
         this.admRepository = admRepository
