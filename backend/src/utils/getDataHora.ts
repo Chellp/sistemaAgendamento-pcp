@@ -1,6 +1,6 @@
 export default class getDataHora{
 
-    data(data: Date): string{
+    data(): string{
         const dataFormatada = new Date().toLocaleDateString();
         return dataFormatada;
     }

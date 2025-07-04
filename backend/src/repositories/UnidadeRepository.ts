@@ -1,4 +1,3 @@
-import { InterfaceCriarUnidade } from "../models/interfaces/InterfaceUnidade";
 
 //knex
 import knex from 'knex';
@@ -7,7 +6,7 @@ const db = knex(knexConfig.development);
 const bd: string = 'unidade';
 
 export class UnidadeRepository{
-    async criar(dados: InterfaceCriarUnidade){
+    async criar(dados: any){
         try {
 
             const nome: string = dados.nome;

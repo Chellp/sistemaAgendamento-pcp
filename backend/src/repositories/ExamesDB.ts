@@ -1,4 +1,4 @@
-import { InterfaceExames, examesDB } from "../models/interfaces/InterfaceExame";
+/* import { InterfaceExames, examesDB } from "../models/interfaces/InterfaceExame";
 
 export default class ExamesDB {
 
@@ -70,4 +70,4 @@ export default class ExamesDB {
 
     //add pesquisar por idade e outras infromações que serão calculadas, ex; data e hora que precisarão ser extraidos
 
-}
+} */

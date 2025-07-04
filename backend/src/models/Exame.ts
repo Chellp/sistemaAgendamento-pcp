@@ -1,4 +1,4 @@
-import { InterfaceExames } from "./interfaces/InterfaceExame";
+/* import { InterfaceExame } from "./interfaces/InterfaceExame";
 import ExamesDB from "../repositories/ExamesDB"; const examesDB = new ExamesDB();
 import getDataHora from "../utils/getDataHora";; const getdatahora = new getDataHora();
 import calcularIdade from "../utils/calcularIdade";
@@ -64,4 +64,4 @@ export default class Exames {
 
     getExamesStatus(status: "Concluido" | "Pendente" | "Cancelado"): InterfaceExames[] { return examesDB.getExamesStatus(status); }
 
-}
+} */
