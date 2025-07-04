@@ -5,19 +5,30 @@
   "type": "module",
   "scripts": {
     "test": "echo Sistema Agendamento",
-    "start": "node ./src/server.ts"
+    "build": "webpack --mode production",
+    "dev": "webpack serve --config webpack.config.js --mode development",
+    "start": "npm run dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.4",
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.6.3",
+    "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
+    "@types/webpack-env": "^1.18.8",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "knex": "^3.1.0",
     "sqlite3": "^5.1.7"
