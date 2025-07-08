@@ -1,7 +1,3 @@
-node_modules/
-./src/dist
-./webpackconfigcommonjs.js
-
 # Logs
 logs
 *.log
@@ -11,8 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-src/node_modules
+node_modules
 dist
+./src/dist
 dist-ssr
 *.local
 

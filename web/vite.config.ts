@@ -6,8 +6,11 @@ export default defineConfig({
         port: 5173,           // Porta do servidor de desenvolvimento
         open: true,           // Abrir o navegador automaticamente
         proxy: {
-            '/api': 'http://localhost:3000',  // Proxy para o seu backend (API)
-        },
+            '/api': {
+            target: 'http://localhost:3001',  // Proxy para o seu backend (API)
+            changeOrigin: true, // faz parecer que a requisição vem diretamente do frontend
+            secure: false, // ignora problemas de HTTPS (em desenvolvimento)
+        },}
     },
     build: {
         outDir: 'dist',       // Pasta onde o build será gerado

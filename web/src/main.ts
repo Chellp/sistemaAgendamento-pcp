@@ -2,7 +2,7 @@
 async function getMessage() {
   try {
     // Requisição usando await
-    const response = await fetch('/api/saudacao');
+    const response = await fetch('/api/message');
     
     // Verificar se a resposta é bem-sucedida
     if (!response.ok) {
