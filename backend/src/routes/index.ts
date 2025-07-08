@@ -9,6 +9,7 @@ import exameRouter from './exame.routes'
 import examinadorRouter from './examinador.routes';
 import pacienteRouter from './paciente.routes'
 import perfilRouter from './perfil.routes'
+import unidadeRouter from './unidade.routes'
 /* import relatorioRouter from './relatorio.routes'
 import relatorioDiarioRouter from './relatorioDiario.routes'
 import relatorioSemanalRouter from './relatorioSemanal.routes'
@@ -25,10 +26,11 @@ router.use(`${rota}/adm`, admRouter);
 router.use(`${rota}/agendamento`, agRouter);
 router.use(`${rota}/atendente`, atRouter);
 router.use(`${rota}/diretor`, diretorRouter);
-router.use(`${rota}/produtos`, exameRouter);
-router.use(`${rota}/produtos`, examinadorRouter);
-router.use(`${rota}/produtos`, pacienteRouter);
-router.use(`${rota}/produtos`, perfilRouter);
+router.use(`${rota}/exame`, exameRouter);
+router.use(`${rota}/examinador`, examinadorRouter);
+router.use(`${rota}/paciente`, pacienteRouter);
+router.use(`${rota}/perfil`, perfilRouter);
+router.use(`${rota}/unidade`, unidadeRouter);
 /* router.use(`${rota}/produtos`, relatorioRouter);
 router.use(`${rota}/produtos`, relatorioDiarioRouter);
 router.use(`${rota}/produtos`, relatorioSemanalRouter);

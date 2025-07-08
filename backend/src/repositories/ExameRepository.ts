@@ -2,7 +2,7 @@ import { InterfaceExame } from "../models/interfaces/InterfaceExame";
 
 //knex
 import knex from 'knex';
-import knexConfig from "../../knexfile";
+import knexConfig from "../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'exame';
 

@@ -4,7 +4,7 @@ const perfilRepository = new PerfilRepository()
 
 //knex
 import knex from 'knex';
-import knexConfig from "../../knexfile";
+import knexConfig from "../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'examinador';
 
