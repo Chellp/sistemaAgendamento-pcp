@@ -8,7 +8,7 @@ export default defineConfig({
         proxy: {
             '/api': {
             target: 'http://localhost:3001',  // Proxy para o seu backend (API)
-            changeOrigin: true, // faz parecer que a requisição vem diretamente do frontend
+            //changeOrigin: true, // faz parecer que a requisição vem diretamente do frontend
             secure: false, // ignora problemas de HTTPS (em desenvolvimento)
         },}
     },
