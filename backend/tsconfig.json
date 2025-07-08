@@ -9,5 +9,5 @@
     "outDir": "./src/dist",
     "rootDir": "./src"
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "knexfile.ts"]
 }

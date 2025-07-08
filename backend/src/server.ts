@@ -1,12 +1,12 @@
-import 'core-js/stable';          // Para garantir que todos os polyfills necessários estão disponíveis
-import 'regenerator-runtime/runtime';  // Necessário para usar `async/await`
-
+import 'core-js/stable';                // Para garantir que todos os polyfills necessários estão disponíveis
+import 'regenerator-runtime/runtime';   // Necessário para usar `async/await`
 
 import express, { Request, Response } from 'express';
-//import router from './routes/index';
 import cors from 'cors';
+import router from './routes/index';
 
 const app = express(); //criação de endpoints
+const port = 3001
 
 // Permite todas as origens por padrão
 //app.use(cors());
@@ -23,9 +23,9 @@ app.get('/api/message', (req: Request, res: Response) => {
   res.json({ message: 'Olá do backend!' });
 });
 
-//app.use(router);
+app.use(router);
 
 //inicializar servidor
-app.listen(3001, () => {
-  console.log('Servidor Iniciado na porta de 3001');
+app.listen(port, () => {
+  console.log(`Servidor Iniciado na porta de ${port}`);
 })

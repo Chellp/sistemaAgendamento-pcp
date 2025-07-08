@@ -4,13 +4,13 @@ const knexConfig: { [key: string]: Knex.Config } = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './dev.sqlite3',
+      filename: './src/db/app.db',
     },
     migrations: {
-      directory: './db/migrations',
+      directory: './src/db/migrations',
     },
     seeds: {
-      directory: './db/seeds',
+      directory: './src/db/seeds',
     },
     useNullAsDefault: true, // necessário para sqlite
   }
