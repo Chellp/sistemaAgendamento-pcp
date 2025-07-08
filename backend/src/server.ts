@@ -1,4 +1,8 @@
-import express,  { Request, Response } from 'express';
+import 'core-js/stable';          // Para garantir que todos os polyfills necessários estão disponíveis
+import 'regenerator-runtime/runtime';  // Necessário para usar `async/await`
+
+
+import express, { Request, Response } from 'express';
 //import router from './routes/index';
 import cors from 'cors';
 
@@ -22,6 +26,6 @@ app.get('/api/message', (req: Request, res: Response) => {
 //app.use(router);
 
 //inicializar servidor
-app.listen(3000, () => {
-    console.log('Servidor Iniciado na porta de 3000');
+app.listen(3001, () => {
+  console.log('Servidor Iniciado na porta de 3001');
 })
