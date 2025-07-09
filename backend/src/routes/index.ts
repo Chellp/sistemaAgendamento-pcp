@@ -1,4 +1,5 @@
-import express from 'express';
+import { Router } from 'express';
+const router = Router();
 
 //importação das rotas
 import admRouter from './adm.routes';
@@ -17,7 +18,6 @@ import relatorioMensalRouter from './relatorioMensal.routes'
 import relatorioAnualRouter from './relatorioAnual.routes'
  */
 
-const router = express();
 
 //rotas
 const rota = '/api';

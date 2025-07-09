@@ -8,34 +8,34 @@ export class UnidadeController {
         this.unidadeRepository = unidadeRepository
     }
 
-    criar(req: any, res: any) {
+    async criar(req: any, res: any) {
         try {
-            const { matricula, nome, unidade, tipoPerfil } = req.body;
-            this.unidadeRepository.criar(matricula, nome, unidade, tipoPerfil)
+            const { nome, estado, cidade } = req.body;
+            await this.unidadeRepository.criar(nome, estado, cidade)
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error.message)
         }
     }
 
-    listar(req: any, res: any) {
-        this.unidadeRepository.listar()
-        res.status(200)
+    async listar(req: any, res: any) {
+        const lista = await this.unidadeRepository.listar()
+        res.status(200).json(lista)
     }
 
     // uso restrito
-    update(req: any, res: any) {
+    async update(req: any, res: any) {
         try {
             const { id } = req.params;
-            const { nome, estado, cidade} = req.body;
-            const unidade = this.unidadeRepository.listarID(id)
+            const { nome, estado, cidade } = req.body;
 
-            unidade.nome = nome ?? unidade.nome;
-            unidade.estado = estado ?? unidade.estado;
-            unidade.cidade = cidade ?? unidade.cidade;
+            const dados = {
+                nome: nome,
+                estado: estado,
+                cidade: cidade
+            }
 
-            this.unidadeRepository(id, unidade)
-
+            await this.unidadeRepository.update(id, dados)
             res.status(201).json(msg.atualizado())
         } catch (error: any) {
             throw new Error(error.message)
@@ -43,10 +43,10 @@ export class UnidadeController {
     }
 
     // uso restrito
-    deletar(req: any, res: any) {
+    async deletar(req: any, res: any) {
         try {
             const { id } = req.params;
-            this.unidadeRepository.deletar(id)
+            await this.unidadeRepository.deletar(id)
             res.status(204).json(msg.removido())
         } catch (error: any) {
             throw new Error(error.message)

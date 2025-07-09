@@ -8,46 +8,53 @@ export class AdmController {
         this.admRepository = admRepository
     }
 
-    criar(req: any, res: any) {
+    async criar(req: any, res: any) {
         try {
-            const { matricula, nome, unidade, status } = req.body;
-            this.admRepository.criar( matricula, nome, unidade, status )
+            const { matricula, nome, id_unidade, status } = req.body;
+            await this.admRepository.criar(matricula, nome, id_unidade, status)
             res.status(201).json(msg.criado())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 
-    listar(req: any, res: any) {
-        this.admRepository.listar()
+    async listar(req: any, res: any) {
+        const adms = await this.admRepository.listar()
+        console.log(adms);
+        
+        res.status(200).json(adms)
+    }
+    async getID(req: any, res: any) {
+        const { id } = req.params;
+        await this.admRepository.getID(id)
         res.status(200)
     }
 
-    update(req: any, res: any) {
+    async update(req: any, res: any) {
         try {
-            const {id} = req.params;
-            const {nome, unidade , status} = req.body;
-            const adm = this.admRepository.listarID(id)
+            const { id } = req.params;
+            const { nome, unidade, status } = req.body;
+            const adm = await this.admRepository.listarID(id)
 
             adm.nome = nome ?? adm.nome;
             adm.unidade = unidade ?? adm.unidade;
             adm.status = status ?? adm.status;
 
-            this.admRepository(id, adm)
+            await this.admRepository.update(id, adm)
 
             res.status(201).json(msg.atualizado())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 
-    deletar(req: any, res: any) {
-         try {
-            const {id} = req.params;
-            this.admRepository.deletar(id)
+    async deletar(req: any, res: any) {
+        try {
+            const { id } = req.params;
+            await this.admRepository.deletar(id)
             res.status(204).json(msg.removido())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 }

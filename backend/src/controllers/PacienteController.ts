@@ -8,44 +8,44 @@ export class PacienteController {
         this.pacienteRepository = pacienteRepository
     }
 
-    criar(req: any, res: any) {
+    async criar(req: any, res: any) {
         try {
             const { cpf, nome, dt_nasc, genero, endereco, telefone, observacao } = req.body;
-            this.pacienteRepository.criar(cpf, nome, dt_nasc, genero, endereco, telefone, observacao)
+            await this.pacienteRepository.criar(cpf, nome, dt_nasc, genero, endereco, telefone, observacao)
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error.message)
         }
     }
 
-    listar(req: any, res: any) {
-        this.pacienteRepository.listar()
-        res.status(200)
+    async listar(req: any, res: any) {
+        const lista = await this.pacienteRepository.listar()
+        res.status(200).json(lista)
     }
 
-    update(req: any, res: any) {
+    async update(req: any, res: any) {
         try {
             const { id } = req.params;
             const { nome, endereco, telefone, observacao } = req.body;
-            const paciente = this.pacienteRepository.listarID(id)
 
-            paciente.nome = nome ?? paciente.nome;
-            paciente.endereco = endereco ?? paciente.endereco;
-            paciente.telefone = telefone ?? paciente.telefone;
-            paciente.observacao = observacao ?? paciente.observacao;
+            const dados = {
+                nome: nome,
+                endereco: endereco,
+                telefone: telefone,
+                observacao: observacao
+            }
 
-            this.pacienteRepository(id, paciente)
-
+            await this.pacienteRepository.update(id, dados)
             res.status(201).json(msg.atualizado())
         } catch (error: any) {
             throw new Error(error.message)
         }
     }
 
-    deletar(req: any, res: any) {
+    async deletar(req: any, res: any) {
         try {
             const { id } = req.params;
-            this.pacienteRepository.deletar(id)
+            await this.pacienteRepository.deletar(id)
             res.status(204).json(msg.removido())
         } catch (error: any) {
             throw new Error(error.message)

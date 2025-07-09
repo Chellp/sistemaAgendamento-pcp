@@ -4,7 +4,7 @@ const perfilRepository = new PerfilRepository()
 
 //knex
 import knex from 'knex';
-import knexConfig from "../knexfile";
+import knexConfig from "../../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'examinador';
 
@@ -32,6 +32,9 @@ export class ExaminadorRepository {
         }
     }
 
+    async getID(id: number) {
+        return await db(bd).where({ id }).first();
+    }
 
     async listar() {
         return await db(bd).select('unidade', 'cod', 'nome', 'tipo_perfil', 'status');

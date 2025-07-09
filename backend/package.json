@@ -11,7 +11,7 @@
     "clean": true
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup src/server.ts --format esm,cjs --target node18",
     "dev": "tsup --watch",
     "start": "node dist/server.js"
   },
@@ -22,7 +22,9 @@
   "dependencies": {
     "core-js": "^3.44.0",
     "express": "^5.1.0",
-    "regenerator-runtime": "^0.14.1"
+    "knex": "^3.1.0",
+    "regenerator-runtime": "^0.14.1",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

@@ -4,46 +4,56 @@ const perfilRepository = new PerfilRepository()
 
 //knex
 import knex from 'knex';
-import knexConfig from "../knexfile";
+import knexConfig from "../../knexfile";
 const db = knex(knexConfig.development);
 
 const bd: string = 'adm';
 
 export class AdmRepository {
-    async criar(matricula: string, nome: string, id_unidade: number, status: boolean, tipoPerfil: string = 'ADMINISTRADOR') {
+    async criar(matricula: string, nome: string, id_unidade: number, status: boolean) {
         try {
 
             if (!matricula || !nome || !id_unidade || !status) {
-                throw new Error('Preencha todos os Campos!')
+                throw new Error(`Preencha todos os Campos!
+                    matricula: ${matricula}, nome: ${nome}, id_unidade: ${id_unidade}, status: ${status}`)
             }
 
-            // criando perfil genérico
-            const [result]: InterfacePerfil[] = await db('perfil').insert([
-                matricula, nome, id_unidade, status, tipoPerfil
-            ]);
+            const tipo_perfil: string = 'ADMINISTRADOR'
 
-            //criando perfil de admnistrador
-            const id_perfil: any = result.id;
-            let diretorDb: any = await db(bd).insert([id_perfil]);
+            // Criar perfil
+            const [id]: number[] = await db('perfil')
+                .insert({
+                    matricula,
+                    nome,
+                    unidade: id_unidade,
+                    status,
+                    tipo_perfil
+                });
 
-            return diretorDb.result
+            // Criar administrador vinculado ao perfil
+            await db(bd).insert({ id_perfil: id });
+
+            return { id };
 
         } catch (error: any) {
             throw new Error(error.message);
         }
     }
-
-    async listarTodos() {
-        return await db(bd).select('unidade', 'cod', 'nome', 'tipo_perfil', 'status');
+    
+    async getID(id: number) {
+        return await db(bd).where({ id }).first();
     }
 
-    async listarID(id: number) {
-        const adm = await db(bd).where({ id });
-        if(!adm) {
-            throw new Error(' Administrador não Encontrado!')
-        }
-
-        return adm;
+    async listar() {
+        return await db(bd).select(
+            'u.nome',
+            `${bd}.cod`,
+            'p.nome',
+            'p.tipo_perfil',
+            'p.status'
+        )
+            .join('perfil as p', 'p.id', `${bd}.id_perfil`)
+            .join('unidade as u', 'u.id', `p.unidade`);
     }
 
     async update(id: number, dados: any) {

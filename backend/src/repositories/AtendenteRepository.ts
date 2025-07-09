@@ -4,7 +4,7 @@ const perfilRepository = new PerfilRepository()
 
 //knex
 import knex from 'knex';
-import knexConfig from "../knexfile";
+import knexConfig from "../../knexfile";
 const db = knex(knexConfig.development);
 
 const bd: string = 'atendente';
@@ -31,6 +31,10 @@ export class AtendenteRepository {
         } catch (error: any) {
             throw new Error(error.message);
         }
+    }
+
+    async getID(id: number) {
+        return await db(bd).where({ id }).first();
     }
 
     async listar() {

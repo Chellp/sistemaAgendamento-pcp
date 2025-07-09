@@ -1,6 +1,6 @@
 //knex
 import knex from 'knex';
-import knexConfig from "../knexfile";
+import knexConfig from "../../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'paciente'
 
@@ -9,8 +9,8 @@ export class PacienteRepository {
     async criar(cpf: any, nome: any, dt_nasc: any, genero: any, endereco: any, telefone: any, observacao: any) {
         try {
 
-            const [result] = await db(bd).insert([cpf, nome, dt_nasc, genero, endereco, telefone, observacao
-            ])
+            const [result] = await db(bd).insert({cpf, nome, dt_nasc, genero, endereco, telefone, observacao
+        })
 
             return result
         } catch (error: any) {
@@ -18,12 +18,17 @@ export class PacienteRepository {
         }
     }
 
+    async getID(id: number) {
+        return await db(bd).where({ id }).first();
+    }
+
     async listar() {
-        return await db(bd).select('cpf', 'nome', 'genero', 'dt_nasc', 'endereco', 'telefone')
+        return await db(bd).select('id', 'cpf', 'nome', 'genero', 'dt_nasc', 'endereco', 'telefone', 'observacao')
     }
 
     async update(id: number, dados: any) {
-        const paciente = await db(bd).where({ id }).first();
+        const paciente = await this.getID(id);
+
         if (!paciente) {
             throw new Error('Paciente não Encontrado');
         }

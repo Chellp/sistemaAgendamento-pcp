@@ -3,7 +3,7 @@ import { InterfaceInfoPerfil } from "../models/interfaces/InterfacePerfil";
 
 //knex
 import knex from 'knex';
-import knexConfig from "../knexfile";
+import knexConfig from "../../knexfile";
 
 const db = knex(knexConfig.development);
 const bd: string = 'perfil'
@@ -24,7 +24,7 @@ export class PerfilRepository {
 
     async getId(
         id: number,
-        nomeTabela: 'atendente' | 'examinador' | 'administrador' | 'diretor'
+        nomeTabela: 'atendente' | 'examinador' | 'adm' | 'diretor'
     ) {
         try {
             const perfil = await db(nomeTabela).select('id_perfil').where({ id }).first();

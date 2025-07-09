@@ -2,7 +2,7 @@ import { InterfaceExame } from "../models/interfaces/InterfaceExame";
 
 //knex
 import knex from 'knex';
-import knexConfig from "../knexfile";
+import knexConfig from "../../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'exame';
 
@@ -20,6 +20,10 @@ export class ExameRepository {
         }
     }
 
+    async getID(id: number) {
+        return await db(bd).where({ id }).first();
+    }
+
     async listar(id: number) {
         return await db(`${bd} as e`)
             .join('paciente as p', 'e.id_paciente', 'p.id')
@@ -30,14 +34,14 @@ export class ExameRepository {
                 'tipo_exame',
                 'status',
                 'obs',
-                )
+            )
             .where('e.id', id).first();
     }
 
     async atualizar(id: number, dados: InterfaceExame) {
         try {
-            const exame: InterfaceExame = await db(bd).where({id}).first();
-            if(!exame){
+            const exame: InterfaceExame = await db(bd).where({ id }).first();
+            if (!exame) {
                 throw new Error('Exame não Encontrado!')
             }
 
@@ -51,7 +55,7 @@ export class ExameRepository {
                 dt_atendimento: dados.dt_atendimento ?? exame.dt_atendimento,
             }
 
-            return await db(bd).where({id}).update(updatedExame)
+            return await db(bd).where({ id }).update(updatedExame)
 
         } catch (error: any) {
             throw new Error(error.message);

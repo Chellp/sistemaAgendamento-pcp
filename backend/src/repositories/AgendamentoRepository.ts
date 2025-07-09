@@ -2,7 +2,7 @@
 
 //knex
 import knex from 'knex';
-import knexConfig from "../knexfile";
+import knexConfig from "../../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'agendamento';
 
@@ -18,6 +18,10 @@ export class AgendamentoRepository{
         } catch (error: any) {
             throw new Error(error.message)
         }
+    }
+
+    async getID(id: number) {
+        return await db(bd).where({ id }).first();
     }
 
     async listar(){

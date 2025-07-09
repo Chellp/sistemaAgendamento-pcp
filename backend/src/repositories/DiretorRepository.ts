@@ -3,7 +3,7 @@ import { PerfilRepository } from "./PerfilRepository";
 const perfilRepository = new PerfilRepository()
 //knex
 import knex from 'knex';
-import knexConfig from "../knexfile";
+import knexConfig from "../../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'diretor';
 
@@ -12,7 +12,7 @@ export class DiretorRepository {
     async criar(matricula: string, nome: string, id_unidade: number, status: boolean, tipoPerfil: string = 'DIRETOR') {
         try {
 
-             if (!matricula || !nome || !id_unidade || !status) {
+            if (!matricula || !nome || !id_unidade || !status) {
                 throw new Error('Preencha todos os Campos!')
             }
 
@@ -22,13 +22,17 @@ export class DiretorRepository {
             ]);
 
             //criando perfil de diretor
-            const id_perfil:any = result.id;
-            let diretorDb: any = await db(bd).insert([ id_perfil ])
+            const id_perfil: any = result.id;
+            let diretorDb: any = await db(bd).insert([id_perfil])
 
             return diretorDb.result
         } catch (error: any) {
             throw new Error(error.message);
         }
+    }
+
+    async getID(id: number) {
+        return await db(bd).where({ id }).first();
     }
 
     async listar() {

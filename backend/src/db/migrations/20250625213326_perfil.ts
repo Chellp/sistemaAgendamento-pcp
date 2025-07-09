@@ -7,7 +7,8 @@ export async function up(knex: Knex): Promise<void> {
         table.integer('matricula').notNullable();
         table.string('nome').notNullable();
         table.boolean('status').notNullable();
-        table.integer('unidade').notNullable(); //fk unidade
+        table.integer('unidade').notNullable()
+            .references('id').inTable('unidade'); //fk unidade
         table.enu('tipo_perfil', ['ATENDENTE', 'EXAMINADOR', 'ADMINISTRADOR', 'DIRETOR']).notNullable();
     });
 }
