@@ -8,46 +8,46 @@ export class AtendenteController {
         this.atendenteRepository = atendenteRepository
     }
 
-    criar(req: any, res: any) {
+    async criar(req: any, res: any) {
         try {
-            const { matricula, nome, unidade, status } = req.body;
-            this.atendenteRepository.criar( matricula, nome, unidade, status )
+            const { matricula, nome, id_unidade, status } = req.body;
+            await this.atendenteRepository.criar(matricula, nome, id_unidade, status)
             res.status(201).json(msg.criado())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 
-    listar(req: any, res: any) {
-        this.atendenteRepository.listar()
-        res.status(200)
+    async listar(req: any, res: any) {
+        const lista = await this.atendenteRepository.listar()
+        res.status(200).json(lista);
     }
 
-    update(req: any, res: any) {
+    async update(req: any, res: any) {
         try {
-            const {id} = req.params;
-            const {nome, unidade , status} = req.body;
-            const atendente = this.atendenteRepository.listarID(id)
+            const { id } = req.params;
+            const { nome, unidade, status } = req.body;
 
-            atendente.nome = nome ?? atendente.nome;
-            atendente.unidade = unidade ?? atendente.unidade;
-            atendente.status = status ?? atendente.status;
-
-            this.atendenteRepository(id, atendente)
+            const dados = {
+                nome: nome,
+                unidade: unidade,
+                status: status
+            }
+            await this.atendenteRepository.update(id, dados)
 
             res.status(201).json(msg.atualizado())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 
-    deletar(req: any, res: any) {
-         try {
-            const {id} = req.params;
-            this.atendenteRepository.deletar(id)
+    async deletar(req: any, res: any) {
+        try {
+            const { id } = req.params;
+            await this.atendenteRepository.deletar(id)
             res.status(204).json(msg.removido())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 }

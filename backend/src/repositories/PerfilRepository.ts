@@ -1,6 +1,3 @@
-import { InterfacePerfil } from "../models/interfaces/InterfacePerfil";
-import { InterfaceInfoPerfil } from "../models/interfaces/InterfacePerfil";
-
 //knex
 import knex from 'knex';
 import knexConfig from "../../knexfile";
@@ -9,9 +6,23 @@ const db = knex(knexConfig.development);
 const bd: string = 'perfil'
 
 export class PerfilRepository {
-    async criar(matricula: any, nome: any, unidade: any, tipoPerfil: any) {
+    async criar(matricula: any, nome: any, unidade: any, status: any, tipoPerfil: any) {
         try {
-            const [result] = await db(bd).insert([matricula, nome, unidade, tipoPerfil]);
+
+            console.log(matricula, nome, status, tipoPerfil, unidade);
+            
+
+            const tipo_perfil= tipoPerfil;
+            console.log(tipo_perfil);
+            
+            const statusBoolean = status === 'true' || status === true;
+
+            const [result] = await db(bd).insert({
+                matricula, 
+                nome, 
+                status: statusBoolean, 
+                tipo_perfil, 
+                unidade});
             return result
         } catch (error: any) {
             throw new Error(error.message)
@@ -24,10 +35,9 @@ export class PerfilRepository {
 
     async getId(
         id: number,
-        nomeTabela: 'atendente' | 'examinador' | 'adm' | 'diretor'
     ) {
         try {
-            const perfil = await db(nomeTabela).select('id_perfil').where({ id }).first();
+            const perfil = await db(bd).where({ id }).first();
             return perfil
         } catch (error: any) {
             throw new Error(error.message);
@@ -35,7 +45,7 @@ export class PerfilRepository {
     }
 
     async update(id: number, dados: any) {
-        const perfil = await db(bd).where({ id }).first();
+        const perfil = await this.getId(id);
         if (!perfil) {
             throw new Error('Perfil não Encontrado');
         }
@@ -46,8 +56,7 @@ export class PerfilRepository {
             status: dados.status ?? perfil.status,
         }
 
-        //const result = await db(bd).where({ id }).update(atualizacao);
-        return atualizacao
+        return await db(bd).where({ id }).update(atualizacao);
     }
 
     async deletar(id: number) {

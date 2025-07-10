@@ -8,46 +8,46 @@ export class DiretorController {
         this.diretorRepository = diretorRepository
     }
 
-    criar(req: any, res: any) {
+    async criar(req: any, res: any) {
         try {
-            const { matricula, nome, unidade, status } = req.body;
-            this.diretorRepository.criar( matricula, nome, unidade, status )
+            const { matricula, nome, id_unidade, status } = req.body;
+            await this.diretorRepository.criar(matricula, nome, id_unidade, status)
             res.status(201).json(msg.criado())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 
-    listar(req: any, res: any) {
-        this.diretorRepository.listar()
-        res.status(200)
+    async listar(req: any, res: any) {
+        const lista = await this.diretorRepository.listar()
+        res.status(200).json(lista)
     }
 
-    update(req: any, res: any) {
+    async update(req: any, res: any) {
         try {
-            const {id} = req.params;
-            const {nome, unidade , status} = req.body;
-            const diretor = this.diretorRepository.listarID(id)
+            const { id } = req.params;
+            const { nome, unidade, status } = req.body;
 
-            diretor.nome = nome ?? diretor.nome;
-            diretor.unidade = unidade ?? diretor.unidade;
-            diretor.status = status ?? diretor.status;
-
-            this.diretorRepository(id, diretor)
+            const dados = {
+                nome: nome,
+                unidade: unidade,
+                status: status
+            }
+            await this.diretorRepository.update(id, dados)
 
             res.status(201).json(msg.atualizado())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 
-    deletar(req: any, res: any) {
-         try {
-            const {id} = req.params;
-            this.diretorRepository.deletar(id)
+    async deletar(req: any, res: any) {
+        try {
+            const { id } = req.params;
+            await this.diretorRepository.deletar(id)
             res.status(204).json(msg.removido())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 }

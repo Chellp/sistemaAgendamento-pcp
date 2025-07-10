@@ -1,4 +1,3 @@
-import { InterfacePerfil } from "../models/interfaces/InterfacePerfil";
 import { PerfilRepository } from "./PerfilRepository";
 const perfilRepository = new PerfilRepository()
 //knex
@@ -9,59 +8,67 @@ const bd: string = 'diretor';
 
 
 export class DiretorRepository {
-    async criar(matricula: string, nome: string, id_unidade: number, status: boolean, tipoPerfil: string = 'DIRETOR') {
+    async criar(matricula: string, nome: string, id_unidade: number, status: boolean) {
         try {
 
             if (!matricula || !nome || !id_unidade || !status) {
-                throw new Error('Preencha todos os Campos!')
+                throw new Error(`Preencha todos os Campos!
+                    matricula: ${matricula}, nome: ${nome}, id_unidade: ${id_unidade}, status: ${status}`)
             }
 
-            // criando perfil genérico
-            const [result]: InterfacePerfil[] = await db('perfil').insert([
-                matricula, nome, id_unidade, status, tipoPerfil
-            ]);
+            const tipo_perfil: string = 'DIRETOR';
 
-            //criando perfil de diretor
-            const id_perfil: any = result.id;
-            let diretorDb: any = await db(bd).insert([id_perfil])
+            // Criar perfil
+            const [id]: number[] = await db('perfil')
+                .insert({
+                    matricula,
+                    nome,
+                    unidade: id_unidade,
+                    status,
+                    tipo_perfil
+                });
 
-            return diretorDb.result
+            // Criar administrador vinculado ao perfil
+            await db(bd).insert({ id_perfil: id });
+
+            return { id };
         } catch (error: any) {
             throw new Error(error.message);
         }
     }
 
-    async getID(id: number) {
-        return await db(bd).where({ id }).first();
+    async getID(id_perfil: number) {
+        return await db(bd).where({ id_perfil }).first();
     }
 
     async listar() {
-        return await db(bd).select('unidade', 'cod', 'nome', 'tipo_perfil', 'status');
+        const lista = await db(bd).select(
+            `${bd}.cod`,
+            'p.id as idPerfil',
+            'p.nome',
+            'p.tipo_perfil',
+            'p.status'
+        )
+            .join('perfil as p', 'p.id', `${bd}.id_perfil`);
+
+        return lista
     }
 
     async update(id: number, dados: any) {
-        const perfilDiretor = await db(bd).where({ id }).first();
+        const perfilDiretor = await this.getID(id);
         if (!perfilDiretor) {
             throw new Error('Perfil de Diretor não Encontrado!');
         }
 
-        //buscar perfil principal
-        const id_Perfil = perfilDiretor.id_Perfil;
-        const perfil = await perfilRepository.update(id_Perfil, dados);
-
-        //deixar em um único objeto para agrupar os atributos únicos do tipo de perfil (caso necessário)
-        const atualizacao = {
-            nome: perfil.nome,
-            unidade: perfil.unidade,
-            status: perfil.status,
-        }
-
-        return await db('perfil').where('id_perfil', id_Perfil).update(atualizacao);
+        //atualizar perfil principal
+        await perfilRepository.update(id, dados);
+        return await db(bd).select('*').where('id_perfil', id);
     }
 
     async deletar(id: number) {
         try {
-            return await db(bd).where({ id }).delete();
+            await db(bd).where('id_perfil', id).delete()
+            return await db('perfil').where({ id }).delete();
         } catch (error) {
             throw new Error('Erro ao deletar Diretor')
         }

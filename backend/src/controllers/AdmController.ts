@@ -19,11 +19,10 @@ export class AdmController {
     }
 
     async listar(req: any, res: any) {
-        const adms = await this.admRepository.listar()
-        console.log(adms);
-        
-        res.status(200).json(adms)
+        const lista = await this.admRepository.listar()
+        res.status(200).json(lista)
     }
+
     async getID(req: any, res: any) {
         const { id } = req.params;
         await this.admRepository.getID(id)
@@ -34,14 +33,13 @@ export class AdmController {
         try {
             const { id } = req.params;
             const { nome, unidade, status } = req.body;
-            const adm = await this.admRepository.listarID(id)
 
-            adm.nome = nome ?? adm.nome;
-            adm.unidade = unidade ?? adm.unidade;
-            adm.status = status ?? adm.status;
-
-            await this.admRepository.update(id, adm)
-
+            const dados = {
+                nome: nome,
+                unidade: unidade,
+                status: status
+            }            
+            await this.admRepository.update(id, dados)
             res.status(201).json(msg.atualizado())
         } catch (error: any) {
             throw new Error(error.message)

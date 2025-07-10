@@ -8,46 +8,47 @@ export class ExaminadorController {
         this.examinadorRepository = examinadorRepository
     }
 
-    criar(req: any, res: any) {
+    async criar(req: any, res: any) {
         try {
-            const { matricula, nome, unidade, status } = req.body;
-            this.examinadorRepository.criar( matricula, nome, unidade, status )
+            const { matricula, nome, id_unidade, status, especialidade } = req.body;
+            await this.examinadorRepository.criar(matricula, nome, id_unidade, status, especialidade)
             res.status(201).json(msg.criado())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 
-    listar(req: any, res: any) {
-        this.examinadorRepository.listar()
-        res.status(200)
+    async listar(req: any, res: any) {
+        const lista = await this.examinadorRepository.listar()
+        res.status(200).json(lista)
     }
 
-    update(req: any, res: any) {
+    async update(req: any, res: any) {
         try {
-            const {id} = req.params;
-            const {nome, unidade , status} = req.body;
-            const examinador = this.examinadorRepository.listarID(id)
+            const { id } = req.params;
+            const { nome, unidade, status, especialidade } = req.body;
 
-            examinador.nome = nome ?? examinador.nome;
-            examinador.unidade = unidade ?? examinador.unidade;
-            examinador.status = status ?? examinador.status;
-
-            this.examinadorRepository(id, examinador)
+            const dados = {
+                nome: nome,
+                unidade: unidade,
+                status: status,
+                especialidade: especialidade
+            }
+            await this.examinadorRepository.update(id, dados)
 
             res.status(201).json(msg.atualizado())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 
-    deletar(req: any, res: any) {
-         try {
-            const {id} = req.params;
-            this.examinadorRepository.deletar(id)
+    async deletar(req: any, res: any) {
+        try {
+            const { id } = req.params;
+            await this.examinadorRepository.deletar(id)
             res.status(204).json(msg.removido())
         } catch (error: any) {
-            throw new Error(error. message)
+            throw new Error(error.message)
         }
     }
 }
