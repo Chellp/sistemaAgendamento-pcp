@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
         table.increments('id').primary();
         table.string('boletim_ocorrencia').notNullable(); //valor único
         table.enu('tipo_exame', ['AD_CAUTELAM', 'VIOLENCIA_SEXUAL', 'CORPO_DELITO']).notNullable();
-        table.enu('status', ['PENDENTE, CONCLUIDO', 'CANCELADO']).notNullable();
+        table.enu('status', ['PENDENTE', 'CONCLUIDO', 'CANCELADO']).notNullable();
         table.string('obs');
         table.dateTime('dt_atendimento');
         table.integer('id_paciente').unsigned()

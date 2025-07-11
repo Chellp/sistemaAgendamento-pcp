@@ -29,7 +29,7 @@ export class AgendamentoController {
             const { dt_agendamento } = req.body;
 
             const dados = { dt_agendamento: dt_agendamento }
-            await this.agendamentoRepository(id, dados)
+            await this.agendamentoRepository.update(id, dados)
 
             res.status(201).json(msg.atualizado())
         } catch (error: any) {

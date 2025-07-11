@@ -7,9 +7,9 @@ const bd: string = 'agendamento';
 export class AgendamentoRepository {
     async criar(dt_agendamento: any, id_paciente: any, id_atendente: any, id_unidade: any) {
         try {
-            const [result] = await db(bd).insert([
+            const [result] = await db(bd).insert({
                 dt_agendamento, id_paciente, id_atendente, id_unidade
-            ])
+            })
 
             return result
 
@@ -23,14 +23,7 @@ export class AgendamentoRepository {
     }
 
     async listar() {
-        await db(bd).select(
-            'dt_agendamento as Data',
-            'p.nome as Paciente',
-            'a.nome as Atendente',
-            'u.nome as Unidade')
-            .join('paciente as p', 'p.id', `${db}.id_paciente`)
-            .join('atendente as a', 'a.id', `${db}.atendente`)
-            .join('unidade as u', 'u.id', `${db}.unidade`)
+        return await db(bd).select('*')
     }
 
     async update(id: number, dados: any) {
@@ -46,7 +39,7 @@ export class AgendamentoRepository {
         return await db(bd).where({ id }).update(atualização)
     }
 
-    async delete(id: number) {
+    async deletar(id: number) {
         try {
             return await db(bd).where({ id }).delete();
         } catch (error: any) {

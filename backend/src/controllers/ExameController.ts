@@ -8,32 +8,29 @@ export class ExameController {
         this.exameRepository = exameRepository
     }
 
-    criar(req: any, res: any) {
+    async criar(req: any, res: any) {
         try {
-            const { boletim_ocorrencia, tipo_exame, status, obs, id_paciente } = req.body;
-            this.exameRepository.criar( boletim_ocorrencia, tipo_exame, status, obs, id_paciente )
+            const { boletim_ocorrencia, tipo_exame, status, obs, id_paciente, id_agendamento } = req.body;
+            await this.exameRepository.criar( boletim_ocorrencia, tipo_exame, status, obs, id_paciente, id_agendamento )
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error.message)
         }
     }
 
-    listar(req: any, res: any) {
-        this.exameRepository.listar()
-        res.status(200)
+    async listar(req: any, res: any) {
+        const lista = await this.exameRepository.listar()
+        res.status(200).json(lista)
     }
 
-    update(req: any, res: any) {
+    async update(req: any, res: any) {
         try {
             const { id } = req.params;
             const { dt_agendamento } = req.body;
-            const exame = this.exameRepository.listarID(id)
+            const exame = await this.exameRepository.listarID(id)
 
             exame.dt_agendamento = dt_agendamento ?? exame.dt_agendamento;
-
-            this.exameRepository(id, exame)
-
-            //mudar data agendamento
+            await this.exameRepository(id, exame)
 
             res.status(201).json(msg.atualizado())
         } catch (error: any) {
@@ -41,10 +38,10 @@ export class ExameController {
         }
     }
 
-    deletar(req: any, res: any) {
+    async deletar(req: any, res: any) {
         try {
             const { id } = req.params;
-            this.exameRepository.deletar(id)
+            await this.exameRepository.deletar(id)
             res.status(204).json(msg.removido())
         } catch (error: any) {
             throw new Error(error.message)

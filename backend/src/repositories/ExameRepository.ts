@@ -7,12 +7,12 @@ const db = knex(knexConfig.development);
 const bd: string = 'exame';
 
 export class ExameRepository {
-    async criar(boletim_ocorrencia: any, tipo_exame: any, status: any, obs: any, id_paciente: any) {
+    async criar(boletim_ocorrencia: any, tipo_exame: any, status: any, obs: any, id_paciente: any, id_agendamento: any) {
         try {
 
-            const [result] = await db(bd).insert([
-                boletim_ocorrencia, tipo_exame, status, obs, id_paciente
-            ])
+            const [result] = await db(bd).insert({
+                boletim_ocorrencia, id_paciente, obs, status, tipo_exame, id_agendamento
+            })
 
             return result
         } catch (error: any) {
@@ -25,17 +25,7 @@ export class ExameRepository {
     }
 
     async listar(id: number) {
-        return await db(`${bd} as e`)
-            .join('paciente as p', 'e.id_paciente', 'p.id')
-            .select(
-                'boletim_ocorrencia',
-                'p.nome as nome_paciente',
-                'p.cpf as CPF_paciente',
-                'tipo_exame',
-                'status',
-                'obs',
-            )
-            .where('e.id', id).first();
+        return await db(bd).select('*')
     }
 
     async atualizar(id: number, dados: InterfaceExame) {
