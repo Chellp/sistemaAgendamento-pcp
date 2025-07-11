@@ -8,30 +8,19 @@ const bd: string = 'diretor';
 
 
 export class DiretorRepository {
-    async criar(matricula: string, nome: string, id_unidade: number, status: boolean) {
+
+    async criar(dados: any, tipo_perfil: string) {
         try {
 
-            if (!matricula || !nome || !id_unidade || !status) {
-                throw new Error(`Preencha todos os Campos!
-                    matricula: ${matricula}, nome: ${nome}, id_unidade: ${id_unidade}, status: ${status}`)
-            }
-
-            const tipo_perfil: string = 'DIRETOR';
-
-            // Criar perfil
-            const [id]: number[] = await db('perfil')
-                .insert({
-                    matricula,
-                    nome,
-                    unidade: id_unidade,
-                    status,
-                    tipo_perfil
-                });
+            //criar perfil
+            const id_perfil = await perfilRepository.criar(dados, tipo_perfil)
 
             // Criar administrador vinculado ao perfil
-            await db(bd).insert({ id_perfil: id });
+            const diretor = await db(bd).insert({
+                id_perfil
+            })
+            return diretor;
 
-            return { id };
         } catch (error: any) {
             throw new Error(error.message);
         }

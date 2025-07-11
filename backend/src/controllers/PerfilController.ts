@@ -1,9 +1,26 @@
-import { AtendenteRepository } from "../repositories/AtendenteRepository";
-import { ExaminadorRepository } from "../repositories/ExaminadorRepository";
-import { AdmRepository } from "../repositories/AdmRepository";
-import { DiretorRepository } from "../repositories/DiretorRepository";
+import { AdmRepository } from '../repositories/AdmRepository'; const admRepository = new AdmRepository();
+import { AtendenteRepository } from '../repositories/AtendenteRepository'; const atendenteRepository = new AtendenteRepository();
+import { DiretorRepository } from '../repositories/DiretorRepository'; const diretorRepository = new DiretorRepository();
+import { ExaminadorRepository } from '../repositories/ExaminadorRepository'; const examinadorRepository = new ExaminadorRepository();
 
-import { MsgController } from "."; const msg = new MsgController('Paciente');
+// Tipo para validar a requisição
+export interface IPerfil {
+  matricula: number;
+  nome: string;
+  status: boolean;
+  id_unidade: number;
+}
+
+interface Requisicao {
+  dados: {
+    tipo_perfil: string;
+    perfil: IPerfil;
+    add?: any
+  };
+}
+
+
+import { MsgController } from "."; const msg = new MsgController('Perfil');
 
 export class PerfilController {
 
@@ -15,8 +32,34 @@ export class PerfilController {
 
     async criar(req: any, res: any) {
         try {
-            const { matricula, nome, status, tipoPerfil, unidade } = req.body;
-            await this.perfilRepository.criar(matricula, nome, status, tipoPerfil, unidade)
+            const { tipo_perfil, perfil, add }: Requisicao['dados'] = req.body.dados;
+            const dados = perfil
+            
+
+            if (tipo_perfil === "DIRETOR") {
+                /* const perfil = await diretorRepository.criar(dados, tipo_perfil)
+                console.log(perfil); */
+                await diretorRepository.criar(dados, tipo_perfil);
+
+            } else if (tipo_perfil === "EXAMINADOR") {
+                /* const perfil = await examinadorRepository.criar(dados, tipo_perfil, add)
+                console.log(perfil); */
+                await examinadorRepository.criar(dados, tipo_perfil, add);
+
+            } else if (tipo_perfil === "ADMINISTRADOR") {
+                /* const perfil = await admRepository.criar(dados, tipo_perfil);
+                console.log(perfil); */
+                await admRepository.criar(dados, tipo_perfil);
+
+            } else if (tipo_perfil === "ATENDENTE") {
+                /* const perfil = await atendenteRepository.criar(dados, tipo_perfil)
+                console.log(perfil); */
+                await atendenteRepository.criar(dados, tipo_perfil)
+
+            } else {
+                throw new Error(`Tipo de Perfil Inválido: ${tipo_perfil}`)
+            }
+
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error.message)
@@ -48,25 +91,21 @@ export class PerfilController {
 
             switch (tipoPerfil) {
                 case 'ATENDENTE':
-                    const repAtendente = new AtendenteRepository();
-                    await repAtendente.update(id, dados);
+                    await atendenteRepository.update(id, dados);
                     break;
 
                 case 'EXAMINADOR':
-                    const repExaminador = new ExaminadorRepository();
-                    await repExaminador.update(id, dados);
+                    await examinadorRepository.update(id, dados);
                     break;
 
-                case 'ADMINISTRADOR':                    
-                    const repAdm = new AdmRepository();
-                    const adm = await repAdm.update(id, dados);
+                case 'ADMINISTRADOR':
+                    const adm = await admRepository.update(id, dados);
                     console.log(adm);
 
                     break;
 
                 case 'DIRETOR':
-                    const repDiretor = new DiretorRepository();
-                    await repDiretor.update(id, dados);
+                    await diretorRepository.update(id, dados);
                     break;
 
                 default:

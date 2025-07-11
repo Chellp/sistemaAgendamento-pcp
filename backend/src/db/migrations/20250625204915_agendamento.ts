@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
         table.integer('id_paciente').notNullable().unsigned()
             .references('id').inTable('paciente');    //fk paciente
         table.integer('id_atendente').notNullable().unsigned()
-            .references('id').inTable('atendente');   //fk atendente
+            .references('cod').inTable('atendente');   //fk atendente
         table.integer('id_unidade').notNullable().unsigned()
             .references('id').inTable('unidade'); //fk unidade
     })

@@ -9,30 +9,17 @@ const db = knex(knexConfig.development);
 const bd: string = 'adm';
 
 export class AdmRepository {
-    async criar(matricula: string, nome: string, id_unidade: number, status: boolean) {
+    async criar(dados: any, tipo_perfil: string) {
         try {
 
-            if (!matricula || !nome || !id_unidade || !status) {
-                throw new Error(`Preencha todos os Campos!
-                    matricula: ${matricula}, nome: ${nome}, id_unidade: ${id_unidade}, status: ${status}`)
-            }
-
-            const tipo_perfil: string = 'ADMINISTRADOR';
-
-            // Criar perfil
-            const [id]: number[] = await db('perfil') //substituir pela função de criar perfil do perfilRepository
-                .insert({
-                    matricula,
-                    nome,
-                    unidade: id_unidade,
-                    status,
-                    tipo_perfil
-                });
+            //criar perfil
+            const id_perfil = await perfilRepository.criar(dados, tipo_perfil)
 
             // Criar administrador vinculado ao perfil
-            await db(bd).insert({ id_perfil: id });
-
-            return { id };
+            const adm = await db(bd).insert({
+                id_perfil
+            })
+            return adm;
 
         } catch (error: any) {
             throw new Error(error.message);

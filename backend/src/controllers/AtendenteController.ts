@@ -10,8 +10,8 @@ export class AtendenteController {
 
     async criar(req: any, res: any) {
         try {
-            const { matricula, nome, id_unidade, status } = req.body;
-            await this.atendenteRepository.criar(matricula, nome, id_unidade, status)
+            const { tipo_perfil, perfil } = req.body.dados;
+            await this.atendenteRepository.criar(perfil, tipo_perfil)
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error.message)

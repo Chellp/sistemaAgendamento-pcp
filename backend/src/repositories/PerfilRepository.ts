@@ -1,3 +1,4 @@
+import { IPerfil } from '../controllers/PerfilController';
 //knex
 import knex from 'knex';
 import knexConfig from "../../knexfile";
@@ -6,24 +7,24 @@ const db = knex(knexConfig.development);
 const bd: string = 'perfil'
 
 export class PerfilRepository {
-    async criar(matricula: any, nome: any, unidade: any, status: any, tipoPerfil: any) {
+    async criar(dados: IPerfil, tipo_perfil: string) {
         try {
 
-            console.log(matricula, nome, status, tipoPerfil, unidade);
-            
+            if (!dados.matricula || !dados.nome || !dados.id_unidade || !dados.status) {
+                throw new Error(`Preencha todos os Campos!
+                    matricula: ${dados.matricula}, nome: ${dados.nome}, id_unidade: ${dados.id_unidade}, status: ${dados.status}`)
+            }
 
-            const tipo_perfil= tipoPerfil;
-            console.log(tipo_perfil);
-            
-            const statusBoolean = status === 'true' || status === true;
+            const [result] =  await db(bd).insert({
+                matricula: dados.matricula,
+                nome: dados.nome,
+                status: dados.status,
+                unidade: dados.id_unidade,
+                tipo_perfil
+            });
 
-            const [result] = await db(bd).insert({
-                matricula, 
-                nome, 
-                status: statusBoolean, 
-                tipo_perfil, 
-                unidade});
             return result
+      
         } catch (error: any) {
             throw new Error(error.message)
         }

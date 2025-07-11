@@ -14,7 +14,7 @@ export async function up(knex: Knex): Promise<void> {
         table.integer('id_agendamento').unsigned()
             .references('id').inTable('agendamento'); //fk agendamento
         table.integer('id_examinador').unsigned()
-            .references('id').inTable('examinador'); //fk examinador
+            .references('cod').inTable('examinador'); //fk examinador
 
     })
 }

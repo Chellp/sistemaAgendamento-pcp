@@ -10,8 +10,8 @@ export class ExaminadorController {
 
     async criar(req: any, res: any) {
         try {
-            const { matricula, nome, id_unidade, status, especialidade } = req.body;
-            await this.examinadorRepository.criar(matricula, nome, id_unidade, status, especialidade)
+            const { tipo_perfil, perfil, add } = req.body.dados;
+            await this.examinadorRepository.criar(perfil, tipo_perfil, add)
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error.message)

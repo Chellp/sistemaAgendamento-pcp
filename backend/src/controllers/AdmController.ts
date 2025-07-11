@@ -10,8 +10,8 @@ export class AdmController {
 
     async criar(req: any, res: any) {
         try {
-            const { matricula, nome, id_unidade, status } = req.body;
-            await this.admRepository.criar(matricula, nome, id_unidade, status)
+            const { tipo_perfil, perfil } = req.body.dados;
+            await this.admRepository.criar(perfil, tipo_perfil)
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error.message)
