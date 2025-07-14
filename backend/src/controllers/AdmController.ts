@@ -1,4 +1,4 @@
-import { MsgController } from "."; const msg = new MsgController('Admnistrador')
+import { MsgController } from "."; const msg = new MsgController('Administrador')
 
 export class AdmController {
 

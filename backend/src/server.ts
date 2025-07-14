@@ -18,11 +18,6 @@ app.use(cors({
 
 app.use(express.json()); // permitir ler arquivos JSON
 
-// Definindo a rota do backend
-app.get('/api/message', (req: Request, res: Response) => {
-  res.json({ message: 'Olá do backend!' });
-});
-
 app.use(router);
 
 //inicializar servidor

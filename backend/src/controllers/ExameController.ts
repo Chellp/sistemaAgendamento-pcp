@@ -26,13 +26,16 @@ export class ExameController {
     async update(req: any, res: any) {
         try {
             const { id } = req.params;
-            const { dt_agendamento } = req.body;
-            const exame = await this.exameRepository.listarID(id)
+            const { status, obs } = req.body;
+            
+            const dados = {
+                status: status,
+                obs: obs
+            }
 
-            exame.dt_agendamento = dt_agendamento ?? exame.dt_agendamento;
-            await this.exameRepository(id, exame)
-
+            await this.exameRepository(id, dados)
             res.status(201).json(msg.atualizado())
+
         } catch (error: any) {
             throw new Error(error.message)
         }

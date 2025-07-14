@@ -28,21 +28,16 @@ export class ExameRepository {
         return await db(bd).select('*')
     }
 
-    async atualizar(id: number, dados: InterfaceExame) {
+    async atualizar(id: number, dados: any) {
         try {
-            const exame: InterfaceExame = await db(bd).where({ id }).first();
+            const exame = await db(bd).where({ id }).first();
             if (!exame) {
                 throw new Error('Exame não Encontrado!')
             }
 
-            const dadosInfo = exame.dados;
-            const update = dados.dados;
-
             const updatedExame = {
-                agendamento: update.agendamento ?? dadosInfo.agendamento,
-                tipo_exame: update.tipo_exame ?? dadosInfo.tipo_exame,
-                status: update.status ?? dadosInfo.status,
-                dt_atendimento: dados.dt_atendimento ?? exame.dt_atendimento,
+                status: dados.status ?? exame.status,
+                obs: dados.obs ?? exame.obs
             }
 
             return await db(bd).where({ id }).update(updatedExame)
