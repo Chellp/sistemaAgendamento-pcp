@@ -1,42 +1,45 @@
+import AgendamentoAPI from "../api/agendamentoAPI"; const agApi = new AgendamentoAPI();
 import getDataHora from "../utils/getDataHora"; const getdatahora = new getDataHora()
-import type { exameListaChegadaInterface } from "../models/exameListaChegadaInterface";
-import type { InterfaceRegistros } from "../models/interfaces";
+import calcularIdade from "../utils/calcularIdade";
 
-/* const examesteste: exameListaChegadaInterface[] = [];
+export default async function ExameListaChegada(lista: any[]) {
+    const examesConfirmados = new CarregarExames('Confirmados', lista)
+    const examesChegada = new CarregarExames('Próximos Exames', lista)
+    const data = getdatahora.dataAtual()
+    let conteudo = await examesConfirmados.UlExameListaChegada(getdatahora.formatoBrasil(data), 'chegada')
+    conteudo += examesChegada.UlExameListaChegada(getdatahora.formatoBrasil(data), 'confirmados')
+    eventos()
+    return conteudo
+}
 
-const objteste: exameListaChegadaInterface = {
-    nome: 'nomeCompleto',
-    genero: 'Feminino',
-    idade: 22,
-    horario: '13:00',
-    statusConfirmacao: false,
-    statusMensagem: 'Presença Não Confirmada'
-} */
-
-export default class ExameListaChegada {
+class CarregarExames {
 
     limiteCarregamentoDeExames: number = 10;
-    //data = getdatahora
-    examesCarregarMais: exameListaChegadaInterface[] = [];
-    listaExames: exameListaChegadaInterface[] = []
+    listaExames: any[] = []
+    titulo: string
 
+    constructor(titulo: string, listaExames: any[]) {
+        this.titulo = titulo
+        this.listaExames = listaExames
+    }
 
-    atualizarArrayPrincipal(array: exameListaChegadaInterface[]) {
+    atualizarListaExames(array: any[]) {
         return this.listaExames = array;
     }
 
-    /* getExames(){
-        //função que recebe os exames desestruturados
-    } */
+    limparListagem(id: string) {
+        const lista = document.getElementById(`${id}`)
+        if (lista) {
+            lista.innerHTML = ''
+        }
+    }
 
-    formatarArray(): exameListaChegadaInterface[] {
-        const arrayFiltrado: InterfaceRegistros[] = [];
-        let arrayFormatado: exameListaChegadaInterface[] = [];
+    // Função que extrai informações necessárias para esse tipo de listagem
+    async extrairInfoAgendamento() {
+        const exames: any[] = this.listaExames;
+        let arrayFormatado: any[] = [];
 
-        //filtrar array aqui - array completo
-        //pegar desestruturado
-
-        for (let i of arrayFiltrado) {
+        for (let i of exames) {
             const item = {
                 nome: i.nome,
                 genero: i.genero,
@@ -48,18 +51,12 @@ export default class ExameListaChegada {
             arrayFormatado.push(item)
         }
 
-        /* for (let i of arrayFiltrado) {
-            const item = i
-            }
-            arrayFormatado.push(item)
-        } */
-
-        this.atualizarArrayPrincipal(arrayFormatado);
+        this.atualizarListaExames(arrayFormatado);
         return arrayFormatado;
     }
 
-    // item individuas do card com o exame
-    ItemLista(dados: exameListaChegadaInterface): string {
+    // cria o HTML para cada item da lista de exames
+    ItemLista(dados: any): string {
 
         let btnConfirmar: string = ''
 
@@ -79,8 +76,8 @@ export default class ExameListaChegada {
             <div class="confirmacao-btns">
                 <p>Presença Não Confirmada</p>
                 <div class="btns">
-                    <button class="confirmacao-btns-abrir">Abrir</button>
-                    <button class="confirmacao-btns-${btnConfirmar}">${btnConfirmar}</button>
+                    <button class="btn-abrir">Abrir</button>
+                    <button class="btn-${btnConfirmar}" data-id="${dados.id}">${btnConfirmar}</button>
                 </div>
             </div>
         </li>`
@@ -90,48 +87,103 @@ export default class ExameListaChegada {
     }
 
     //configurar um valor limite de agendamentos p/dia e color no parâmetro 'limite'
-    AgruparItensLista(limite: number) {
+    async AgruparporQTD(limite: number = 10) {
 
+        //verifica se o limite do intervalo é menor ou igual a zero
         if (limite <= 0) {
             limite = this.limiteCarregamentoDeExames;
         }
 
-        let array: exameListaChegadaInterface[] = this.formatarArray();
-        let arrayPrincipal: exameListaChegadaInterface[] = array
-        let listaExames: string = ''
+        //recebe array com as informações necessárias e salva as modificações no 'arrayPrincipal'
+        let array = await this.extrairInfoAgendamento();
+        let arrayPrincipal: any[] = array
+        let lista: string = ''
 
+        //recorta para ficar dentro do limite estabelecido
         if (arrayPrincipal.length >= limite) {
             arrayPrincipal = array.slice(0, limite);
-            this.examesCarregarMais = array.slice(limite, this.listaExames.length);
+            //armazena o excedente
+            this.listaExames = array.slice(limite, this.listaExames.length);
         }
 
         for (let i of arrayPrincipal) {
-            listaExames += this.ItemLista(i);
+            lista += this.ItemLista(i);
         }
 
-        return listaExames;
-
+        return lista;
     }
 
     // cards agrupados em uma ul, com limite de quantidade de carregamento
     //só é chamado quando há algum exame pra ser realizado no dia
-    UlExameListaChegada(data: Date): string {
+    async UlExameListaChegada(data: string, id: string) {
 
-        const itens: string = this.AgruparItensLista(this.limiteCarregamentoDeExames);
-        const lista: string = `<ul class="lista-exames">${itens}</ul>`;
+        const itens: string = await this.AgruparporQTD(this.limiteCarregamentoDeExames);
+        const lista: string = `<ul class="lista-exames-${id}">${itens}</ul>`;
 
         const el: string = `
         <div class="text-area">
-            <h1>Próximos Exames</h1>
-            <p>data atual: ${getdatahora.dataHoraFormatoBrasil(data)}</p>
+            <h1>${this.titulo}</h1>
+            <p>data atual: ${data}</p>
         </div>
         ${lista}`;
 
         return el;
+    }
+}
 
+async function atualizarListaConfirmados(id: number) {
+
+    const lista = document.getElementById("area-lista-chegada-confirmado")
+
+    const { data_agendamento, nome_completo, dt_nasc, genero } = await agApi.getInfoCompletaID(id)
+    const idade = calcularIdade(dt_nasc)
+
+    const item: string = `
+        <li>
+            <p class="hora-nome">${data_agendamento} - ${nome_completo}</p>
+            <div class="genero-idade">
+                <p>Gênero: ${genero}</p>
+                <p>Idade: ${idade}</p>
+            </div>
+            <div class="confirmacao-btns">
+                <p>Confirmada</p>
+                <div class="btns">
+                    <button class="btn-abrir" id="lista-exames-btn-abrir-confirmado">Abrir</button>
+                </div>
+            </div>
+        </li>`;
+
+    if (lista) {
+        lista.innerHTML += item;
     }
 
-    //add escutadores de evento e rodapé
-/*     ExamesListaChegada() {
-    } */
+    eventos()
+
+}
+
+function eventos() {
+    const btns_confirmacao = document.querySelectorAll('.confirmacao-btns-confirmar')
+    btns_confirmacao.forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            // Usando type assertion para garantir que o target seja um HTMLLIElement
+            const btnClicado = event.target as HTMLButtonElement;;
+
+            // Verifica se o btnClicado existe e tem dataset.id
+            if (btnClicado && btnClicado.dataset.id) {
+
+                const exameID = parseInt(btnClicado.dataset.id, 10);
+                const idClicado = btnClicado.id;
+                const li = document.getElementById(`item-lista-${idClicado}`);
+
+                if (li) {
+                    li.classList.toggle('confirmado');
+                }
+
+                btnClicado.classList.toggle('ativo');
+
+                atualizarListaConfirmados(exameID)
+            }
+        })
+    })
 }

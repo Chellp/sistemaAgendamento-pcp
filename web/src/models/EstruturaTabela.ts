@@ -4,16 +4,14 @@ export default class EstruturaTabela {
     tableHead: string = '';
     table: string = '';
     titulo: string = '';
-    tipoTabela: string = '';
-    nomeTabela: string = '';
+    idTabela: string = '';
     qtdColunas: number = 0;
 
 
-    constructor(tableHead: Array<string>, tipoTabela: string, nomeTabela: string, titulo: string) {
+    constructor(tableHead: string[], idTabela: string, titulo: string) {
 
         //anexar valores às variáveis
-        this.tipoTabela = tipoTabela;
-        this.nomeTabela = nomeTabela;
+        this.idTabela = idTabela;
         this.titulo = titulo;
 
         //gerar células do cabeçalho
@@ -31,10 +29,8 @@ export default class EstruturaTabela {
         return this.tableHead;
     }
 
-
-    //definir como privado
     //recebe variável com conteúdo HTML de cada tipo de filtro e retorna o HTML deles juntos
-    gerarFiltros(filtros: string[] = []) {
+    private gerarFiltros(filtros: string[] = []) {
 
         let filtrosGerados: string = '';
 
@@ -45,9 +41,8 @@ export default class EstruturaTabela {
         return filtrosGerados;
     }
 
-    //deifinir como privado
     //funçao que cria html das linhas da tabela, recebe como parâmetro a quantidade de linhas para impressão em tela
-    gerarLinhasTabela(registros: InterfaceRegistros[]) {
+    gerarLinhasTabela(registros: any) {
 
         //let totalRegistrosPermitidos: number = 10; ---- ATUALIZAÇÃO
         let tableBody: string = '';
@@ -84,7 +79,7 @@ export default class EstruturaTabela {
         return tableBody;
     }
 
-    criarTabela(filtros: string[] = [], registros: InterfaceRegistros[]) {
+    criarTabela(filtros: string[] = [], registros: InterfaceRegistros[]): string {
         let tabela: string;
 
         tabela = `
@@ -92,7 +87,7 @@ export default class EstruturaTabela {
                 <h1>${this.titulo}</h1>
                 <div class="area-filtros">${this.gerarFiltros(filtros)}</div><!-- .area-filtros -->
             </div>
-            <table class="tabela-padrao" id="tabela-${this.nomeTabela}${this.tipoTabela}">
+            <table class="tabela-padrao" id="tabela-${this.idTabela}">
                 ${this.tableHead} <tbody>${this.gerarLinhasTabela(registros)}</tbody>
             </table>
         `

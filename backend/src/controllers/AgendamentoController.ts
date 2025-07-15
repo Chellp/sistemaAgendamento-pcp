@@ -46,4 +46,25 @@ export class AgendamentoController {
             throw new Error(error.message)
         }
     }
+
+    async getInfoCompleta(req: any, res: any){
+        try {
+            const agendamentos = await this.agendamentoRepository.getInfoCompleta()
+            console.log(agendamentos);
+            
+            res.status(200).json(agendamentos)
+        } catch (error: any) {
+            throw new Error(error.message)
+        }
+    }
+
+    async getInfoCompletaID(req: any, res: any){
+        try {
+            const { id } = req.params;
+            const agendamento = await this.agendamentoRepository.getInfoCompletaID(id)
+            res.status(200).json(agendamento)
+        } catch (error: any) {
+            throw new Error(error.message)
+        }
+    }
 }

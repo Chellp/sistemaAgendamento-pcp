@@ -2,7 +2,7 @@ import ExameListaChegada from "../components/ExameListaChegada"; const examelist
 import getDataHora from "../utils/getDataHora"; const getdatahora = new getDataHora()
 import FiltrosHTMLComponent from "../components/FiltrosHTMLComponent";  const filtrosHTML = new FiltrosHTMLComponent()
 import EstruturaTabela from "../models/EstruturaTabela"; 
-import indexPage from "./indexPage";
+import indexPage from "./PrincipalPage";
 
 
 const estruturaTabela = new EstruturaTabela(['boletim', 'hora', 'nome completo', ''],'', 'todos-agendamentos', 'Hoje')

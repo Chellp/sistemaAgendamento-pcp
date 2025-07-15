@@ -14,7 +14,7 @@ export default class FiltrosHTMLComponent{
 
     periodo(tipoTabela: string){
         const select: string = `
-        <select name="select-${tipoTabela}-data" id="elect-${tipoTabela}-data">
+        <select name="select-${tipoTabela}-data" id="select-${tipoTabela}-data">
             <option value="select-${tipoTabela}-data-todos">período</option>
             <option value="select-${tipoTabela}-data-hoje">Hoje</option>
             <option value="select-${tipoTabela}-data-seteDias">7 dias</option>
@@ -32,8 +32,8 @@ export default class FiltrosHTMLComponent{
         const select: string = `
         <select name="select-${tipoTabela}-ordenar" id="select-${tipoTabela}-ordenar">
             <option value="select-${tipoTabela}-ordenar-recente">Mais Recente</option>
-            <option value="select-${tipoTabela}-ordenar-antigo">antigo</option>
-            <option value="select-${tipoTabela}-ordenar-nome">nome</option>
+            <option value="select-${tipoTabela}-ordenar-antigo">Mais Antigo</option>
+            <option value="select-${tipoTabela}-ordenar-nome">Nome</option>
         </select>
     `
         return select

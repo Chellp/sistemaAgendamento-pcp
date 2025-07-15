@@ -41,4 +41,18 @@ export default class AgendamentoAPI {
         })
         return response.json();
     }
+
+    async getInfoCompleta() {
+    const response = await fetch(`${ITEM_API}info`, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+    return response.json();
+}
+
+    async getInfoCompletaID(id: number) {
+    const response = await fetch(`${ITEM_API}info/${id}`, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+    return response.json();
+}
 }

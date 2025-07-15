@@ -47,4 +47,53 @@ export class AgendamentoRepository {
         }
     }
 
+    async getInfoCompleta(){
+        try {
+            const item = await db('agendamento as ag')
+            .join('paciente as p', 'ag.id_paciente', '=', 'p.id')
+            .join('atendente as a', 'ag.id_atendente', '=', 'a.cod')
+            .join('perfil as pf', 'a.id_perfil', '=', 'pf.id')
+            .join('unidade as u', 'ag.id_unidade', '=', 'u.id')
+            .select(
+                'ag.id as ID',
+                'ag.dt_agendamento as data_agendamento',
+                'p.cpf as cpf',
+                'p.nome as nome_completo',
+                'p.dt_nasc as dt_nasc',
+                'p.genero as genero',
+                'p.telefone as telefone',
+                'p.observacao as observacao',
+                'pf.nome as atendente',
+                'u.nome as unidade');                
+            return item
+        } catch (error: any) {
+            throw new Error(error.message)
+        }
+    }
+
+    async getInfoCompletaID(id: number){
+        try {
+            const item = await db('agendamento as ag')
+            .join('paciente as p', 'ag.id_paciente', '=', 'p.id')
+            .join('atendente as a', 'ag.id_atendente', '=', 'a.cod')
+            .join('perfil as pf', 'a.id_perfil', '=', 'pf.id')
+            .join('unidade as u', 'ag.id_unidade', '=', 'u.id')
+            .select(
+                'ag.id as ID',
+                'ag.dt_agendamento as data_agendamento',
+                'p.cpf as cpf',
+                'p.nome as nome_completo',
+                'p.dt_nasc as dt_nasc',
+                'p.genero as genero',
+                'p.telefone as telefone',
+                'p.observacao as observacao',
+                'pf.nome as atendente',
+                'u.nome as unidade')
+            .where('ag.id', id);
+            return item
+        } catch (error: any) {
+            throw new Error(error.message)
+        }
+    }
+
 }

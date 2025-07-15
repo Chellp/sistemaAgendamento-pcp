@@ -1,4 +1,4 @@
-import RenderizarTabelasRelatorio from "../components/tabelasRelatorio";
+import RenderizarTabelasRelatorio from "../components/tabelas/RenderizarTabelas";
 import TabelaRelatorio from "./TabelaRelatorio";
 
 const renderizarRelatorios = new RenderizarTabelasRelatorio();

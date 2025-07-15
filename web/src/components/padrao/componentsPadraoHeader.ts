@@ -1,4 +1,4 @@
-export default function Header(){
+export default function componentsPadraoHeader(){
     const header: string = `
         <header class="navbar">
             <div class="logo-perfil">

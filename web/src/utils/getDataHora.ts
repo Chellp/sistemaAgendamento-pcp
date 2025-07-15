@@ -1,18 +1,18 @@
 export default class getDataHora{
 
-    data(data: Date): string{
-        const dataFormatada = new Date().toLocaleDateString();
+    dataAtual(): Date{
+        const dataFormatada = new Date();
+        return dataFormatada;
+    }
+
+    dataFormatada(data: Date): string{
+        const dataFormatada = data.toLocaleDateString();
         return dataFormatada;
     }
 
     hora(data: Date): string{
         const hora = `${this.getHoras(data)}:${this.getMinutos(data)}`
         return hora;
-    }
-
-    dataHoraPadrao(): Date{
-        const dataHoraAtual = new Date();
-        return dataHoraAtual;
     }
 
     dataHoraUTC(): string{
@@ -49,7 +49,7 @@ export default class getDataHora{
         return valor.toString().padStart(2, '0');
     }
 
-    dataHoraFormatoBrasil(data: Date): string{
+    formatoBrasil(data: Date): string{
 
         const dia = this.formatarStringPadstart(this.getDia(data));
         const mes = this.formatarStringPadstart(this.getMes(data));

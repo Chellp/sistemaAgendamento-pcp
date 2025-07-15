@@ -12,4 +12,7 @@ agRouter.post('/', (req, res) => agController.criar(req, res));
 agRouter.put('/:id', (req, res) => agController.update(req, res));
 agRouter.delete('/:id', (req, res) => agController.deletar(req, res));
 
+agRouter.get('/info', (req, res) =>  agController.getInfoCompleta(req, res));
+agRouter.get('/info/:id', (req, res) =>  agController.getInfoCompletaID(req, res));
+
 export default agRouter;
