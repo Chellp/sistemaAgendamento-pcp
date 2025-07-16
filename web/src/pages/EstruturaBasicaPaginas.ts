@@ -14,13 +14,13 @@ export default class EstruturaBasicaPaginas{
     app = this.constAPP();
 
     private idApp(){
-        return document.getElementById('app')
+        return document.getElementById('root')
     }
 
     constAPP(){
         const app = this.idApp();
         if(!app){
-            document.body.innerHTML = '<div id="app"></div>';
+            document.body.innerHTML = '<div id="root"></div>';
             console.log(document.body);
             return this.idApp()
         }
