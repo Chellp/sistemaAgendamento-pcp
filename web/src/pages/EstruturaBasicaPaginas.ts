@@ -1,6 +1,6 @@
-import componentsPadraoHeader from "../components/padrao/componentsPadraoHeader"; const header = componentsPadraoHeader()
-import componentsPadraoSidebar from "../components/padrao/componentsPadraoSidebar"; const sidebar = componentsPadraoSidebar();
-import componentsPadraoSecMainPrincipal from "../components/padrao/componentsPadraoSecMainPrincipal"; 
+import componentsPadraoHeader from "../shared/components/padrao/componentsPadraoHeader"; const header = componentsPadraoHeader()
+import componentsPadraoSidebar from "../shared/components/padrao/componentsPadraoSidebar"; const sidebar = componentsPadraoSidebar();
+import componentsPadraoSecMainPrincipal from "../shared/components/padrao/componentsPadraoSecMainPrincipal"; 
 
 //função para ser usada em cada pagina separadamente
 export default class EstruturaBasicaPaginas{

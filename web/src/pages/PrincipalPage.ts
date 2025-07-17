@@ -1,8 +1,8 @@
-import FiltrosHTMLComponent from "../components/FiltrosHTMLComponent"; const filtrosHTML = new FiltrosHTMLComponent()
-import ExameListaChegada from "../components/ExameListaChegada";
-import AgendamentoAPI from "../api/agendamentoAPI"; const agApi = new AgendamentoAPI()
+import FiltrosHTMLComponent from "../shared/components/FiltrosHTMLComponent"; const filtrosHTML = new FiltrosHTMLComponent()
+import ExameListaChegada from "../shared/components/ExameListaChegada";
+import AgendamentoAPI from "../shared/services/api/agendamentoAPI"; const agApi = new AgendamentoAPI()
 import EstruturaBasicaPaginas from "./EstruturaBasicaPaginas";
-import RenderizarTabelas from "../components/tabelas/RenderizarTabelas";
+import RenderizarTabelas from "../shared/components/tabelas/RenderizarTabelas";
 
 export default async function PrincipalPage(){
     let conteudo: string = await ExameListaChegada(await agApi.getInfoCompleta())

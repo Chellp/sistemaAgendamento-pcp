@@ -1,6 +1,6 @@
-import ExameListaChegada from "../components/ExameListaChegada"; const examelistachegada = new ExameListaChegada();
+import ExameListaChegada from "../shared/components/ExameListaChegada"; const examelistachegada = new ExameListaChegada();
 import getDataHora from "../utils/getDataHora"; const getdatahora = new getDataHora()
-import FiltrosHTMLComponent from "../components/FiltrosHTMLComponent";  const filtrosHTML = new FiltrosHTMLComponent()
+import FiltrosHTMLComponent from "../shared/components/FiltrosHTMLComponent";  const filtrosHTML = new FiltrosHTMLComponent()
 import EstruturaTabela from "../models/EstruturaTabela"; 
 import indexPage from "./PrincipalPage";
 
