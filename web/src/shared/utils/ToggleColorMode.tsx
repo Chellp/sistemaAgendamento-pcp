@@ -1,62 +1,20 @@
-//import * as React from 'react';
-import Box from '@mui/material/Box';
-import RadioGroup from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles';
+import React from 'react';
+import { Switch, Typography, Box } from '@mui/material';
 
-function MyApp() {
-  const { mode, setMode } = useColorScheme();
-  if (!mode) {
-    return null;
-  }
+interface ThemeToggleProps {
+  mode: 'light' | 'dark';
+  toggleMode: () => void;
+}
 
+const ThemeToggle: React.FC<ThemeToggleProps> = ({ mode, toggleMode }) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        borderRadius: 1,
-        p: 3,
-        minHeight: '56px',
-      }}
-    >
-      <FormControl>
-        <FormLabel id="demo-theme-toggle">Tema</FormLabel>
-        <RadioGroup
-          aria-labelledby="demo-theme-toggle"
-          name="theme-toggle"
-          row
-          value={mode}
-          onChange={(event) =>
-            setMode(event.target.value as 'system' | 'light' | 'dark')
-          }
-        >
-          <FormControlLabel value="system" control={<Radio />} label="Sistema" />
-          <FormControlLabel value="light" control={<Radio />} label="Claro" />
-          <FormControlLabel value="dark" control={<Radio />} label="Escuro" />
-        </RadioGroup>
-      </FormControl>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography variant="body1" sx={{ marginRight: 2, fontWeight: 'bold' }}>
+        {mode === 'light' ? 'Modo Claro' : 'Modo Escuro'}
+      </Typography>
+      <Switch checked={mode === 'dark'} onChange={toggleMode} />
     </Box>
   );
-}
+};
 
-const theme = createTheme({
-  colorSchemes: {
-    dark: true,
-  },
-});
-
-export default function ToggleColorMode() {
-  return (
-    <ThemeProvider theme={theme}>
-      <MyApp />
-    </ThemeProvider>
-  );
-}
+export default ThemeToggle;

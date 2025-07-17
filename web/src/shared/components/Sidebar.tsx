@@ -14,18 +14,23 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-import ToggleColorMode from '../utils/ToggleColorMode';
+import ThemeToggle from '../utils/ToggleColorMode';
 
 const drawerWidth = 240;
 
-export default function ClippedDrawer() {
+interface SidebarProps {
+  mode: 'light' | 'dark';
+  toggleMode: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) =>  {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            Clipped drawer
+            Sistema de Agendamento
           </Typography>
         </Toolbar>
       </AppBar>
@@ -65,7 +70,7 @@ export default function ClippedDrawer() {
             ))}
           </List>
         </Box>
-        <ToggleColorMode />
+        <ThemeToggle mode={mode} toggleMode={toggleMode} />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
@@ -79,3 +84,6 @@ export default function ClippedDrawer() {
     </Box>
   );
 }
+
+
+export default Sidebar;
