@@ -5,7 +5,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -14,7 +13,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useTheme } from '@mui/material/styles'; // Importando useTheme
 
 
-export default function NestedList() {
+export default function ProfileCollapse() {
 
     const [open, setOpen] = React.useState(true);
     const theme = useTheme();

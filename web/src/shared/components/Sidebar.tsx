@@ -1,9 +1,9 @@
+import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -11,16 +11,16 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 //Ícones
-import TodayIcon from '@mui/icons-material/Today';       // Ícone para "Hoje"
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; // Ícone para "Essa Semana"
-import EventNoteIcon from '@mui/icons-material/EventNote'; // Ícone para "Esse Mês"
-import AddCircleIcon from '@mui/icons-material/AddCircle'; // Ícone para "+ Agendamento"
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import TodayIcon from '@mui/icons-material/Today';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
 //Componentes do Projeto
 import ThemeToggle from '../utils/ToggleColorMode';
-import Header from './Header';
 
 const drawerWidth = 240;
 
@@ -33,7 +33,6 @@ const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Header></Header>
       <Drawer
         variant="permanent"
         sx={{
@@ -44,12 +43,11 @@ const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) => {
       >
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
-          <List>
-            {['Agendamento', 'Hoje', 'Essa Semana', 'Esse Mês'].map((text, index) => (
+          <List>  {/* Agendamentos */}
+            {['Agendamento', 'Hoje', 'Essa Semana', 'Esse Mês'].map((text) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    {/* Ícones personalizados para cada item */}
                     {text === 'Agendamento' && <AddCircleIcon />}
                     {text === 'Hoje' && <TodayIcon />}
                     {text === 'Essa Semana' && <CalendarTodayIcon />}
@@ -61,8 +59,18 @@ const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) => {
             ))}
           </List>
           <Divider />
+          <List>  {/* Exames */}
+            <ListItem>
+              <ListItemIcon>
+                <HealthAndSafetyIcon />
+              </ListItemIcon>
+              <ListItemText primary="Exames" slotProps={{
+          primary: { sx: { fontWeight: 'bold' } }  // Aplica o estilo ao Typography interno
+        }} />
+            </ListItem>
+          </List>
           <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            {['Concluidos', 'Pendentes', 'Cancelados'].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
@@ -82,15 +90,6 @@ const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) => {
             width: 'calc(100% - 32px)'
           }} /> {/* Theme Toggle */}
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />
-        <Typography sx={{ marginBottom: 2 }}>
-          Lorem ipsum dolor sit amet
-        </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
-          Consequat mauris nunc congue nisi vitae suscipit.
-        </Typography>
-      </Box>
     </Box>
   );
 }

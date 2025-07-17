@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
 import { IconButton } from '@mui/material';
 
-import ListCollapse from './ProfileCollapse';
+import ProfileCollapse from './ProfileCollapse';
 
 const Header = () => {
     return (
@@ -15,7 +15,7 @@ const Header = () => {
                     </IconButton>
                     Sistema de Agendamento
                 </Typography>
-                <ListCollapse></ListCollapse>
+                <ProfileCollapse></ProfileCollapse>
             </Toolbar>
         </AppBar>
     )
