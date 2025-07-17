@@ -1,7 +1,5 @@
-
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -11,10 +9,18 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+
+//Ícones
+import TodayIcon from '@mui/icons-material/Today';       // Ícone para "Hoje"
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; // Ícone para "Essa Semana"
+import EventNoteIcon from '@mui/icons-material/EventNote'; // Ícone para "Esse Mês"
+import AddCircleIcon from '@mui/icons-material/AddCircle'; // Ícone para "+ Agendamento"
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
+//Componentes do Projeto
 import ThemeToggle from '../utils/ToggleColorMode';
+import Header from './Header';
 
 const drawerWidth = 240;
 
@@ -23,17 +29,11 @@ interface SidebarProps {
   toggleMode: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) =>  {
+const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Sistema de Agendamento
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Header></Header>
       <Drawer
         variant="permanent"
         sx={{
@@ -45,11 +45,15 @@ const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) =>  {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            {['Agendamento', 'Hoje', 'Essa Semana', 'Esse Mês'].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    {/* Ícones personalizados para cada item */}
+                    {text === 'Agendamento' && <AddCircleIcon />}
+                    {text === 'Hoje' && <TodayIcon />}
+                    {text === 'Essa Semana' && <CalendarTodayIcon />}
+                    {text === 'Esse Mês' && <EventNoteIcon />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
@@ -70,7 +74,13 @@ const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) =>  {
             ))}
           </List>
         </Box>
-        <ThemeToggle mode={mode} toggleMode={toggleMode} />
+        <ThemeToggle mode={mode} toggleMode={toggleMode}
+          sx={{
+            padding: '8px 16px',
+            position: 'absolute',
+            bottom: '16px',
+            width: 'calc(100% - 32px)'
+          }} /> {/* Theme Toggle */}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
@@ -78,7 +88,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) =>  {
           Lorem ipsum dolor sit amet
         </Typography>
         <Typography sx={{ marginBottom: 2 }}>
-          Consequat mauris nunc congue nisi vitae suscipit. 
+          Consequat mauris nunc congue nisi vitae suscipit.
         </Typography>
       </Box>
     </Box>
