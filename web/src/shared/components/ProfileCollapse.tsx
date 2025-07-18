@@ -9,7 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
-//Componentes do Projeto
+//Componentes Internos do Projeto
 import { useTheme } from '@mui/material/styles'; // Importando useTheme
 
 

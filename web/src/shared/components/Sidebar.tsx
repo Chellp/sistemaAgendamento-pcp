@@ -19,7 +19,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-//Componentes do Projeto
+//Componentes Internos do Projeto
 import ThemeToggle from '../utils/ToggleColorMode';
 
 const drawerWidth = 240;
