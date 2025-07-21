@@ -5,14 +5,18 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
-export default function TimerComponent() {
+export interface TimerComponentProps {
+  desc: string;
+}
+
+const TimerComponent: React.FC<TimerComponentProps> = ({ desc }) => {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['TimePicker']}>
         <TimePicker
-          label="Controlled picker"
+          label={desc}
           value={value}
           onChange={(newValue) => setValue(newValue)}
         />
@@ -20,3 +24,5 @@ export default function TimerComponent() {
     </LocalizationProvider>
   );
 }
+
+export default TimerComponent;

@@ -14,14 +14,15 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 //Componentes Internos do Projeto
 import DateTimeComponent from './DateTimeComponent';
-import ListCollapseComponent from './ListCollapseComponent';
+import ListExameCollapseComponent from './ListCollapseComponent';
+import ButtonEnviarComponent from './ButtonEnviarComponent';
 
 
 export default function CreateAgendamentoComponent() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
 
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" sx={{paddingBottom: '30px'}}>
       <Box sx={{ p: 2 }}>
         <Stack
           direction="row"
@@ -33,8 +34,23 @@ export default function CreateAgendamentoComponent() {
         </Stack>
       </Box>
       <Divider />
-      <Box sx={{ width: '100%', p: 2, paddingX: 5, display: 'flex', justifyContent: 'space-around', gap: 2 }}>
-        <div className='inputArea'>
+      <Box sx={{
+        width: '100%',
+        padding: '20px',
+        paddingBottom: '0px',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 5
+      }}>
+
+        <div className='inputArea' style={{
+          width: '100%',
+          padding: '20px',
+          paddingBottom: '0px',
+          display: 'flex',
+          flexDirection: 'column', // Ajustado para ser válido
+          gap: '15px'
+        }}>
           <TextField sx={{ width: '100%' }}
             required
             id="outlined-required"
@@ -49,8 +65,6 @@ export default function CreateAgendamentoComponent() {
             placeholder='Nome Completo'
           />
 
-
-
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DatePicker']}>
               <DatePicker
@@ -61,11 +75,22 @@ export default function CreateAgendamentoComponent() {
               />
             </DemoContainer>
           </LocalizationProvider>
-        <ListCollapseComponent ></ListCollapseComponent>
-        </div>
-        <DateTimeComponent></DateTimeComponent>
 
+          <ListExameCollapseComponent ></ListExameCollapseComponent>
+
+          <TextField sx={{ width: '100%' }}
+            required
+            id="outlined"
+            label="Observações"
+            placeholder="Descrição..."
+          />
+        </div>
+
+        <DateTimeComponent desc="Horário do Exame"></DateTimeComponent>
       </Box>
+
+      <ButtonEnviarComponent sx={{ width: '20%' }}></ButtonEnviarComponent>
+
     </Card>
   );
 }

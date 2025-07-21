@@ -3,12 +3,15 @@ import Box from '@mui/material/Box';
 //Componentes Internos do Projeto
 import TimerComponent from "./TimerComponent"
 import CalendarComponent from './CalendarComponent';
+import type { TimerComponentProps } from './TimerComponent';
 
-export default function DateTimeComponent() {
+const DateTimeComponent: React.FC<TimerComponentProps> = ({ desc }) => {
     return (
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
-            <TimerComponent></TimerComponent>
+            <TimerComponent desc={desc} ></TimerComponent>
             <CalendarComponent></CalendarComponent>
         </Box>
     )
 }
+
+export default DateTimeComponent;
