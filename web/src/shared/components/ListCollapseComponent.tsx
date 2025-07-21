@@ -13,7 +13,7 @@ import type { SxProps } from '@mui/system';
 interface ListCollapseComponentProps {
     sx?: SxProps; // Aqui está o tipo para o sx
     exameSelecionado: string; // Prop para armazenar o item selecionado
-    onItemSelecionado: (item: string) => void;
+    onItemSelecionado: (item: string) => void; // Função para atualizar o estado no componente pai
 }
 
 const ListExameCollapseComponent: React.FC<ListCollapseComponentProps> = ({ sx, exameSelecionado, onItemSelecionado }) => {
@@ -63,5 +63,7 @@ const ListExameCollapseComponent: React.FC<ListCollapseComponentProps> = ({ sx, 
         </List>
     );
 }
+
+//jogar lista e as em um array para facilitar a manipulação
 
 export default ListExameCollapseComponent;

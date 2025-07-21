@@ -16,15 +16,19 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import DateTimeComponent from './DateTimeComponent';
 import ListExameCollapseComponent from './ListCollapseComponent';
 import ButtonEnviarComponent from './ButtonEnviarComponent';
+import InputRowGender from './InputRowGender';
 import validateForm from '../utils/validarFormulario';
-import type { FormValues, FormErrors } from '../utils/validarFormulario';
+import type { FormErrors } from '../utils/validarFormulario';
+import type { FormValues } from '../../models/interfaces/agendamentoComponentsInterface';
 
 
 export default function CreateAgendamentoComponent() {
 
   const [values, setValues] = React.useState<FormValues>({
     boletim: '',
+    cpf: '',
     nome: '',
+    genero: '',
     nascimento: null,
     observacoes: '',
     exameSelecionado: ''
@@ -39,6 +43,13 @@ export default function CreateAgendamentoComponent() {
   function handleDateChange(date: Dayjs | null) {
     setValues({ ...values, nascimento: date });
   }
+
+  const handleGenderChange = (selectedGenero: string) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      genero: selectedGenero,
+    }));
+  };
 
   function handleItemSelecionado(item: string) {
     setValues({ ...values, exameSelecionado: item }); // Atualiza o estado com o item selecionado
@@ -92,10 +103,20 @@ export default function CreateAgendamentoComponent() {
             <TextField sx={{ width: '100%' }}
               required
               name='boletim'
-              id="outlined-required"
+              id="boletim-outlined-required"
               label="Boletim de Ocorrencia"
               placeholder="12345/2024"
               value={values.boletim}
+              onChange={handleChange}
+            />
+
+            <TextField sx={{ width: '100%' }}
+              required
+              name='cpf'
+              id="cpf-outlined-required"
+              label="CPF"
+              placeholder="000.000.000-00"
+              value={values.cpf}
               onChange={handleChange}
             />
 
@@ -107,6 +128,11 @@ export default function CreateAgendamentoComponent() {
               placeholder='Nome Completo'
               value={values.nome}
               onChange={handleChange}
+            />
+
+            <InputRowGender
+              generoSelecionado={values.genero}
+              onGeneroSelecionado={handleGenderChange}
             />
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -131,12 +157,12 @@ export default function CreateAgendamentoComponent() {
             <ListExameCollapseComponent
               exameSelecionado={values.exameSelecionado}
               onItemSelecionado={handleItemSelecionado}
-            ></ListExameCollapseComponent>
+            />
 
             <TextField sx={{ width: '100%' }}
               required
               name='observacoes'
-              id="outlined"
+              id="observacoes-outlined"
               label="Observações"
               placeholder="Descrição..."
               value={values.observacoes}
@@ -144,10 +170,10 @@ export default function CreateAgendamentoComponent() {
             />
           </div>
 
-          <DateTimeComponent desc="Horário do Exame"></DateTimeComponent>
+          <DateTimeComponent desc="Horário do Exame" />
         </Box>
 
-        <ButtonEnviarComponent sx={{ width: '20%' }}></ButtonEnviarComponent>
+        <ButtonEnviarComponent sx={{ width: '20%' }} />
       </form>
 
     </Card>
