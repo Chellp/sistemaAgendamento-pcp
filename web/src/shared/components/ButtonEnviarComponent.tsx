@@ -23,7 +23,7 @@ const ButtonEnviarComponent: React.FC<ContainedButtonProps> = ({ sx }) => {
             <Button variant="contained" sx={{...sx, backgroundColor: theme.palette.warning.light, '&:hover': {
             backgroundColor: theme.palette.warning.main // Cor de fundo ao passar o mouse
         }}}>Cancelar</Button>
-            <Button variant="contained" sx={{...sx}}>Enviar</Button>
+            <Button type="submit" variant="contained" sx={{...sx}}>Enviar</Button>
         </Stack>
     );
 }
