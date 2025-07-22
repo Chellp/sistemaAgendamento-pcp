@@ -31,7 +31,10 @@ export default function CreateAgendamentoComponent() {
     genero: '',
     nascimento: null,
     observacoes: '',
-    exameSelecionado: ''
+    exameSelecionado: '',
+    horario: null,
+    data: null
+
   });
 
   const [errors, setErrors] = React.useState<FormErrors>({});
@@ -54,6 +57,14 @@ export default function CreateAgendamentoComponent() {
   function handleItemSelecionado(item: string) {
     setValues({ ...values, exameSelecionado: item }); // Atualiza o estado com o item selecionado
   }
+
+  const handleDateTimeChange = (newValue: { date: Dayjs | null; time: Dayjs | null }) => {
+    setValues({
+      ...values,
+      data: newValue.date,
+      horario: newValue.time,
+    });
+  };
 
 
   function handleSubmit(e: React.FormEvent) {
@@ -108,6 +119,8 @@ export default function CreateAgendamentoComponent() {
               placeholder="12345/2024"
               value={values.boletim}
               onChange={handleChange}
+              error={!!errors.boletim}
+              helperText={errors.boletim}
             />
 
             <TextField sx={{ width: '100%' }}
@@ -118,6 +131,8 @@ export default function CreateAgendamentoComponent() {
               placeholder="000.000.000-00"
               value={values.cpf}
               onChange={handleChange}
+              error={!!errors.cpf}
+              helperText={errors.cpf}
             />
 
             <TextField sx={{ width: '100%' }}
@@ -128,6 +143,8 @@ export default function CreateAgendamentoComponent() {
               placeholder='Nome Completo'
               value={values.nome}
               onChange={handleChange}
+              error={!!errors.nome}
+              helperText={errors.nome}
             />
 
             <InputRowGender
@@ -160,7 +177,6 @@ export default function CreateAgendamentoComponent() {
             />
 
             <TextField sx={{ width: '100%' }}
-              required
               name='observacoes'
               id="observacoes-outlined"
               label="Observações"
@@ -170,7 +186,10 @@ export default function CreateAgendamentoComponent() {
             />
           </div>
 
-          <DateTimeComponent desc="Horário do Exame" />
+          <DateTimeComponent
+            desc="Horário do Exame"
+            value={{ date: values.data, time: values.horario }}
+            onChange={handleDateTimeChange} />
         </Box>
 
         <ButtonEnviarComponent sx={{ width: '20%' }} />

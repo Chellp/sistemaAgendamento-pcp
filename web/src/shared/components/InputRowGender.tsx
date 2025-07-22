@@ -31,6 +31,7 @@ const InputRowGender: React.FC<InputRowGenderComponentProps> = ({ generoSelecion
       >
         <FormControlLabel value="Feminino" control={<Radio />} label="Feminino" />
         <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
+        <FormControlLabel value="Outro" control={<Radio />} label="Outro" />
       </RadioGroup>
     </FormControl>
   );
