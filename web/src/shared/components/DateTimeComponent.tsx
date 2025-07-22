@@ -2,13 +2,14 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { Dayjs } from 'dayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { DateCalendar } from '@mui/x-date-pickers';
+import type { SxProps } from '@mui/system';
 
 export interface DateTimeComponentProps {
+    sx?: SxProps;
     desc: string;
     value: {
         date: Dayjs | null;
@@ -17,7 +18,7 @@ export interface DateTimeComponentProps {
     onChange: (newValue: { date: Dayjs | null; time: Dayjs | null }) => void;
 }
 
-const DateTimeComponent: React.FC<DateTimeComponentProps> = ({ desc, value, onChange }) => {
+const DateTimeComponent: React.FC<DateTimeComponentProps> = ({ sx, desc, value, onChange }) => {
     const handleDateChange = (newDate: Dayjs | null) => {
         onChange({ ...value, date: newDate });
     };
@@ -27,10 +28,10 @@ const DateTimeComponent: React.FC<DateTimeComponentProps> = ({ desc, value, onCh
     };
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ...sx }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['TimePicker']}>
-                    <TimePicker
+                    <TimePicker  sx={{ width: '100%' }}
                         label={desc}
                         value={value.time}
                         onChange={handleTimeChange}

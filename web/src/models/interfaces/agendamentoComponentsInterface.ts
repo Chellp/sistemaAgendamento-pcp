@@ -10,6 +10,8 @@ export type FormValues = {
     nascimento: Dayjs | null;
     observacoes: string;
     exameSelecionado: string;
+    endereco: string;
+    telefone: string;
     horario: Dayjs | null;
     data: Dayjs | null;
 };

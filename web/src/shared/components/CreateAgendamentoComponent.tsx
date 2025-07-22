@@ -32,6 +32,8 @@ export default function CreateAgendamentoComponent() {
     nascimento: null,
     observacoes: '',
     exameSelecionado: '',
+    endereco: '',
+    telefone: '',
     horario: null,
     data: null
 
@@ -196,6 +198,30 @@ export default function CreateAgendamentoComponent() {
             />
 
             <TextField sx={{ width: '100%' }}
+              required
+              name='endereco'
+              id="endereco-outlined-required"
+              label="Endereço..."
+              placeholder='Endereço...'
+              value={values.endereco}
+              onChange={handleChange}
+              error={!!errors.endereco}
+              helperText={errors.endereco}
+            />
+
+            <TextField sx={{ width: '100%' }}
+              required
+              name='telefone'
+              id="telefone-outlined-required"
+              label="Telefone"
+              placeholder='(00) 00000-0000'
+              value={values.telefone}
+              onChange={handleChange}
+              error={!!errors.telefone}
+              helperText={errors.telefone}
+            />
+
+            <TextField sx={{ width: '100%' }}
               name='observacoes'
               id="observacoes-outlined"
               label="Observações"
@@ -205,7 +231,7 @@ export default function CreateAgendamentoComponent() {
             />
           </div>
 
-          <DateTimeComponent
+          <DateTimeComponent sx={{padding: 2}}
             desc="Horário do Exame"
             value={{ date: values.data, time: values.horario }}
             onChange={handleDateTimeChange} />

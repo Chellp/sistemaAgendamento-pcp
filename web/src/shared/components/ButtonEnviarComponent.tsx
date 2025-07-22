@@ -16,6 +16,7 @@ const ButtonEnviarComponent: React.FC<ContainedButtonProps> = ({ sx }) => {
     return (
         <Stack direction="row" spacing={2} sx={{
             width: '100%',
+            marginTop: 3,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'

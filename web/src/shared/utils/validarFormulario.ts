@@ -9,6 +9,8 @@ const validateForm = (values: FormValues): FormErrors => {
     if (!values.cpf) errors.cpf = 'CPF é obrigatório';
     if (!values.nome) errors.nome = 'Nome é obrigatório';
     if (!values.nascimento) errors.nascimento = 'Data de nascimento é obrigatória';
+    if (!values.endereco) errors.endereco = 'Endereço é obrigatório';
+    if (!values.telefone) errors.telefone = 'Telefone é obrigatório';
     if (!values.exameSelecionado) errors.exameSelecionado = 'Tipo de exame é obrigatório';
     return errors;
 }
