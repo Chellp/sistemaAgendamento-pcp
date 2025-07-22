@@ -1,9 +1,9 @@
 export interface InterfacePaciente {
     id: number,
-    dadosPaciente: InterfaceInfoPaciente
+    dados: dadosPacienteInterface
 }
 
-export interface InterfaceInfoPaciente {
+export interface dadosPacienteInterface {
     cpf: string,
     nome: string,
     dt_nasc: Date,
