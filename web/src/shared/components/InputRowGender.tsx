@@ -29,7 +29,7 @@ const InputRowGender: React.FC<InputRowGenderComponentProps> = ({ generoSelecion
         onChange={handleChange}
         sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}
       >
-        <FormControlLabel value="Feminino" control={<Radio />} label="Feminino" />
+        <FormControlLabel value="Feminino" control={<Radio />} label="Feminino" checked/>
         <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
         <FormControlLabel value="Outro" control={<Radio />} label="Outro" />
       </RadioGroup>

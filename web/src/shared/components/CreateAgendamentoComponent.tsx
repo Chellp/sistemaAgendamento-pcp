@@ -66,14 +66,33 @@ export default function CreateAgendamentoComponent() {
     });
   };
 
+  //Mudar as funções 'handle' para outro arquivo
+  //para manter o código mais organizado e limpo
+
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    // Formatar a data e hora antes de enviar
+    const formattedData = values.data ? values.data.format('YYYY-MM-DD') : '';
+    const formattedHora = values.horario ? values.horario.format('HH:mm') : '';
+    const formattedNascimento = values.nascimento ? values.nascimento.format('YYYY-MM-DD') : '';
+
+    const payload = { // Enviar os dados formatados
+      ...values,
+      data: formattedData,  // Enviar a data formatada
+      horario: formattedHora, // Enviar a hora formatada
+      nascimento: formattedNascimento, // Enviar a data de nascimento formatada
+      genero: values.genero || 'Feminino', // Enviar o gênero selecionado
+    };
+
     const validationErrors = validateForm(values);
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       // Envie os dados para o backend ou prossiga
-      console.log(values);
+      console.log(payload);
+
+      //Enviar os dados para serem validados e tratados em um 'hook' e depois para a função de envio
+
 
       alert('Formulário válido!');
     }
