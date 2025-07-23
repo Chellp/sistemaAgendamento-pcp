@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 // Configuração padrão do Vite
 export default defineConfig({
     server: {
-        port: 5173,           // Porta do servidor de desenvolvimento
+        port: 5174,           // Porta do servidor de desenvolvimento
         open: true,           // Abrir o navegador automaticamente
         proxy: {
             '/api': {
