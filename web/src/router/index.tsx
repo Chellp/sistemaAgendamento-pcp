@@ -9,6 +9,7 @@ export default function AppRoutes() {
     <BrowserRouter>
         <Routes>
             <Route path='/' element={<AgendamentoPrincipalPage />} />
+            <Route path='/home' element={<AgendamentoPrincipalPage />} />
             <Route path='/novo-exame' element={<CriarAgendamentoPage />} />
             <Route path='/*' element={<NotFound />} />
         </Routes>

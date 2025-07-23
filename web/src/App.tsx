@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { createAppTheme } from './shared/themes/themesColors';
 import Sidebar from './shared/components/Sidebar';
 import Header from './shared/components/Header';
+import AppRoutes from './router';
 
 //import AgendamentoPrincipalPage from './pages/AgendamentoPrincipalPage';
 import CriarAgendamentoPage from './pages/criarAgendamentoPage';
@@ -26,7 +27,7 @@ const App = () => {
                 <Header></Header>
                 <Sidebar mode={mode} toggleMode={toggleMode} />
                 <Box component="main" sx={{ maxHeight: '100vh' ,flexGrow: 1, p: 3, overflowY: 'auto' }}>
-                    <CriarAgendamentoPage></CriarAgendamentoPage>
+                    <AppRoutes />
                 </Box>
             </Box>
         </ThemeProvider>
