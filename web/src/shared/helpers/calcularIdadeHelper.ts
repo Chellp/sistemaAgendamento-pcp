@@ -1,4 +1,4 @@
-import getDataHora from "./getDataHora"; const getdatahora = new getDataHora();
+import getDataHora from "./getDataHoraHelper"; const getdatahora = new getDataHora();
 
 export default function calcularIdade(dtNasc: string): number {
 

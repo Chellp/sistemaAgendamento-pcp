@@ -1,4 +1,4 @@
-import calcularIdade from "../../helpers/calcularIdade";
+import calcularIdade from "../../helpers/calcularIdadeHelper";
 
 export default function validarIdadeUtils(dt_nasc: string): string | null {
 

@@ -4,7 +4,8 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('agendamento', (table) => {
         table.increments('id').primary();
         table.dateTime('dt_criacao');
-        table.dateTime('dt_agendamento').notNullable();
+        table.string('data').notNullable();
+        table.string('hora').notNullable();
         table.integer('id_paciente').notNullable().unsigned()
             .references('id').inTable('paciente');    //fk paciente
         table.integer('id_atendente').notNullable().unsigned()

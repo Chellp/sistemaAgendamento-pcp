@@ -5,10 +5,10 @@ const db = knex(knexConfig.development);
 const bd: string = 'agendamento';
 
 export class AgendamentoRepository {
-    async criar(dt_agendamento: any, id_paciente: any, id_atendente: any, id_unidade: any) {
+    async criar(data: string, hora: string, id_paciente: number, id_atendente: number, id_unidade: number) {
         try {
             const [result] = await db(bd).insert({
-                dt_agendamento, id_paciente, id_atendente, id_unidade
+                data, hora, id_paciente, id_atendente, id_unidade
             })
 
             return result
@@ -33,7 +33,8 @@ export class AgendamentoRepository {
         }
 
         const atualização = {
-            dt_agendamento: dados.dt_agendamento ?? agendamento.dt_agendamento
+            data: dados.data ?? agendamento.data,
+            hora: dados.hora ?? agendamento.hora
         }
 
         return await db(bd).where({ id }).update(atualização)
@@ -80,7 +81,8 @@ export class AgendamentoRepository {
             .join('unidade as u', 'ag.id_unidade', '=', 'u.id')
             .select(
                 'ag.id as ID',
-                'ag.dt_agendamento as data_agendamento',
+                'ag.data as data_agendamento',
+                'ag.hora as hora_agendamento',
                 'p.cpf as cpf',
                 'p.nome as nome_completo',
                 'p.dt_nasc as dt_nasc',

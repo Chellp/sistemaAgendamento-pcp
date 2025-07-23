@@ -1,4 +1,4 @@
-import validarIdadeUtils from "../validarIdadeUtils";
+import validarIdadeUtils from "../../../utils/validators/validarIdadeUtils";
 import type { HandleAgendamentoValues, FormValuesInterface } from "../../../../models/interfaces/agendamentoComponentsInterface";
 
 export default class CheckAgendamento {

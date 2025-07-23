@@ -17,8 +17,8 @@ import DateTimeComponent from './DateTimeComponent';
 import ListExameCollapseComponent from './ListCollapseComponent';
 import ButtonEnviarComponent from './ButtonEnviarComponent';
 import InputRowGender from './InputRowGender';
-import validateForm from '../utils/validarFormulario';
-import type { FormErrors } from '../utils/validarFormulario';
+import validateForm from '../form-handling/form-processing/validarFormulario';
+import type { FormErrors } from '../form-handling/form-processing/validarFormulario';
 import type { FormValues } from '../../models/interfaces/agendamentoComponentsInterface';
 
 
@@ -77,7 +77,7 @@ export default function CreateAgendamentoComponent() {
     // Formatar a data e hora antes de enviar
     const formattedData = values.data ? values.data.format('YYYY-MM-DD') : '';
     const formattedHora = values.horario ? values.horario.format('HH:mm') : '';
-    const formattedNascimento = values.nascimento ? values.nascimento.format('YYYY-MM-DD') : '';
+    const formattedNascimento = values.nascimento ? new Date(values.nascimento.format('YYYY-MM-DD')) : '';
 
     const payload = { // Enviar os dados formatados
       ...values,
