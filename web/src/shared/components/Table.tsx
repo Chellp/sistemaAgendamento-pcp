@@ -41,7 +41,7 @@ export default function TableAgendamentoComponent({ rows, tipoPagina }: TableAge
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.horario}
+              key={row.id_agendamento}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">

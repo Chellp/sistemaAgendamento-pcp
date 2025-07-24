@@ -17,9 +17,15 @@ import DateTimeComponent from './DateTimeComponent';
 import ListExameCollapseComponent from './ListCollapseComponent';
 import ButtonEnviarComponent from './ButtonEnviarComponent';
 import InputRowGender from './InputRowGender';
-import validateForm from '../form-handling/form-processing/validarFormulario';
-import type { FormErrors } from '../form-handling/form-processing/validarFormulario';
+import validateForm from '../form-handling/form-validators/validarFormulario';
+import AgendamentoSubmission from '../form-handling/api-submission/AgendamentoSubmission';
+
+//Interfaces
+import type { FormErrors } from '../form-handling/form-validators/validarFormulario';
 import type { FormValues } from '../../models/interfaces/agendamentoComponentsInterface';
+import type { HandleAgendamentoValues } from '../../models/interfaces/agendamentoComponentsInterface';
+
+const agendamentoSubmission = new AgendamentoSubmission();
 
 
 export default function CreateAgendamentoComponent() {
@@ -77,13 +83,13 @@ export default function CreateAgendamentoComponent() {
     // Formatar a data e hora antes de enviar
     const formattedData = values.data ? values.data.format('YYYY-MM-DD') : '';
     const formattedHora = values.horario ? values.horario.format('HH:mm') : '';
-    const formattedNascimento = values.nascimento ? new Date(values.nascimento.format('YYYY-MM-DD')) : '';
+    const formattedNascimento = values.nascimento ? values.nascimento.format('YYYY-MM-DD') : ''
 
-    const payload = { // Enviar os dados formatados
+    const payload: HandleAgendamentoValues = { // Enviar os dados formatados
       ...values,
       data: formattedData,  // Enviar a data formatada
       horario: formattedHora, // Enviar a hora formatada
-      nascimento: formattedNascimento, // Enviar a data de nascimento formatada
+      nascimento: formattedNascimento.toString(), // Enviar a data de nascimento formatada
       genero: values.genero || 'Feminino', // Enviar o gênero selecionado
     };
 
@@ -92,9 +98,13 @@ export default function CreateAgendamentoComponent() {
     if (Object.keys(validationErrors).length === 0) {
       // Envie os dados para o backend ou prossiga
       console.log(payload);
-
-      //Enviar os dados para serem validados e tratados em um 'hook' e depois para a função de envio
-
+      agendamentoSubmission.getAgendamento(payload)
+        .then((idAgendamento) => {
+          console.log("Agendamento criado com sucesso:", idAgendamento);
+        })
+        .catch((error) => {
+          console.error("Erro ao criar agendamento:", error);
+        });
 
       alert('Formulário válido!');
     }
@@ -231,7 +241,7 @@ export default function CreateAgendamentoComponent() {
             />
           </div>
 
-          <DateTimeComponent sx={{padding: 2}}
+          <DateTimeComponent sx={{ padding: 2 }}
             desc="Horário do Exame"
             value={{ date: values.data, time: values.horario }}
             onChange={handleDateTimeChange} />
