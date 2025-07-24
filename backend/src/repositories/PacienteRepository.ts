@@ -1,25 +1,31 @@
+
 //knex
 import knex from 'knex';
 import knexConfig from "../../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'paciente'
 
-
 export class PacienteRepository {
-    async criar(cpf: any, nome: any, dt_nasc: any, genero: any, endereco: any, telefone: any, observacao: any) {
+    async criar(cpf: string, nome: string, dt_nasc: string, genero: string, endereco: string, telefone: string, observacao: string) {
+        console.log('Teste Criar Paciente Repository');
         try {
-
-            const [result] = await db(bd).insert({cpf, nome, dt_nasc, genero, endereco, telefone, observacao
-        })
-
+            const [result] = await db(bd).insert({
+                cpf, nome, dt_nasc, genero, endereco, telefone, observacao
+            })
+            console.log(result);
             return result
         } catch (error: any) {
+            console.log('Erro no ao Criar Paciente - repository: ', error);
             throw new Error(error.message)
         }
     }
 
     async getID(id: number) {
         return await db(bd).where({ id }).first();
+    }
+
+    async getCPF(cpf: string) {
+        return await db(bd).where({ cpf }).first();
     }
 
     async listar() {

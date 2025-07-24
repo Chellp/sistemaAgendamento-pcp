@@ -15,7 +15,7 @@ export default function ArrivaList({ data }: { data: RowDataAgendamentoTable[] }
             </Typography>
             <Box sx={{ width: '100%', maxHeight: '370px', display: 'flex', gap: 2, flexWrap: 'wrap', overflowY: 'auto' }}>
                 {data.map((item) => (
-                    <Card variant="outlined" sx={{ maxWidth: 360 }}>
+                    <Card key={item.id_agendamento} variant="outlined" sx={{ maxWidth: 360 }}>
                         <Box sx={{ p: 2 }}>
                             <Stack
                                 direction="row"

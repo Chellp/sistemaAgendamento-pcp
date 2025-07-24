@@ -18,13 +18,17 @@ import ListExameCollapseComponent from './ListCollapseComponent';
 import ButtonEnviarComponent from './ButtonEnviarComponent';
 import InputRowGender from './InputRowGender';
 import validateForm from '../form-handling/form-validators/validarFormulario';
-import AgendamentoSubmission from '../form-handling/api-submission/AgendamentoSubmission';
 
 //Interfaces
 import type { FormErrors } from '../form-handling/form-validators/validarFormulario';
 import type { FormValues } from '../../models/interfaces/agendamentoComponentsInterface';
 import type { HandleAgendamentoValues } from '../../models/interfaces/agendamentoComponentsInterface';
 
+//Classes
+import FormatarCaracteresHelper from '../helpers/FormatarCaracteresHelper';
+import AgendamentoSubmission from '../form-handling/api-submission/AgendamentoSubmission';
+
+const formatar = new FormatarCaracteresHelper();
 const agendamentoSubmission = new AgendamentoSubmission();
 
 
@@ -35,7 +39,7 @@ export default function CreateAgendamentoComponent() {
     cpf: '',
     nome: '',
     genero: '',
-    nascimento: null,
+    dt_nasc: null,
     observacoes: '',
     exameSelecionado: '',
     endereco: '',
@@ -52,7 +56,7 @@ export default function CreateAgendamentoComponent() {
   }
 
   function handleDateChange(date: Dayjs | null) {
-    setValues({ ...values, nascimento: date });
+    setValues({ ...values, dt_nasc: date });
   }
 
   const handleGenderChange = (selectedGenero: string) => {
@@ -83,13 +87,15 @@ export default function CreateAgendamentoComponent() {
     // Formatar a data e hora antes de enviar
     const formattedData = values.data ? values.data.format('YYYY-MM-DD') : '';
     const formattedHora = values.horario ? values.horario.format('HH:mm') : '';
-    const formattedNascimento = values.nascimento ? values.nascimento.format('YYYY-MM-DD') : ''
+    const formattedNascimento = values.dt_nasc ? values.dt_nasc.format('YYYY-MM-DD') : ''
+    const formmatteCPF = formatar.removerTodosCaracteresEspeciais(values.cpf)
 
     const payload: HandleAgendamentoValues = { // Enviar os dados formatados
       ...values,
+      cpf: formmatteCPF, // CPF sem caracteres especiais
       data: formattedData,  // Enviar a data formatada
       horario: formattedHora, // Enviar a hora formatada
-      nascimento: formattedNascimento.toString(), // Enviar a data de nascimento formatada
+      dt_nasc: formattedNascimento.toString(), // Enviar a data de nascimento formatada
       genero: values.genero || 'Feminino', // Enviar o gênero selecionado
     };
 
@@ -189,12 +195,12 @@ export default function CreateAgendamentoComponent() {
                   sx={{ width: '100%' }}
                   name='nascimento'
                   label="Nascimento*"
-                  value={values.nascimento}
+                  value={values.dt_nasc}
                   onChange={handleDateChange}
                   slotProps={{
                     textField: {
-                      error: !!errors.nascimento,
-                      helperText: errors.nascimento,
+                      error: !!errors.dt_nasc,
+                      helperText: errors.dt_nasc,
                       required: true,
                     }
                   }}

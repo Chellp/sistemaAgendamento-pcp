@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
         table.integer('id').primary();
         table.string('cpf').notNullable(); //valor único
         table.string('nome').notNullable();
-        table.date('dt_nasc').notNullable();
+        table.string('dt_nasc').notNullable();
         table.string('genero').notNullable();
         table.string('endereco').notNullable();
         table.string('telefone').notNullable();

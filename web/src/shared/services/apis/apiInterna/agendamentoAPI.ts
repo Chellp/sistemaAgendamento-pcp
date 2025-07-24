@@ -2,7 +2,7 @@ import { API_URL } from ".";
 const ITEM_API = `${API_URL}/api/agendamento/`;
 
 export default class AgendamentoAPI {
-    async criar(dt_agendamento: any, id_paciente: number, id_atendente: number, id_unidade: number) {
+    async criar(dt_agendamento: string, id_paciente: number, id_atendente: number, id_unidade: number) {
         const response = await fetch(`${ITEM_API}`, {
             method: 'POST',
             body: JSON.stringify({ dt_agendamento, id_paciente, id_atendente, id_unidade }),

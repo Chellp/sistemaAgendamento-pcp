@@ -9,12 +9,12 @@ const app = express(); //criação de endpoints
 const port = 3001
 
 // Permite todas as origens por padrão
-//app.use(cors());
+app.use(cors());
 
 // Ou se quiser especificar uma origem específica (o Vite está rodando na porta 5173)
-app.use(cors({
-  origin: 'http://localhost:5173',  // Frontend rodando no Vite
-}));
+/* app.use(cors({
+  origin: 'http://localhost:5174',  // Frontend rodando no Vite
+})); */
 
 app.use(express.json()); // permitir ler arquivos JSON
 
