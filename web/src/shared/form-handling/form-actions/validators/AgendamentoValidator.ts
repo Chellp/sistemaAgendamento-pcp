@@ -32,11 +32,11 @@ export default class CheckAgendamento {
         console.log(response);
 
         if (response === ''){
-            console.log('Formulário válido: checkCamposObrigatorios()');
+            console.log('Formulário válido:');
             
             return true;
         } else {
-            console.log("Campos obrigatórios não preenchidos: checkCamposObrigatorios()");
+            console.log("Campos obrigatórios não preenchidos:");
             console.log(response);
             console.log('-----------------------------');
             console.log(this.agendamento);

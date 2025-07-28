@@ -1,6 +1,6 @@
-import { InterfacePaciente } from "./InterfacePaciente"
 import { InterfaceAtendente } from "./InterfaceAtendente"
 import { InterfaceUnidade } from "./InterfaceUnidade"
+import { InterfaceCriarExame } from "./InterfaceExame"
 
 export interface InterfaceAgendamento {
     id: number,
@@ -10,7 +10,7 @@ export interface InterfaceAgendamento {
 
 export interface InterfaceInfoAgendamento {
     dt_agendamento: Date,
-    exame: InterfacePaciente,
+    exame: InterfaceCriarExame,
     atendente: InterfaceAtendente,
     unidade: InterfaceUnidade
 }

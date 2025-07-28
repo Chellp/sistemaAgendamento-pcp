@@ -20,6 +20,5 @@ agRouter.get('/info', (req, res) =>  agController.getInfoCompleta(req, res));
 agRouter.get('/info/:id', (req, res) =>  agController.getInfoCompletaID(req, res));
 
 agRouter.post('/criar', (req, res) =>  criarAgendController.criarPaciente(req, res))
-agRouter.put('/criar/:id', (req, res) =>  criarAgendController.updatePaciente(req, res))
 
 export default agRouter;

@@ -15,11 +15,8 @@ export class CriarAgendController {
     }
 
     async updatePaciente(req: any, res: any) {
-        const { dados } = req.body;
-        const { id_paciente } = req.params;
+        const { id_paciente, dados } = req.body;
         const paciente = await this.criarAgendRepository.updatePaciente(id_paciente, dados)
         res.status(201).json(paciente)
     }
-
-
 }

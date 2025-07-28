@@ -1,3 +1,6 @@
+//CLASSES
+import getDataHora from "../utils/getDataHora";
+const dataHora = new getDataHora()
 import { PacienteRepository } from "../repositories/PacienteRepository";
 const pacienteRepository = new PacienteRepository()
 import { AgendamentoRepository } from "../repositories/AgendamentoRepository";
@@ -5,6 +8,7 @@ const agendamentoRepository = new AgendamentoRepository()
 import { ExameRepository } from "../repositories/ExameRepository";
 const exameRepository = new ExameRepository()
 
+//INTERFACES
 import { dadosCriarAgendInterface } from "../models/interfaces/InterfaceCriarAgendamento";
 import { InterfaceCriarExame } from "../models/interfaces/InterfaceExame";
 import { InterfaceCriarDbAgendamento } from "../models/interfaces/InterfaceAgendamento";
@@ -16,28 +20,53 @@ const db = knex(knexConfig.development);
 
 export class CriarAgendRepository {
 
+    //função que verifica a existência do paciente a partir do númEro de CPF e retorna um boleano
+    async verificarPaciente(cpf: string) {
+        const resp = await pacienteRepository.getCPF(cpf);
+        console.log(resp);
+        if (resp) return resp;
+        return;
+    }
+
+    async criar(dados: dadosCriarAgendInterface) {
+
+        //Verificar a existencia do paciente
+        const verificacao = await this.verificarPaciente(dados.paciente.cpf)
+
+        //Se o paciente existir ele os dados serão atualizados, caso contrário será criado um novo paciente
+        if (verificacao) {
+            const resp = await this.updatePaciente(verificacao, dados);
+            return resp;
+        }
+        else {
+            const resp = await this.criarPaciente(dados);
+            return resp;
+        }
+    }
+
+    //Cria um novo agendamento a partir de um paciente não registrado
     async criarPaciente(dados: dadosCriarAgendInterface) {
         try {
+            //criando paciente e retornando o 'id'
             const pacienteId = await pacienteRepository.criar(dados.paciente);
 
-            const exame = dados.exame
+            //indexando o paciente criado ao exame
             const dadosExame: InterfaceCriarExame = {
-                boletim_ocorrencia: exame.boletim_ocorrencia,
-                tipoExame: exame.tipoExame,
-                status: exame.status,
-                obs: exame.obs,
-                id_paciente: pacienteId,
+                ...dados.exame,
+                status: 'PENDENTE',
+                id_paciente: pacienteId
             }
+            //criando exame e retornando o 'id'
             const exameId = await exameRepository.criar(dadosExame);
 
-            const ag = dados.agendamento;
+            //gravando a data de criação no servidor
+            const dt_criacao = dataHora.dataHoraUTC()
+
+            //indexando a 'dt_criacao' e o exame ao agendamento
             const dadosAgendamento: InterfaceCriarDbAgendamento = {
-                dt_criacao: ag.dt_criacao,
-                data: ag.data,
-                hora: ag.hora,
+                ...dados.agendamento,
+                dt_criacao: dt_criacao,
                 id_exame: exameId,
-                id_atendente: ag.id_atendente,
-                id_unidade: ag.id_unidade
             }
 
             return await agendamentoRepository.criar(dadosAgendamento)

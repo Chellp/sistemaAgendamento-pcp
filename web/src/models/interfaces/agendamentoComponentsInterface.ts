@@ -2,6 +2,9 @@
 // Interface para os valores do formulário de agendamento
 import { Dayjs } from 'dayjs';
 
+import type { dadosPacienteInterface } from './pacienteUserInterface';
+import type { InterfaceCriarExame } from './CriaExamesInterface';
+
 export type FormValues = {
   boletim: string;
   cpf: string;
@@ -37,13 +40,29 @@ export interface InterfaceCriarAgendamento {
   id_unidade: number
 }
 
+//retorno
 export interface InterfaceDbAgendamento {
   id: number,
-  dt_criacao: Date,
-  dt_agendamento: Date,
+  dt_criacao: string,
+  dt_agendamento: string,
   id_paciente: number,
   id_atendente: number,
   id_unidade: number
+}
+
+export interface InterfaceCriarDbAgendamento {
+    dt_criacao: string,
+    data: string,
+    hora: string,
+    id_exame?: number,
+    id_atendente: number,
+    id_unidade: number
+}
+
+export interface dadosCriarAgendInterface {
+  paciente: dadosPacienteInterface,
+  agendamento: InterfaceCriarDbAgendamento,
+  exame: InterfaceCriarExame
 }
 
 

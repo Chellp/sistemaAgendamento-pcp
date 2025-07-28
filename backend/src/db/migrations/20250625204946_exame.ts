@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
         table.enu('status', ['PENDENTE', 'CONCLUIDO', 'CANCELADO']).notNullable();
         table.string('obs');
         table.string('dt_atendimento');
-        table.integer('id_paciente').unsigned()
+        table.integer('id_paciente').notNullable().unsigned()
             .references('id').inTable('paciente'); //fk paciente
         table.integer('tipoExame').notNullable().unsigned()
             .references('id').inTable('tipoExame');    //fk tipoExame

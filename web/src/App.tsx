@@ -9,7 +9,7 @@ import Header from './shared/components/Header';
 import AppRoutes from './router';
 
 //import AgendamentoPrincipalPage from './pages/AgendamentoPrincipalPage';
-import CriarAgendamentoPage from './pages/criarAgendamentoPage';
+import CriarAgendamentoPage from './pages/Agendamento/criarAgendamentoPage';
 
 const App = () => {
     const [mode, setMode] = useState<'light' | 'dark'>('light');

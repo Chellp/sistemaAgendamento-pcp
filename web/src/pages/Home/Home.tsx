@@ -3,10 +3,10 @@ import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
 
 //Componentes Internos do Projeto
-import { createDataAgendTable } from '../models/interfaces/agendamentoComponentsInterface'; 
-import TableAgendamentoComponent from "../shared/components/Table";
-import ArrivaList from "../shared/components/ArrivaList";
-import type { RowDataAgendamentoTable } from '../models/interfaces/agendamentoComponentsInterface'; 
+import { createDataAgendTable } from '../../models/interfaces/agendamentoComponentsInterface'; 
+import TableAgendamentoComponent from "../../shared/components/Table";
+import ArrivaList from "../../shared/components/ArrivaList";
+import type { RowDataAgendamentoTable } from '../../models/interfaces/agendamentoComponentsInterface'; 
 
 const data: RowDataAgendamentoTable[] = [
     createDataAgendTable('A001', '13:00', 'VIOLENCIA_SEXUAL', '123.456.789-00', 'João Silva', 'M', '29'),

@@ -2,7 +2,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 //Componentes Internos do Projeto
-import CreateAgendamentoComponent from "../shared/components/CreateAgendamentoComponent";
+import CreateAgendamentoComponent from "./CreateAgendamentoComponent";
 
 export default function CriarAgendamentoPage() {
     return (
