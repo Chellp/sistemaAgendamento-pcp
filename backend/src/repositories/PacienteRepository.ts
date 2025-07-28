@@ -1,19 +1,27 @@
+import { dadosPacienteInterface, dadosUpdatePacienteInterface } from "../models/interfaces/InterfacePaciente";
+
 //knex
 import knex from 'knex';
 import knexConfig from "../../knexfile";
 const db = knex(knexConfig.development);
 const bd: string = 'paciente'
 
-
 export class PacienteRepository {
-    async criar(cpf: any, nome: any, dt_nasc: any, genero: any, endereco: any, telefone: any, observacao: any) {
+    async criar(dados: dadosPacienteInterface) {
         try {
-
-            const [result] = await db(bd).insert({cpf, nome, dt_nasc, genero, endereco, telefone, observacao
-        })
-
+            const [result] = await db(bd).insert({
+                cpf: dados.cpf,
+                nome: dados.nome,
+                dt_nasc: dados.dt_nasc,
+                genero: dados.genero,
+                endereco: dados.endereco,
+                telefone: dados.telefone,
+                observacao: dados.observacao
+            })
+            console.log(result);
             return result
         } catch (error: any) {
+            console.log('Erro no ao Criar Paciente - repository: ', error);
             throw new Error(error.message)
         }
     }
@@ -22,11 +30,15 @@ export class PacienteRepository {
         return await db(bd).where({ id }).first();
     }
 
+    async getCPF(cpf: string) {
+        return await db(bd).where({ cpf }).first();
+    }
+
     async listar() {
         return await db(bd).select('id', 'cpf', 'nome', 'genero', 'dt_nasc', 'endereco', 'telefone', 'observacao')
     }
 
-    async update(id: number, dados: any) {
+    async update(id: number, dados: dadosPacienteInterface) {
         const paciente = await this.getID(id);
 
         if (!paciente) {

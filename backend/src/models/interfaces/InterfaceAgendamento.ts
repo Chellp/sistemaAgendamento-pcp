@@ -1,23 +1,33 @@
-import { InterfacePaciente } from "./InterfacePaciente"
 import { InterfaceAtendente } from "./InterfaceAtendente"
 import { InterfaceUnidade } from "./InterfaceUnidade"
+import { InterfaceCriarExame } from "./InterfaceExame"
 
 export interface InterfaceAgendamento {
     id: number,
-    dt_criacao: Date,
+    dt_criacao: string,
     dados: InterfaceInfoAgendamento
 }
 
 export interface InterfaceInfoAgendamento {
     dt_agendamento: Date,
-    paciente: InterfacePaciente,
+    exame: InterfaceCriarExame,
     atendente: InterfaceAtendente,
     unidade: InterfaceUnidade
 }
 
 export interface InterfaceCriarAgendamento {
-    dt_agendamento: Date,
-    id_paciente: number,
+    dt_criacao: string,
+    dt_agendamento: string,
+    exame: number,
+    atendente: number,
+    unidade: number
+}
+
+export interface InterfaceCriarDbAgendamento {
+    dt_criacao: string,
+    data: string,
+    hora: string,
+    id_exame: number,
     id_atendente: number,
     id_unidade: number
 }
@@ -26,7 +36,7 @@ export interface InterfaceDbAgendamento {
     id: number,
     dt_criacao: Date,
     dt_agendamento: Date,
-    id_paciente: number,
+    exame: number,
     id_atendente: number,
     id_unidade: number
 }

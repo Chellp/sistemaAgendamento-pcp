@@ -1,17 +1,26 @@
 export interface InterfacePaciente {
     id: number,
-    dadosPaciente: InterfaceInfoPaciente
+    dadosPaciente: dadosPacienteInterface
 }
 
-export interface InterfaceInfoPaciente {
+export interface dadosPacienteInterface {
     cpf: string,
     nome: string,
-    dt_nasc: Date,
+    dt_nasc: string,
     genero: string,
     endereco: string,
     telefone: string,
     observacao: string,
 }
+
+export interface dadosUpdatePacienteInterface {
+    nome: string,
+    genero: string,
+    endereco: string,
+    telefone: string,
+    observacao: string,
+}
+
 
 export interface InterfaceDbPaciente {
     id: number,

@@ -8,6 +8,8 @@ const pacienteController = new PacienteController(pacienteRepository);
 const pacienteRouter = express.Router();
 
 pacienteRouter.get('/', (req, res) =>  pacienteController.listar(req, res));
+pacienteRouter.get('/:id', (req, res) => pacienteController.getID(req, res));
+pacienteRouter.get('/cpf/:cpf', (req, res) => pacienteController.getCPF(req, res));
 pacienteRouter.post('/', (req, res) => pacienteController.criar(req, res));
 pacienteRouter.put('/:id', (req, res) => pacienteController.update(req, res));
 pacienteRouter.delete('/:id', (req, res) => pacienteController.deletar(req, res));

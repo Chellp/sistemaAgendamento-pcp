@@ -1,4 +1,3 @@
-import { InterfaceAgendamento } from "./InterfaceAgendamento"
 import { InterfaceExaminador } from "./InterfaceExaminador"
 
 export interface InterfaceExame {
@@ -10,9 +9,16 @@ export interface InterfaceExame {
 };
 
 export interface InterfaceInfoExame {
-    agendamento: InterfaceAgendamento,
     boletim_ocorrencia: string,
-    tipo_exame: 'AD_CAUTELAM' | 'VIOLENCIA_SEXUAL' | 'CORPO_DELITO',
+    tipoExame: 'K001' | 'K002' | 'K004' | 'K0010',
     status: 'PENDENTE' | 'CONCLUIDO' | 'CANCELADO',
     obs: string
+};
+
+export interface InterfaceCriarExame {
+    boletim_ocorrencia: string,
+    tipoExame: 'K001' | 'K002' | 'K004' | 'K0010',
+    status: 'PENDENTE' | 'CONCLUIDO' | 'CANCELADO',
+    obs: string,
+    id_paciente: number,
 };

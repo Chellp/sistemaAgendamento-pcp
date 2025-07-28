@@ -6,7 +6,7 @@ export interface InterfacePaciente {
 export interface dadosPacienteInterface {
     cpf: string,
     nome: string,
-    dt_nasc: Date,
+    dt_nasc: string,
     genero: string,
     endereco: string,
     telefone: string,
@@ -17,7 +17,7 @@ export interface InterfaceDbPaciente {
     id: number,
     cpf: string,
     nome: string,
-    dt_nasc: Date,
+    dt_nasc: string,
     genero: string,
     endereco: string,
     telefone: string,

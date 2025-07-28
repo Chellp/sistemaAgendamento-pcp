@@ -1,4 +1,5 @@
 import { InterfaceExame } from "../models/interfaces/InterfaceExame";
+import { InterfaceCriarExame } from "../models/interfaces/InterfaceExame";
 
 //knex
 import knex from 'knex';
@@ -7,11 +8,15 @@ const db = knex(knexConfig.development);
 const bd: string = 'exame';
 
 export class ExameRepository {
-    async criar(boletim_ocorrencia: any, tipo_exame: any, status: any, obs: any, id_paciente: any, id_agendamento: any) {
+    async criar(dados: InterfaceCriarExame) {
         try {
 
             const [result] = await db(bd).insert({
-                boletim_ocorrencia, id_paciente, obs, status, tipo_exame, id_agendamento
+                boletim_ocorrencia: dados.boletim_ocorrencia,
+                id_paciente: dados.id_paciente,
+                obs: dados.obs,
+                status: dados.status,
+                tipoExame: dados.tipoExame,
             })
 
             return result
@@ -52,6 +57,26 @@ export class ExameRepository {
             return await db(bd).where({ id }).delete();
         } catch (error) {
             throw new Error('Erro ao deletar Exame')
+        }
+    }
+
+
+    async concluir(id: number, examinador: number, dt_atendimento: string) {
+        try {
+            const exame = await db(bd).where({ id }).first();
+            await db(bd).where({ id }).update({
+                status: 'CONCLUIDO'
+            })
+            const conclusao = await db('conclusaoExame').insert({
+                dt_atendimento: dt_atendimento,
+                id_exame: exame.id,
+                id_examinador: examinador
+            })
+
+            return conclusao;
+
+        } catch (error: any) {
+            new Error(error.message)
         }
     }
 }

@@ -11,20 +11,24 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-
 //Componentes Internos do Projeto
-import DateTimeComponent from './DateTimeComponent';
-import ListExameCollapseComponent from './ListCollapseComponent';
-import ButtonEnviarComponent from './ButtonEnviarComponent';
-import InputRowGender from './InputRowGender';
-import validateForm from '../form-handling/form-validators/validarFormulario';
-import AgendamentoSubmission from '../form-handling/api-submission/AgendamentoSubmission';
+import DateTimeComponent from '../../shared/components/DateTimeComponent';
+import ListExameCollapseComponent from '../../shared/components/ListCollapseComponent';
+import ButtonEnviarComponent from '../../shared/components/ButtonEnviarComponent';
+import InputRowGender from '../../shared/components/InputRowGender';
+import validateForm from '../../shared/form-handling/form-validators/validarFormulario';
+import ConfirmAgendamentoModal from './ConfirmAgendamentoComponent';
 
 //Interfaces
-import type { FormErrors } from '../form-handling/form-validators/validarFormulario';
+import type { FormErrors } from '../../shared/form-handling/form-validators/validarFormulario';
 import type { FormValues } from '../../models/interfaces/agendamentoComponentsInterface';
 import type { HandleAgendamentoValues } from '../../models/interfaces/agendamentoComponentsInterface';
 
+//Classes
+import FormatarCaracteresHelper from '../../shared/helpers/FormatarCaracteresHelper';
+import AgendamentoSubmission from '../../shared/form-handling/api-submission/AgendamentoSubmission';
+
+const formatar = new FormatarCaracteresHelper();
 const agendamentoSubmission = new AgendamentoSubmission();
 
 
@@ -35,7 +39,7 @@ export default function CreateAgendamentoComponent() {
     cpf: '',
     nome: '',
     genero: '',
-    nascimento: null,
+    dt_nasc: null,
     observacoes: '',
     exameSelecionado: '',
     endereco: '',
@@ -47,12 +51,17 @@ export default function CreateAgendamentoComponent() {
 
   const [errors, setErrors] = React.useState<FormErrors>({});
 
+  // Controla a visibilidade da modal
+  const [openModal, setOpenModal] = React.useState(false);
+  const [modalData, setModalData] = React.useState<HandleAgendamentoValues | null>(null);  // Dados a serem passados para a Modal
+
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValues({ ...values, [e.target.name]: e.target.value });
   }
 
   function handleDateChange(date: Dayjs | null) {
-    setValues({ ...values, nascimento: date });
+    setValues({ ...values, dt_nasc: date });
   }
 
   const handleGenderChange = (selectedGenero: string) => {
@@ -78,27 +87,38 @@ export default function CreateAgendamentoComponent() {
   //para manter o código mais organizado e limpo
 
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    // Formatar a data e hora antes de enviar
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
     const formattedData = values.data ? values.data.format('YYYY-MM-DD') : '';
     const formattedHora = values.horario ? values.horario.format('HH:mm') : '';
-    const formattedNascimento = values.nascimento ? values.nascimento.format('YYYY-MM-DD') : ''
+    const formattedNascimento = values.dt_nasc ? values.dt_nasc.format('YYYY-MM-DD') : '';
+    const formmatteCPF = formatar.removerTodosCaracteresEspeciais(values.cpf);
 
-    const payload: HandleAgendamentoValues = { // Enviar os dados formatados
+    const payload: HandleAgendamentoValues = {
       ...values,
-      data: formattedData,  // Enviar a data formatada
-      horario: formattedHora, // Enviar a hora formatada
-      nascimento: formattedNascimento.toString(), // Enviar a data de nascimento formatada
-      genero: values.genero || 'Feminino', // Enviar o gênero selecionado
+      cpf: formmatteCPF,
+      data: formattedData,
+      horario: formattedHora,
+      dt_nasc: formattedNascimento.toString(),
+      genero: values.genero || 'Feminino',
     };
 
     const validationErrors = validateForm(values);
     setErrors(validationErrors);
+
     if (Object.keys(validationErrors).length === 0) {
-      // Envie os dados para o backend ou prossiga
-      console.log(payload);
-      agendamentoSubmission.getAgendamento(payload)
+      //abrir a modal de confirmação passando o payload como props
+      setOpenModal(true);
+      setModalData(payload); // Salvar os dados no estado local
+    }
+  };
+
+  // Função chamada ao confirmar o agendamento na modal
+  const handleConfirmSubmit = () => {
+    if (modalData) {
+      // Enviar dados para o backend
+      agendamentoSubmission.getAgendamento(modalData)
         .then((idAgendamento) => {
           console.log("Agendamento criado com sucesso:", idAgendamento);
         })
@@ -106,9 +126,15 @@ export default function CreateAgendamentoComponent() {
           console.error("Erro ao criar agendamento:", error);
         });
 
-      alert('Formulário válido!');
+      setOpenModal(false);  // Fechar a modal
+      alert('Agendamento confirmado!');
     }
-  }
+  };
+
+  // Função chamada ao cancelar a ação na modal
+  const handleCancel = () => {
+    setOpenModal(false);  // Fechar a modal
+  };
 
   return (
     <Card variant="outlined" sx={{ paddingBottom: '30px' }}>
@@ -189,12 +215,12 @@ export default function CreateAgendamentoComponent() {
                   sx={{ width: '100%' }}
                   name='nascimento'
                   label="Nascimento*"
-                  value={values.nascimento}
+                  value={values.dt_nasc}
                   onChange={handleDateChange}
                   slotProps={{
                     textField: {
-                      error: !!errors.nascimento,
-                      helperText: errors.nascimento,
+                      error: !!errors.dt_nasc,
+                      helperText: errors.dt_nasc,
                       required: true,
                     }
                   }}
@@ -249,6 +275,14 @@ export default function CreateAgendamentoComponent() {
 
         <ButtonEnviarComponent sx={{ width: '20%' }} />
       </form>
+
+      {/* Modal de confirmação */}
+      <ConfirmAgendamentoModal
+        open={openModal}
+        onClose={handleCancel}
+        onConfirm={handleConfirmSubmit}
+        dados={modalData}
+      />
 
     </Card>
   );

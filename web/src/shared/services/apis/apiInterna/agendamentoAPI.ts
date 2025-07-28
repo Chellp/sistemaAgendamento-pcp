@@ -1,11 +1,13 @@
 import { API_URL } from ".";
 const ITEM_API = `${API_URL}/api/agendamento/`;
 
+import type { InterfaceDbAgendamento, dadosCriarAgendInterface } from "../../../../models/interfaces/agendamentoComponentsInterface";
+
 export default class AgendamentoAPI {
-    async criar(dt_agendamento: any, id_paciente: number, id_atendente: number, id_unidade: number) {
+    async criar(dados: InterfaceDbAgendamento) {
         const response = await fetch(`${ITEM_API}`, {
             method: 'POST',
-            body: JSON.stringify({ dt_agendamento, id_paciente, id_atendente, id_unidade }),
+            body: JSON.stringify(dados),
             headers: { 'Content-Type': 'application/json' }
         })
         return response.json();
@@ -43,16 +45,25 @@ export default class AgendamentoAPI {
     }
 
     async getInfoCompleta() {
-    const response = await fetch(`${ITEM_API}info`, {
-        headers: { 'Content-Type': 'application/json' }
-    })
-    return response.json();
-}
+        const response = await fetch(`${ITEM_API}info`, {
+            headers: { 'Content-Type': 'application/json' }
+        })
+        return response.json();
+    }
 
     async getInfoCompletaID(id: number) {
-    const response = await fetch(`${ITEM_API}info/${id}`, {
-        headers: { 'Content-Type': 'application/json' }
-    })
-    return response.json();
-}
+        const response = await fetch(`${ITEM_API}info/${id}`, {
+            headers: { 'Content-Type': 'application/json' }
+        })
+        return response.json();
+    }
+
+    async criarAgendamento(dados: dadosCriarAgendInterface) {
+        const response = await fetch(`${ITEM_API}criar/`, {
+            method: 'POST',
+            body: JSON.stringify(dados),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        return response.json();
+    }
 }
