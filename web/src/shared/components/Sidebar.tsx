@@ -1,26 +1,20 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import {
+  Box, Drawer, CssBaseline, Toolbar,
+  List, Divider, ListItem, ListItemButton,
+  ListItemIcon, ListItemText
+} from '@mui/material';
 
 //Ícones
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
-import TodayIcon from '@mui/icons-material/Today';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import EventNoteIcon from '@mui/icons-material/EventNote';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 //Componentes Internos do Projeto
 import ThemeToggle from '../utils/ToggleColorMode';
+import { examesInfoLinks } from '../../pages/Exames/examesInfoLinks';
+import { agendInfoLinks } from '../../pages/Agendamento/agendInfoLinks';
+
+//Funções
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -30,6 +24,13 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) => {
+
+  const navigate = useNavigate();
+
+  const handleClick = (link: string) => {
+    navigate(link);
+  }
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -44,16 +45,15 @@ const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) => {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           <List>  {/* Agendamentos */}
-            {['Agendamento', 'Hoje', 'Essa Semana', 'Esse Mês'].map((text) => (
-              <ListItem key={text} disablePadding>
+            {agendInfoLinks.map(({ nome, link, icone: Icon, el }, index) => (
+              <ListItem key={`${el}-${index}`}
+                onClick={() => handleClick(link)}
+                disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    {text === 'Agendamento' && <AddCircleIcon />}
-                    {text === 'Hoje' && <TodayIcon />}
-                    {text === 'Essa Semana' && <CalendarTodayIcon />}
-                    {text === 'Esse Mês' && <EventNoteIcon />}
+                    <Icon />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary={nome} />
                 </ListItemButton>
               </ListItem>
             ))}
@@ -65,18 +65,20 @@ const Sidebar: React.FC<SidebarProps> = ({ mode, toggleMode }) => {
                 <HealthAndSafetyIcon />
               </ListItemIcon>
               <ListItemText primary="Exames" slotProps={{
-          primary: { sx: { fontWeight: 'bold' } }  // Aplica o estilo ao Typography interno
-        }} />
+                primary: { sx: { fontWeight: 'bold' } }  // Aplica o estilo ao Typography interno
+              }} />
             </ListItem>
           </List>
           <List>
-            {['Concluidos', 'Pendentes', 'Cancelados'].map((text, index) => (
-              <ListItem key={text} disablePadding>
+            {examesInfoLinks.map(({ nome, link, icone: Icon, el }, index) => (
+              <ListItem key={`${el}-${index}`}
+                onClick={() => handleClick(link)}
+                disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    <Icon />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary={nome} />
                 </ListItemButton>
               </ListItem>
             ))}

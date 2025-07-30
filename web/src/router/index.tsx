@@ -1,33 +1,44 @@
 //import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 //AGENDAMENTOS PAGES
 import AgendamentoPrincipalPage from '../pages/Home/Home'
 import CriarAgendamentoPage from '../pages/Agendamento/criarAgendamentoPage'
-import ConfirmAgendamentoComponent from '../pages/Agendamento/ConfirmAgendamentoComponent'
 
 //PADRÃO PAGES
+import Layout from '../shared/components/Layout'
 import NotFound from '../pages/NotFound'
 
-export default function AppRoutes() {
+//Interfaces
+import type { LayoutProps } from '../shared/components/Layout'
+
+export default function AppRoutes({ mode, toggleMode }: LayoutProps) {
   return (
-    <BrowserRouter>
-        <Routes>
-            <Route path='/' element={<AgendamentoPrincipalPage />} />
-            <Route path='/home' element={<AgendamentoPrincipalPage />} />
+      <Routes>
+        {/* Rotas com Sidebar */}
+        <Route  element={<Layout mode={mode} toggleMode={toggleMode} />}>
+          <Route path="/" element={<AgendamentoPrincipalPage />} />
+          <Route path="/home" element={<AgendamentoPrincipalPage />} />
 
-            <Route path='/agendamentos' element={<AgendamentoPrincipalPage />} />
-            <Route path='/agendamentos/novo-agendamento' element={<CriarAgendamentoPage />} />
-            {/* <Route path='/agendamentos/novo-agendamento/confirmar' element={<CriarAgendamentoPage />} /> */}
-            <Route path='/agendamentos/todos' element={<AgendamentoPrincipalPage />} />
-            <Route path='/agendamentos/essa-semana' element={<AgendamentoPrincipalPage />} />
-            <Route path='/agendamentos/esse-mes' element={<AgendamentoPrincipalPage />} />
+          <Route path="/agendamentos"  element={<Outlet />}>
+            <Route index element={<AgendamentoPrincipalPage />} />
+            <Route path="novo-agendamento" element={<CriarAgendamentoPage />} />
+            <Route path="todos" element={<AgendamentoPrincipalPage />} />
+            <Route path="essa-semana" element={<AgendamentoPrincipalPage />} />
+            <Route path="esse-mes" element={<AgendamentoPrincipalPage />} />
+          </Route>
 
-            <Route path='/exames/pendentes' element={<CriarAgendamentoPage />} />
-            <Route path='/exames/concluidos' element={<CriarAgendamentoPage />} />
-            <Route path='/exames/cancelados' element={<CriarAgendamentoPage />} />
-            <Route path='/*' element={<NotFound />} />
-        </Routes>
-    </BrowserRouter>
-  )
+          <Route path="/exames" element={<Outlet />}>
+            <Route path="todos" element={<CriarAgendamentoPage />} />
+            <Route path="pendentes" element={<CriarAgendamentoPage />} />
+            <Route path="concluidos" element={<CriarAgendamentoPage />} />
+            <Route path="cancelados" element={<CriarAgendamentoPage />} />
+          </Route>
+
+        </Route>
+        {/* Rotas sem Sidebar */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+  );
 }
