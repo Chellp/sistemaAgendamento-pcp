@@ -8,6 +8,11 @@ export async function seed(knex: Knex): Promise<void> {
 
     // Inserts seed entries
     await knex("unidade").insert([
-        { id: 1, nome: `${nome}Paranaguá`},
+        { nome: `${nome}Paranaguá`, estado: 'Paraná', cidade: 'Paranaguá' },
+        { nome: 'Unidade Central', estado: 'São Paulo', cidade: 'São Paulo' },
+        { nome: 'Unidade Norte', estado: 'Rio de Janeiro', cidade: 'Rio de Janeiro' },
+        { nome: 'Unidade Sul', estado: 'Paraná', cidade: 'Curitiba' },
+        { nome: 'Unidade Leste', estado: 'Minas Gerais', cidade: 'Belo Horizonte' },
+        { nome: 'Unidade Oeste', estado: 'Bahia', cidade: 'Salvador' }
     ]);
 };
