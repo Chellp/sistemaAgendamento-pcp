@@ -17,7 +17,7 @@ import ListExameCollapseComponent from '../../shared/components/ListCollapseComp
 import ButtonEnviarComponent from '../../shared/components/ButtonEnviarComponent';
 import InputRowGender from '../../shared/components/InputRowGender';
 import validateForm from '../../shared/form-handling/form-validators/validarFormulario';
-import ConfirmAgendamentoModal from './ConfirmAgendamentoComponent';
+import InfoAgendamentoComponent from './InfoAgendamentoComponent';
 
 //Interfaces
 import type { FormErrors } from '../../shared/form-handling/form-validators/validarFormulario';
@@ -277,11 +277,13 @@ export default function CreateAgendamentoComponent() {
       </form>
 
       {/* Modal de confirmação */}
-      <ConfirmAgendamentoModal
+      <InfoAgendamentoComponent
+        titulo='Confirmar Agendamento'
         open={openModal}
         onClose={handleCancel}
         onConfirm={handleConfirmSubmit}
         dados={modalData}
+        btnConfirmar='Confirmar'
       />
 
     </Card>

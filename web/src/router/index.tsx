@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 //AGENDAMENTOS PAGES
 import AgendamentoPrincipalPage from '../pages/Home/Home'
 import CriarAgendamentoPage from '../pages/Agendamento/criarAgendamentoPage'
+import AgendEssaSemanaPage from '../pages/Agendamento/AgendEssaSemanaPage';
 
 //PADRÃO PAGES
 import Layout from '../shared/components/Layout'
@@ -25,7 +26,7 @@ export default function AppRoutes({ mode, toggleMode }: LayoutProps) {
             <Route index element={<AgendamentoPrincipalPage />} />
             <Route path="novo-agendamento" element={<CriarAgendamentoPage />} />
             <Route path="todos" element={<AgendamentoPrincipalPage />} />
-            <Route path="essa-semana" element={<AgendamentoPrincipalPage />} />
+            <Route path="essa-semana" element={<AgendEssaSemanaPage />} />
             <Route path="esse-mes" element={<AgendamentoPrincipalPage />} />
           </Route>
 

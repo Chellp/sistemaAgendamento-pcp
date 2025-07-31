@@ -29,8 +29,8 @@ export interface HandleAgendamentoValues {
   exameSelecionado: string,
   endereco: string,
   telefone: string,
-  horario: string, // Horário como string ISO
-  data: string // Data como string ISO
+  horario: string, 
+  data: string 
 }
 
 export interface InterfaceCriarAgendamento {
@@ -76,6 +76,7 @@ export interface RowDataAgendamentoTable {
   nome: string;
   genero: string;
   idade: string;
+  status: string;
 }
 
 export function createDataAgendTable(
@@ -85,7 +86,8 @@ export function createDataAgendTable(
   cpf: string,
   nome: string,
   genero: string,
-  idade: string
+  idade: string,
+  status: string
 ) {
-  return { id_agendamento, horario, tipoExame, cpf, nome, genero, idade };
+  return { id_agendamento, horario, tipoExame, cpf, nome, genero, idade, status };
 }
