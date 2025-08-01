@@ -1,6 +1,6 @@
 import getDataHora from "./getDataHoraHelper"; const getdatahora = new getDataHora();
 
-export default function calcularIdade(dtNasc: string): number {
+export default function calcularIdade(dtNasc: string | Date): number {
 
     const dt = new Date(dtNasc)
     const diaNasc: number = getdatahora.getDia(dt);

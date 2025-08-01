@@ -12,11 +12,10 @@ import { Button, Paper } from '@mui/material';
 import InfoAgendamentoComponent from '../../pages/Agendamento/InfoAgendamentoComponent';
 
 //Interfaces
-import type { HandleAgendamentoValues } from '../../models/interfaces/agendamentoComponentsInterface';
-
+import type { dadosCriarAgendInterface } from '../../models/interfaces/agendamentoComponentsInterface';
 
 interface TableAgendamentoComponentProps {
-  rows: any[];
+  rows: dadosCriarAgendInterface[];
   tipoPagina: '' | 'concluido' | 'pendente' | 'cancelado';
   header?: string[],
   status?: boolean,
@@ -36,7 +35,7 @@ export default function TableAgendamentoComponent({ rows, header, status = false
 
   // Controla a visibilidade da modal
   const [openModal, setOpenModal] = React.useState(false);
-  const [modalData, setModalData] = React.useState<HandleAgendamentoValues | null>(null);  // Dados a serem passados para a Modal
+  const [modalData, setModalData] = React.useState<any | null>(null);  // Dados a serem passados para a Modal
 
   // Função chamada ao clicar para abrir a modal
   const handleConfirm = () => {
@@ -63,9 +62,9 @@ export default function TableAgendamentoComponent({ rows, header, status = false
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row: any) => (
+            {rows.map((row: dadosCriarAgendInterface) => (
               <TableRow
-                key={row.id_agendamento}
+                key={row.agendamento.id}
                 sx={{
                   '&:last-child td, &:last-child th': { border: 0 }, '&:hover': {
                     backgroundColor: (theme) => theme.palette.action.hover,
@@ -79,16 +78,16 @@ export default function TableAgendamentoComponent({ rows, header, status = false
                 }
               >
                 <TableCell component="th" scope="row">
-                  {row.horario}
+                  {row.agendamento.hora}
                 </TableCell>
-                <TableCell align="right">{row.nome}</TableCell>
-                <TableCell align="right">{row.cpf}</TableCell>
-                <TableCell align="right">{row.tipoExame}</TableCell>
-                <TableCell align="right">{row.genero}</TableCell>
+                <TableCell align="right">{row.paciente.nome}</TableCell>
+                <TableCell align="right">{row.paciente.cpf}</TableCell>
+                <TableCell align="right">{row.exame.tipoExame}</TableCell>
+                <TableCell align="right">{row.paciente.genero}</TableCell>
 
                 {status && (
                   <TableCell align="right">
-                    <Button variant="contained" size="small">{row.status}</Button>
+                    <Button variant="contained" size="small">{row.exame.status}</Button>
                   </TableCell>
                 )}
 

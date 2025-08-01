@@ -25,12 +25,11 @@ export default function AgendamentoPrincipalPage() {
             }
         };
 
-        fetchData();  // Chama a função para buscar os dados
-    }, []);  // O useEffect roda apenas uma vez quando o componente é montado
+        fetchData();  // Chama a função para buscar os dados 
+    }, []);  // O useEffect roda apenas uma vez quando o componente é montado 
 
-    console.log(data[0]);
+    console.log(data[2]);
     
-
     return (
         <Box sx={{ paddingX: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Toolbar></Toolbar>

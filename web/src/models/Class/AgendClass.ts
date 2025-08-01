@@ -18,7 +18,7 @@ export default class AgendClass {
 
     async todosExamesExtendido() {
 
-        const agend = await api.listar()
+        const agend = await api.listar()  
         let data: dadosCriarAgendInterface[] = []
 
         await Promise.all(

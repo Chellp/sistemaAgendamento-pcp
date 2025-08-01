@@ -29,7 +29,7 @@ export interface HandleAgendamentoValues {
   exameSelecionado: string,
   endereco: string,
   telefone: string,
-  horario: string, 
+  horario: string,
   data: string,
   atendente?: string,
   id_agendamento?: number
@@ -53,12 +53,13 @@ export interface InterfaceDbAgendamento {
 }
 
 export interface InterfaceCriarDbAgendamento {
-    dt_criacao: string,
-    data: string,
-    hora: string,
-    id_exame?: number,
-    id_atendente: number,
-    id_unidade: number
+  id?: number
+  dt_criacao: string,
+  data: string,
+  hora: string,
+  id_exame?: number,
+  id_atendente: number,
+  id_unidade: number
 }
 
 export interface dadosCriarAgendInterface {
