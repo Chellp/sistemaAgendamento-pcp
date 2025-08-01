@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import { Button, Paper } from '@mui/material';
 
 //Componentes Internos do Projeto
-import type { RowDataAgendamentoTable } from '../../models/interfaces/agendamentoComponentsInterface';
+
 import InfoAgendamentoComponent from '../../pages/Agendamento/InfoAgendamentoComponent';
 
 //Interfaces
@@ -16,7 +16,7 @@ import type { HandleAgendamentoValues } from '../../models/interfaces/agendament
 
 
 interface TableAgendamentoComponentProps {
-  rows: RowDataAgendamentoTable[] | any;
+  rows: any[];
   tipoPagina: '' | 'concluido' | 'pendente' | 'cancelado';
   header?: string[],
   status?: boolean,

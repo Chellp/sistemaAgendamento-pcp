@@ -5,9 +5,7 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-import type { RowDataAgendamentoTable } from '../../models/interfaces/agendamentoComponentsInterface';
-
-export default function ArrivaList({ data }: { data: RowDataAgendamentoTable[] }) {
+export default function ArrivaList({ data }: { data: any[] }) {
     return (
         <>
             <Typography sx={{textAlign: 'center'}}>

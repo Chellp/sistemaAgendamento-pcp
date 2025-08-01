@@ -11,11 +11,17 @@ export class ExameController {
     async criar(req: any, res: any) {
         try {
             const { boletim_ocorrencia, tipo_exame, status, obs, id_paciente, id_agendamento } = req.body;
-            await this.exameRepository.criar( boletim_ocorrencia, tipo_exame, status, obs, id_paciente, id_agendamento )
+            await this.exameRepository.criar(boletim_ocorrencia, tipo_exame, status, obs, id_paciente, id_agendamento)
             res.status(201).json(msg.criado())
         } catch (error: any) {
             throw new Error(error.message)
         }
+    }
+
+    async getID(req: any, res: any) {
+        const { id } = req.params
+        const item = await this.exameRepository.getID(id)
+        res.status(200).json(item)
     }
 
     async listar(req: any, res: any) {
@@ -27,7 +33,7 @@ export class ExameController {
         try {
             const { id } = req.params;
             const { status, obs } = req.body;
-            
+
             const dados = {
                 status: status,
                 obs: obs

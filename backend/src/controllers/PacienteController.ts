@@ -28,7 +28,7 @@ export class PacienteController {
 
     async getID(req: any, res: any) {
         const { id } = req.params;
-        console.log('entrou no getID com id:', id);
+        console.log('paciente: entrou no getID com id:', id);
         const paciente = await this.pacienteRepository.getID(id);
         res.status(200).json(paciente);
     }

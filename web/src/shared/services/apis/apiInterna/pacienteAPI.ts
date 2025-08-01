@@ -6,11 +6,6 @@ import type { dadosPacienteInterface } from "../../../../models/interfaces/pacie
 export default class PacienteAPI {
 
     async criar(dados: dadosPacienteInterface) {
-
-        console.log('Teste Criar Paciente API');
-        
-
-        console.log(dados);
         
         try {
             const response = await fetch(`${ITEM_API}`, {

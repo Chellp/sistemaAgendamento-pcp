@@ -10,6 +10,10 @@ export default class getDataHora{
         return dataFormatada;
     }
 
+    removerHorario(data: Date | string){
+        return
+    }
+
     hora(data: Date): string{
         const hora = `${this.getHoras(data)}:${this.getMinutos(data)}`
         return hora;

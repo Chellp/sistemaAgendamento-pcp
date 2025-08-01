@@ -30,7 +30,9 @@ export interface HandleAgendamentoValues {
   endereco: string,
   telefone: string,
   horario: string, 
-  data: string 
+  data: string,
+  atendente?: string,
+  id_agendamento?: number
 }
 
 export interface InterfaceCriarAgendamento {
